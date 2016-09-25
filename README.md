@@ -9,7 +9,7 @@
 
 ### Integrantes del equipo
 
-* XXXX
+* Mondaini, Adriano 37808270
 * XXXX
 * XXXX
 * XXXX
