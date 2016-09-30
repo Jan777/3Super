@@ -11,7 +11,7 @@
 
 * Mondaini, Adriano 37808270
 * Devanna, Matias   35202202
-* XXXX
+* Oña, Diego Luis   37677212
 * XXXX
 
 ## Sobre la tecnología
