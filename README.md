@@ -1,4 +1,4 @@
-﻿# [Nombre del juego]
+﻿# THE BUG
 
 ## Sobre las personas
 
