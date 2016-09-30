@@ -13,6 +13,7 @@
 * Devanna, Matias   35202202
 * Oña, Diego Luis   37677212
 * Greve, Iván	    38617763
+* Midali, Bruno Gaston  35538322
 
 ## Sobre la tecnología
 
