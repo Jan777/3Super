@@ -1,4 +1,4 @@
-# [Nombre del juego]
+﻿# [Nombre del juego]
 
 ## Sobre las personas
 
@@ -12,7 +12,7 @@
 * Mondaini, Adriano 37808270
 * Devanna, Matias   35202202
 * Oña, Diego Luis   37677212
-* XXXX
+* Greve, Iván	    38617763
 
 ## Sobre la tecnología
 
