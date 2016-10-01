@@ -11,7 +11,7 @@
 
 * Mondaini, Adriano ([amondaini](https://github.com/amondaini))
 * Devanna, Matias   ([mati13490](https://github.com/mati13490))
-* Oña, Diego Luis   ([diegooña](https://github.com/diegooña))
+* Oña, Diego Luis   ([diegoonia](https://github.com/diegoonia))
 * Greve, Iván	    ([ivangreve](https://github.com/ivangreve))
 * Midali, Bruno Gaston  ([b183729](https://github.com/b183729))
 
