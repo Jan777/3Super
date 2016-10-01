@@ -9,11 +9,11 @@
 
 ### Integrantes del equipo
 
-* Mondaini, Adriano 37808270
-* Devanna, Matias   35202202
-* Oña, Diego Luis   37677212
-* Greve, Iván	    38617763
-* Midali, Bruno Gaston  35538322
+* Mondaini, Adriano ([amondaini](https://github.com/amondaini))
+* Devanna, Matias   ([mati13490](https://github.com/mati13490))
+* Oña, Diego Luis   ([diegooña](https://github.com/diegooña))
+* Greve, Iván	    ([ivangreve](https://github.com/ivangreve))
+* Midali, Bruno Gaston  ([b183729](https://github.com/b183729))
 
 ## Sobre la tecnología
 
