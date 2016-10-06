@@ -37,13 +37,13 @@ H. Thompson firmó un contrato de confidencialidad y puso manos a la obra.
 
 Una noche estrellada, luego de 2 meses de arduo trabajo, Thompson decidió realizar las últimas pruebas en el sistema que había desarrollado, procedió a conectar el hardware necesario al terminal cuando de pronto recibió una descarga eléctrica…
 
-“(...) todo lo que recuerdo era un fuerte resplandor, y haber despertado en una tierra desconocida, llena de las más extrañas criaturas. 
-	Tenía un arma en mi mano derecha, y unas túnicas bastante precarias. Las criaturas se acercaban a mí, amenazantes.
-	No lo dudé y comencé a ejecutarlas, una por una… pero eso sólo parecía atraer más criaturas (...)"
+"Todo lo que recuerdo era un fuerte resplandor, y haber despertado en una tierra desconocida, llena de las más extrañas criaturas. 
+Tenía un arma en mi mano derecha, y unas túnicas bastante precarias. Las criaturas se acercaban a mí, amenazantes.
+No lo dudé y comencé a ejecutarlas, una por una… pero eso sólo parecía atraer más criaturas"
 
 Thompson, no entendía bien qué había pasado, pensaba que era un sueño, pero las sensaciones le decían lo contrario. solo podía saber que debía sobrevivir a cualquier precio. 
 
-	“(...) y en medio de tal regadero de sangre, no pude evitar ver a otro de los míos, un tanto más alejado,
-	pero que también hacía uso de sus armas para librarse de estas inmundas bestias.”
+"Y en medio de tal regadero de sangre, no pude evitar ver a otro de los míos, un tanto más alejado,
+pero que también hacía uso de sus armas para librarse de estas inmundas bestias.”
 
 H. Thompson se vio envuelto en un mundo fantástico, un mundo donde su vida corría peligro, un mundo que él mismo había creado...
