@@ -46,4 +46,6 @@ public class Humano extends Personaje{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 }

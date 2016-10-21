@@ -36,9 +36,11 @@ public abstract class Personaje implements Atacable {
 		if( this.experiencia + experienciaObtenida >= topeExperienciaNivel){
 			this.experiencia = this.experiencia + experienciaObtenida - topeExperienciaNivel;
 			subirDeNivel();
+			
 		}
 		else
 		{
+			System.out.println("Subi de nivel: "+ this.experiencia);
 			this.experiencia += experienciaObtenida;
 		}
 	}
@@ -48,6 +50,16 @@ public abstract class Personaje implements Atacable {
 			this.nivel++;
 			this.topeExperienciaNivel = nivel*100;
 		}
+	}
+	
+	//HACER METODO REVIVIR
+	//METODO MORIR?? dropea items y luego revive, etc
+	//La ENERGIA tendria que subirse cada tanto tiempo si no nunca lo va a terminar de matar
+	
+	public void revivir() {
+		this.serCurado();
+		this.serEnergizado();
+		
 	}
 	
 	public abstract boolean puedeAtacar();
@@ -70,11 +82,11 @@ public abstract class Personaje implements Atacable {
 	//  sino pasar el turno a otro.
 
 	public void serCurado() {
-		this.salud += this.nivel*10;
+		this.salud = 490 + this.nivel*10; //Le agregue el 490
 	}
 
 	public void serEnergizado() {
-		this.energia += this.nivel*10;
+		this.energia = 490 + this.nivel*10; //Le agregue el 490
 	}
 	
 	public int getSalud() {
@@ -129,6 +141,10 @@ public abstract class Personaje implements Atacable {
 
 	public void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
+	}
+
+	public int getNivel() {
+		return nivel;
 	}
 	
 	

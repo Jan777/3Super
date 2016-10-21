@@ -33,4 +33,10 @@ public class Bot extends Personaje{
 		// TODO Auto-generated method stub
 		return 10;
 	}
+
+	@Override
+	public void revivir() {
+		// TODO Auto-generated method stub
+		
+	}
 }

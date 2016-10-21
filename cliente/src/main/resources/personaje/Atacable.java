@@ -7,4 +7,6 @@ public interface Atacable {
 		int darExperiencia();
 
 		public boolean estaVivo();
+
+		void revivir();
 }

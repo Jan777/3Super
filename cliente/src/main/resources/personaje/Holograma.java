@@ -33,4 +33,10 @@ public class Holograma extends Personaje{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void revivir() {
+		// TODO Auto-generated method stub
+		
+	}
 }
