@@ -9,15 +9,14 @@ public class ConMonitorSamsung extends PersonajeEquipado{
 	
 	@Override
 	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() + 5;
+		return 0;
 	}
 	
 	@Override
 	public int calcularPuntosDeDefensa() {
-		// TODO Auto-generated method stub
-		return 0;
+		return super.obtenerPuntosDeDefensa() + 5;
 	}
-
+	
 	@Override
 	public int calcularPuntosDeAtaque() {
 		// TODO Auto-generated method stub

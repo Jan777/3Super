@@ -17,7 +17,7 @@ public abstract class Personaje implements Atacable {
 	
 	
 	public final boolean atacar(Atacable atacado) {
-		if (puedeAtacar()) {
+		if (puedeAtacar() && atacado.estaVivo()) {
 			atacado.serAtacado(this.calcularPuntosDeAtaque());
 			energia -= this.calcularPuntosDeAtaque(); // Te cansas despues de atacar
 			if(!atacado.estaVivo())
@@ -36,16 +36,14 @@ public abstract class Personaje implements Atacable {
 		if( this.experiencia + experienciaObtenida >= topeExperienciaNivel){
 			this.experiencia = this.experiencia + experienciaObtenida - topeExperienciaNivel;
 			subirDeNivel();
-			
 		}
-		else
-		{
+		else{
 			this.experiencia += experienciaObtenida;
 		}
 	}
 	
 	protected void subirDeNivel(){
-		if(this.nivel <= 32){
+		if(this.nivel < 32){
 			this.nivel++;
 			this.topeExperienciaNivel = nivel*100;
 		}
@@ -58,7 +56,6 @@ public abstract class Personaje implements Atacable {
 	public void revivir() {
 		this.serCurado();
 		this.serEnergizado();
-		
 	}
 	
 	public abstract boolean puedeAtacar();
