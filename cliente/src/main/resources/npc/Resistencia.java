@@ -1,12 +1,10 @@
 package npc;
 
-public class PulsoElectrico extends Npc{
-	
-	
-	
-	public PulsoElectrico() {
+public class Resistencia extends Npc{
+	public Resistencia() {
 		super();
-		this.nombre="Pulso Electrico";
+		this.nombre="Resistencia";
+		this.salud=this.nivel*100;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -20,6 +18,5 @@ public class PulsoElectrico extends Npc{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
+	
 }

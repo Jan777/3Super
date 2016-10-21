@@ -1,9 +1,11 @@
 package npc;
 
-public abstract class Npc {
+import personaje.Atacable;
+
+public abstract class Npc implements Atacable{
 	protected String nombre;
 	protected int salud;
-	protected int saludpornivel=this.nivel*10;
+	protected int saludpornivel=this.nivel*100;
 	protected int nivel = 1;
 	
 	
@@ -25,5 +27,9 @@ public abstract class Npc {
 	public abstract int calcularPuntosDeSalud();
 	
 	public abstract int obtenerPuntosDeDefensa();
-
+	
+	@Override
+	public int darExperiencia() {
+		return this.nivel*10; // Cuando lo matas te da de experiencia su nivel*10
+	}
 }

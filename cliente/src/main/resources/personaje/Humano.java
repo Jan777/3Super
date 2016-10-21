@@ -11,6 +11,8 @@ public class Humano extends Personaje{
 		this.nivel = 1;
 		this.experiencia = 0;
 		//this.ingeniopornivel  QUE VENDRIA A REPRESENTAR??
+		//creo que es para agarrar armas que necesitan un minimo de ingenio
+		//para poder usarlas nada mas
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class Humano extends Personaje{
 
 	@Override
 	public int calcularPuntosDeSalud() {
-		return 10;
+		return this.nivel*10; // Hace this.nivel*10
 	}
 
 	@Override

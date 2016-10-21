@@ -6,27 +6,51 @@ public abstract class Personaje implements Atacable {
 	protected int energia;
 	protected int fuerza;
 	protected int ingenio;
-	protected int saludpornivel=this.nivel*10;
-	protected int energiapornivel=this.nivel*10;
-	protected int fuerzapornivel=this.nivel*10;
-	protected int ingeniopornivel=this.nivel*10;
+	//protected int saludpornivel=this.nivel*10;
+	//protected int energiapornivel=this.nivel*10;
+	//protected int fuerzapornivel=this.nivel*10;
+	//protected int ingeniopornivel=this.nivel*10;
 	protected boolean sexo;
 	protected int nivel = 1;
+	protected int topeExperienciaNivel = 100; //nivel 1 necesita 100 de exp. despues se actualiza en subirDeNivel()
 	protected int experiencia = 0;
 	
 	
-	public final void atacar(Atacable atacado) {
+	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar()) {
-			atacado.serAtacado(calcularPuntosDeAtaque());
-			energia -= calcularPuntosDeAtaque();
-			despuesDeAtacar();
+			atacado.serAtacado(this.calcularPuntosDeAtaque());
+			energia -= this.calcularPuntosDeAtaque(); // Te cansas despues de atacar
+			if(!atacado.estaVivo())
+				despuesDeAtacar(atacado.darExperiencia());
+			return true;
 		}
+		return false;
 	}
 
-	protected void despuesDeAtacar() { }
+	// Despues de atacar me fijo si subio de nivel con la experiencia obtenida
+	// si paso de nivel, la experiencia se me resetea a 0, y me tiene que sumar
+	// el resto de experiencia que sobro.
+	// sino solamente me suma la experiencia obtenida.
+	
+	protected void despuesDeAtacar(int experienciaObtenida) {
+		if( this.experiencia + experienciaObtenida >= topeExperienciaNivel){
+			this.experiencia = this.experiencia + experienciaObtenida - topeExperienciaNivel;
+			subirDeNivel();
+		}
+		else
+		{
+			this.experiencia += experienciaObtenida;
+		}
+	}
+	
+	protected void subirDeNivel(){
+		if(this.nivel <= 32){
+			this.nivel++;
+			this.topeExperienciaNivel = nivel*100;
+		}
+	}
 	
 	public abstract boolean puedeAtacar();
-	
 	
 	public boolean estaVivo() {
 		return this.salud > 0;
@@ -34,23 +58,30 @@ public abstract class Personaje implements Atacable {
 	
 	@Override
 	public void serAtacado(int daño) {
-		this.salud -= daño;
-		//this.salud -= ((this.obtenerPuntosDeDefensa()/10)*daño);
+		if ( ( daño - (this.obtenerPuntosDeDefensa()) /10 ) > 0)
+			this.salud -= (daño - (this.obtenerPuntosDeDefensa()) /10 );
 	}
 
+	//CLASE pelea
+	//metodo turno(jugador1)
+	//{ atacar.jugador2();
+	//  estavivo?
+	//  desaparecer de la pantalla.
+	//  sino pasar el turno a otro.
+
 	public void serCurado() {
-		this.salud = this.saludpornivel;
+		this.salud += this.nivel*10;
 	}
 
 	public void serEnergizado() {
-		this.energia = this.energiapornivel;
+		this.energia += this.nivel*10;
 	}
 	
 	public int getSalud() {
 		return this.salud;
 	}
 	
-///////////////////////
+	///////////////////////
 	
 	public int obtenerPuntosDeAtaque() {
 		return calcularPuntosDeAtaque()+this.fuerza;
@@ -74,11 +105,31 @@ public abstract class Personaje implements Atacable {
 	public int obtenerPuntosDeIngenio() {
 		return calcularPuntosDeIngenio()+this.ingenio;
 	}
-	public abstract int calcularPuntosDeIngenio();
 	
+	public abstract int calcularPuntosDeIngenio();
 	
 	public abstract int obtenerPuntosDeDefensa();
 
+	@Override
+	public int darExperiencia() {
+		return this.nivel*10;
+	}
+
+	public int getTopeExperienciaNivel() {
+		return topeExperienciaNivel;
+	}
+
+	public void setTopeExperienciaNivel(int topeExperienciaNivel) {
+		this.topeExperienciaNivel = topeExperienciaNivel;
+	}
+
+	public int getExperiencia() {
+		return experiencia;
+	}
+
+	public void setExperiencia(int experiencia) {
+		this.experiencia = experiencia;
+	}
 	
 	
 	
