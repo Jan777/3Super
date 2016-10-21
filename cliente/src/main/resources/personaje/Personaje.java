@@ -40,7 +40,6 @@ public abstract class Personaje implements Atacable {
 		}
 		else
 		{
-			System.out.println("Subi de nivel: "+ this.experiencia);
 			this.experiencia += experienciaObtenida;
 		}
 	}

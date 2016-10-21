@@ -18,5 +18,11 @@ public class Resistencia extends Npc{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public void revivir() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
