@@ -18,18 +18,14 @@ public abstract class PersonajeEquipado extends Personaje{
 
 	@Override
 	public int obtenerPuntosDeAtaque() {
-		return this.personajeDecorado.obtenerPuntosDeAtaque()+calcularPuntosDeAtaque();
+		return this.personajeDecorado.obtenerPuntosDeAtaque();
 	}
 	
-	public abstract int calcularPuntosDeAtaque();
-
 	@Override
 	public int obtenerPuntosDeDefensa() {
-		return this.personajeDecorado.obtenerPuntosDeDefensa()+calcularPuntosDeDefensa();
+		return this.personajeDecorado.obtenerPuntosDeDefensa();
 	}
 	
-	public abstract int calcularPuntosDeDefensa();
-
 	@Override
 	public int calcularPuntosDeSalud() {
 		// TODO Auto-generated method stub

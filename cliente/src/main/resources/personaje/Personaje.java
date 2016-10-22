@@ -18,8 +18,8 @@ public abstract class Personaje implements Atacable {
 	
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
-			atacado.serAtacado(this.calcularPuntosDeAtaque());
-			energia -= this.calcularPuntosDeAtaque(); // Te cansas despues de atacar
+			atacado.serAtacado(this.obtenerPuntosDeAtaque());
+			energia -= this.obtenerPuntosDeAtaque(); // Te cansas despues de atacar
 			if(!atacado.estaVivo())
 				despuesDeAtacar(atacado.darExperiencia());
 			return true;
@@ -92,10 +92,9 @@ public abstract class Personaje implements Atacable {
 	///////////////////////
 	
 	public int obtenerPuntosDeAtaque() {
-		return calcularPuntosDeAtaque()+this.fuerza;
+		return 10+this.fuerza;
 	}
-	public abstract int calcularPuntosDeAtaque();
-	
+
 	/////////////////////////////
 	
 	public int obtenerPuntosDeSalud() {

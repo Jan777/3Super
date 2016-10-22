@@ -101,7 +101,7 @@ public class ExperienciaTests {
 		Assert.assertEquals(3, diego.getNivel());
 	}
 	
-	/* Dado un Nivel de experiencia, cuando el Nivel de experiencia 
+	/* Dado un Nivel de experiencia, cuando el Nivel de experiencia
 	llegue al nivel máximo entonces este será nivel 32.  */
 	@Test
 	public void maximoNivel32(){
@@ -109,10 +109,10 @@ public class ExperienciaTests {
 		Resistencia npc = new Resistencia();
 
 		for (int j = 0; j < 9000; j++) { // Lo mato 9000 veces para conseguir 90000 exp
-			for(int i=0; i<10; i++){ 
+			for(int i=0; i<10; i++){
 				diego.atacar(npc);
 				diego.serEnergizado();
-			}		
+			}
 			npc.setSalud(100); // No se porque no le funciona el revivir al npc, le meti setSalud
 		}
 		Assert.assertEquals(32, diego.getNivel());

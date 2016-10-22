@@ -8,19 +8,8 @@ public class ConImpresoraHP extends PersonajeEquipado{
 	}
 	
 	@Override
-	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() + 5;
-	}
-	
-	@Override
-	public int calcularPuntosDeDefensa() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int obtenerPuntosDeDefensa() {
+		return super.obtenerPuntosDeDefensa() *2;
 	}
 
-	@Override
-	public int calcularPuntosDeAtaque() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
