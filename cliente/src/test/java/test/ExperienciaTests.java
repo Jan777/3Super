@@ -63,14 +63,11 @@ public class ExperienciaTests {
 
 		for (int j = 0; j < 10; j++) {  // lo mato 10 veces para obtener 100 de exp.
 			for(int i=0; i<50; i++){ // le pego 50 ataques de 10 de daño, para matarlo
-				System.out.println("Exp inicial1: " + diego.getExperiencia()+" "+ matias.getSalud());
 				diego.atacar(matias);
 				diego.serEnergizado();
 			}		
 			matias.revivir(); //Lo revivo para matarlo de nuevo
 		}
-		System.out.println("Nivel: "+ diego.getNivel());
-		System.out.println("Exp final: " + diego.getExperiencia());
 		Assert.assertEquals(2, diego.getNivel());
 	}
 

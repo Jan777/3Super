@@ -32,13 +32,11 @@ public class Humano extends Personaje{
 
 	@Override
 	public int calcularPuntosDeEnergia() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int calcularPuntosDeIngenio() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

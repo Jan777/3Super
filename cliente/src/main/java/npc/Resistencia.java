@@ -5,7 +5,6 @@ public class Resistencia extends Npc{
 		super();
 		this.nombre="Resistencia";
 		this.salud=this.nivel*100;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -15,14 +14,12 @@ public class Resistencia extends Npc{
 
 	@Override
 	public int calcularPuntosDeSalud() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void revivir() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 	
 }

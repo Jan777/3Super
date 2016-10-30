@@ -1,6 +1,6 @@
 package personaje;
 
-public class Bot extends Personaje{
+public class Holograma extends Personaje{
 
 	@Override
 	public boolean puedeAtacar() {
@@ -14,25 +14,22 @@ public class Bot extends Personaje{
 
 	@Override
 	public int calcularPuntosDeSalud() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int calcularPuntosDeEnergia() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int calcularPuntosDeIngenio() {
-		// TODO Auto-generated method stub
 		return 10;
 	}
 
 	@Override
+	public int calcularPuntosDeIngenio() {
+		return 0;
+	}
+
+	@Override
 	public void revivir() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }

@@ -28,19 +28,16 @@ public abstract class PersonajeEquipado extends Personaje{
 	
 	@Override
 	public int calcularPuntosDeSalud() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int calcularPuntosDeEnergia() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int calcularPuntosDeIngenio() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
