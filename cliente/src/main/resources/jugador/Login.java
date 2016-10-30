@@ -71,10 +71,10 @@ public class Login extends JFrame {
 		campo_contra.setBounds(144, 127, 130, 20);
 		contentPane.add(campo_contra);
 		
-		JButton botonLoguin = new JButton("Entrar");
-		botonLoguin.addMouseListener(new MouseAdapter() {
+		JButton botonlogin = new JButton("Entrar");
+		botonlogin.addMouseListener(new MouseAdapter() {
 		});
-		botonLoguin.addActionListener(new ActionListener() {
+		botonlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario="admin";
 				String contrasenia="1234";
@@ -95,7 +95,7 @@ public class Login extends JFrame {
 
 	
 		});
-		botonLoguin.setBounds(185, 200, 89, 23);
-		contentPane.add(botonLoguin);
+		botonlogin.setBounds(185, 200, 89, 23);
+		contentPane.add(botonlogin);
 	}
 }
