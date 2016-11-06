@@ -1,13 +1,16 @@
 package servidor;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
-public class MapaLogico {
+public class MapaLogico extends Observable{
 	int w,h;
 	boolean celdas[][];
 	Random rnd;
 	public MapaLogico()
 	{
+		super();
 		w=32;
 		h=32;
 		rnd = new Random();
@@ -41,6 +44,13 @@ public class MapaLogico {
 		aux+= '\n';}
 		return aux;
 	}
+	
+	public void monitorear(Observer o)
+	{
+		this.addObserver(o);
+	}
+	
+	
 	
 	
 

@@ -11,6 +11,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JSplitPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Estado extends JFrame {
@@ -18,6 +22,7 @@ public class Estado extends JFrame {
 	JLabel label;
 	Point loc;
 	MapaLogico ml;
+	Visor vs;
 
 
 	/**
@@ -45,6 +50,8 @@ public class Estado extends JFrame {
 	 * Create the frame.
 	 */
 	public Estado() {
+		
+		ml = new MapaLogico();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -61,12 +68,40 @@ public class Estado extends JFrame {
 		});
 		getContentPane().add(label, BorderLayout.NORTH);
 		
+		JSplitPane splitPane = new JSplitPane();
+		getContentPane().add(splitPane, BorderLayout.SOUTH);
+		
+		JButton btnVer = new JButton("Ver");
+		btnVer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ml.notifyObservers();
+				
+				if (vs!=null)
+				{
+					vs.repaint();
+				}
+				
+				
+			}
+		});
+		splitPane.setLeftComponent(btnVer);
+		
+		JButton btnGenerar = new JButton("Generar");
+		btnGenerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 vs=new Visor();
+				vs.setVisible(true);
+			
+			}
+		});
+		splitPane.setRightComponent(btnGenerar);
+		
 
 	}
 	
 	public void procesar()
 	{
-		ml = new MapaLogico();
+		ml.notifyObservers();
 		label.setText(ml.toString());
 		label.repaint();
 	}
