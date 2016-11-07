@@ -29,6 +29,7 @@ public class Layer implements Observer{
 	
 	public void printLayer(Component c, Graphics2D g)
 	{
+		g.drawString(this.toString(), 20, 20);
 		for(Sprite s : sprites)
 		{
 			s.printSprite(c, g);
@@ -37,15 +38,16 @@ public class Layer implements Observer{
 	
 	public void update(Observable o, Object arg)
 	{
-		if (o.getClass()== MapaLogico.class)
-		{
+	
 			MapaLogico ml=(MapaLogico)o;
 			
 			for(int i=0;i<ml.getW();i++)
 				for (int j=0;j<ml.getH();j++)
 					if(ml.ocupada(i, j)) 
-						{Sprite s = new Sprite();s.setpos(i * ml.getH(), j * ml.getW()); this.addSprite(s);}
-		}
+						{Sprite s = new Sprite();
+						s.setpos(i * ml.getH(), j * ml.getW()); 
+						this.addSprite(s);}
+		
 	}
 	
 }

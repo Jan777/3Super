@@ -49,10 +49,10 @@ public class Visor extends JFrame {
 	{
 		out.addLayer(ml);
 	}
-
+	
 	public void repaint()
 	{
-		super.repaint();
+//		super.repaint();
 		out.repaint();
 	}
 }

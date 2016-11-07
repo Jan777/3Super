@@ -11,6 +11,7 @@ public class MapaLogico extends Observable{
 	public MapaLogico()
 	{
 		super();
+		
 		w=32;
 		h=32;
 		rnd = new Random();
@@ -49,6 +50,8 @@ public class MapaLogico extends Observable{
 	{
 		this.addObserver(o);
 	}
+	
+	
 	
 	
 	

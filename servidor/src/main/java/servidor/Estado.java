@@ -12,6 +12,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
+
+import output.Layer;
+import output.Output;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +27,7 @@ public class Estado extends JFrame {
 	Point loc;
 	MapaLogico ml;
 	Visor vs;
+	Output test;
 
 
 	/**
@@ -52,6 +57,11 @@ public class Estado extends JFrame {
 	public Estado() {
 		
 		ml = new MapaLogico();
+		test = new Output();
+		test.setBounds(110, 110, 430, 270);
+		test.setEnabled(true);
+		test.setVisible(true);
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -75,11 +85,10 @@ public class Estado extends JFrame {
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ml.notifyObservers();
+				test.repaint();
 				
-				if (vs!=null)
-				{
 					vs.repaint();
-				}
+				
 				
 				
 			}
@@ -90,7 +99,9 @@ public class Estado extends JFrame {
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 vs=new Visor();
+				 vs.showMapaLogico(ml);
 				vs.setVisible(true);
+				test.addLayer(ml);
 			
 			}
 		});
@@ -102,6 +113,7 @@ public class Estado extends JFrame {
 	public void procesar()
 	{
 		ml.notifyObservers();
+
 		label.setText(ml.toString());
 		label.repaint();
 	}

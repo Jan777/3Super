@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
@@ -16,20 +17,21 @@ import servidor.MapaLogico;
 
 public class Output  extends JPanel{
 	
-	LinkedList<Layer> Layers;
+	ArrayList<Layer> Layers;
 	Component padre;
 
 	
 	public Output()
 	{
 		super();
-		Layers= new LinkedList<Layer>(); //TODO: setear el mapa por defecto.
+		Layers= new ArrayList<Layer>(); //TODO: setear el mapa por defecto.
 		
 	}
 	
 	public void addLayer(MapaLogico ml)
 	{
 		Layer l = new Layer();
+		l.update(ml, null);
 		ml.addObserver(l);
 		Layers.add(l);
 	}
@@ -47,12 +49,15 @@ public class Output  extends JPanel{
    
     private void drawSelf(Graphics2D g2, int width, int height) {
     	
-    	g2.setColor(Color.BLACK);
-    	g2.clearRect(0, 0, this.getWidth(), this.getHeight());
-
-    	if (!Layers.isEmpty())
+//    	g2.setColor(Color.BLACK);
+    	
+    	
+//    	g2.clearRect(0, 0, this.getWidth(), this.getHeight());
+//
+//    	if (!Layers.isEmpty())
 		for (Layer l : Layers)
 			l.printLayer(this, g2);
+//		g2.drawString(Integer.toString(Layers.size()), 10, 10);
 
 ////    	g2.drawImage(sprt, width/2, height/2, this);
 //    	g2.drawString(System.getProperty("user.dir"), width/2, height/2);

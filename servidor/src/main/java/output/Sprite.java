@@ -40,7 +40,8 @@ public class Sprite extends JLabel {
 	Sprite() 
 	{
 		super();
-		super.setIcon(new ImageIcon("bin/E.gif"));
+//		super.setIcon(new ImageIcon("bin/E.gif"));
+		super.setIcon(new ImageIcon("C:\\Diego\\Facultad\\Cursando\\ProgramacionAvanzada\\TP-Taller\\Sprites\\Terminados\\GIF\\Capacitor\\CapacitorIzquierda.gif"));
 		
 //		super.setPreferredSize(new Dimension(32,32));
 	}
@@ -69,6 +70,7 @@ public class Sprite extends JLabel {
 	public void printSprite(Component c, Graphics2D g)
 	{
 		this.getIcon().paintIcon(c, g, this.getX(), this.getY());
+		g.drawString(this.getBounds().toString(), 50, 50);
 	}
 
 }
