@@ -9,9 +9,16 @@ public class ConMouseNoganet extends PersonajeEquipado{
 	}
 	
 	@Override
-	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() - 10;
+	public int obtenerPuntosDeFuerza() {
+		return super.obtenerPuntosDeFuerza() - 10;
 	}
+
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

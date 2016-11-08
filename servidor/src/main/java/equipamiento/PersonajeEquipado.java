@@ -17,8 +17,8 @@ public abstract class PersonajeEquipado extends Personaje{
 	}
 
 	@Override
-	public int obtenerPuntosDeAtaque() {
-		return this.personajeDecorado.obtenerPuntosDeAtaque();
+	public int obtenerPuntosDeFuerza() {
+		return this.personajeDecorado.obtenerPuntosDeFuerza();
 	}
 	
 	@Override
@@ -27,18 +27,18 @@ public abstract class PersonajeEquipado extends Personaje{
 	}
 	
 	@Override
-	public int calcularPuntosDeSalud() {
-		return 0;
+	public int obtenerPuntosDeSalud() {
+		return this.personajeDecorado.obtenerPuntosDeSalud();
 	}
 
 	@Override
-	public int calcularPuntosDeEnergia() {
-		return 0;
+	public int obtenerPuntosDeEnergia() {
+		return this.personajeDecorado.obtenerPuntosDeEnergia();
 	}
 
 	@Override
-	public int calcularPuntosDeIngenio() {
-		return 0;
+	public int obtenerPuntosDeIngenio() {
+		return this.personajeDecorado.obtenerPuntosDeIngenio();
 	}
 	
 }

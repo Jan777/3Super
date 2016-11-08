@@ -2,12 +2,23 @@ package personaje;
 
 public abstract class Personaje implements Atacable {
 	protected String nombre;
-	protected int salud;
-	protected int energia;
+	protected int salud=100;
+	protected int energia=50;
+	protected int fuerza=1;
+	protected int ingenio=1;
+	protected int defensa=0;
+	protected int multavsalud=1;
+	protected int modavsalud=0;
+	protected float multavenergia=1;
+	protected int modavenergia=0;
+	protected float multavingenio=1;
+	protected int modavingenio=0;
+	protected float multavfuerza=1;
+	protected int modavfuerza=0;
+	protected float multavdefensa=1;
+	protected int modavdefensa=0;
 	
-	protected int fuerza;
-	protected int ingenio;
-	protected boolean sexo; 
+	protected boolean sexo; //= mucho
 	protected int nivel = 1;
 	protected int experiencia = 0;
 	protected String SpritePath;
@@ -15,8 +26,8 @@ public abstract class Personaje implements Atacable {
 	public abstract String getSpritepath();
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
-			atacado.serAtacado(this.obtenerPuntosDeAtaque());
-			energia -= this.obtenerPuntosDeAtaque(); // Te cansas despues de atacar
+			atacado.serAtacado(this.obtenerPuntosDeFuerza());
+			energia -= this.obtenerPuntosDeFuerza(); // Te cansas despues de atacar
 			if(!atacado.estaVivo())
 				despuesDeAtacar(atacado.darExperiencia());
 			return true;
@@ -68,46 +79,46 @@ public abstract class Personaje implements Atacable {
 
 
 	public void serCurado() {
-		this.salud = this.getmaxsalud();
+		this.salud = this.getmaxsalud(); //por default pongo el maximo
 	}
 
 	public void serEnergizado() {
-		this.energia = this.getmaxenergia();
+		this.energia = this.getmaxenergia(); // por default pongo el maximo
 	}
 	
 	public int getSalud() {
 		return this.salud;
 	}
 	
+	//Las Siguientes funciones calculan el maximo de los attributos, no los valores actuales. 
 	///////////////////////
-	
-	public int obtenerPuntosDeAtaque() {
-		return getatk() + this.fuerza;
+	public int getmaxsalud(){
+		return (int)(100 * this.nivel);
 	}
-
-	protected abstract int getatk();
-
+	///////////////////////
+	public int getmaxenergia(){
+		return (int)(100 * this.nivel + 10);
+	}
+	/////////////////////////
+	public int obtenerPuntosDeFuerza() {
+		return (int)(this.fuerza * this.multavfuerza + this.modavfuerza); // Modificadores + valor inherente
+	}
 	/////////////////////////////
-	
 	public int obtenerPuntosDeSalud() {
-		return calcularPuntosDeSalud()+getmaxsalud(); // Modificadores + valor inherente
+		return (int)(getmaxsalud() * this.multavsalud + this.modavsalud); // Modificadores + valor inherente
 	}
-	public abstract int calcularPuntosDeSalud(); //Este metodo sirve para poder calcular el valor de lo0s modificadores.
 	///////////////////////
 	public int obtenerPuntosDeEnergia() {
-		return calcularPuntosDeEnergia()+getmaxenergia(); // Modificadores + valor inherente
+		return (int)(getmaxenergia() * this.multavenergia + this.modavenergia); // Modificadores + valor inherente
 	}
-	public abstract int calcularPuntosDeEnergia();
-	
 	///////////////
-	
 	public int obtenerPuntosDeIngenio() {
-		return calcularPuntosDeIngenio()+this.ingenio; // Modificadores + valor inherente
+		return (int)(this.ingenio * this.multavingenio + this.modavingenio); // Modificadores + valor inherente
 	}
-	
-	public abstract int calcularPuntosDeIngenio();
-	
-	public abstract int obtenerPuntosDeDefensa();
+	///////////////
+	public int obtenerPuntosDeDefensa(){
+		return (int)(this.defensa * this.multavdefensa + this.modavdefensa); // Modificadores + valor inherente
+	}
 
 	@Override
 	public int darExperiencia() {
@@ -130,9 +141,7 @@ public abstract class Personaje implements Atacable {
 	public int getNivel() {
 		return nivel;
 	}
-	
-	public abstract int getmaxsalud();
-	public abstract int getmaxenergia();
+
 	
 	
 	

@@ -8,7 +8,14 @@ public class ConMouseThermaltake extends PersonajeEquipado{
 	}
 	
 	@Override
-	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() *2;
+	public int obtenerPuntosDeFuerza() {
+		return super.obtenerPuntosDeFuerza() *2;
 	}
+
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

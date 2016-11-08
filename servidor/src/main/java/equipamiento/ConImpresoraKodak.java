@@ -11,4 +11,12 @@ public class ConImpresoraKodak extends PersonajeEquipado{
 	public int obtenerPuntosDeDefensa() {
 		return super.obtenerPuntosDeDefensa() - 10;
 	}
+
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

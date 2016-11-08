@@ -13,4 +13,10 @@ public class ConGabineteSentey extends PersonajeEquipado {
 		return super.obtenerPuntosDeDefensa() + 5;
 	}
 
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

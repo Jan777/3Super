@@ -12,4 +12,11 @@ public class ConImpresoraHP extends PersonajeEquipado{
 		return super.obtenerPuntosDeDefensa() *2;
 	}
 
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }

@@ -8,28 +8,10 @@ public class Holograma extends Personaje{
 	}
 
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return 0;
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	@Override
-	public int calcularPuntosDeSalud() {
-		return 0;
-	}
-
-	@Override
-	public int calcularPuntosDeEnergia() {
-		return 10;
-	}
-
-	@Override
-	public int calcularPuntosDeIngenio() {
-		return 0;
-	}
-
-	@Override
-	public void revivir() {
-		
-		
-	}
+	
 }

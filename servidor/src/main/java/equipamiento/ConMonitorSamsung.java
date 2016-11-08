@@ -11,4 +11,11 @@ public class ConMonitorSamsung extends PersonajeEquipado{
 	public int obtenerPuntosDeDefensa() {
 		return super.obtenerPuntosDeDefensa() *3;
 	}
+
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

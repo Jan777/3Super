@@ -8,7 +8,14 @@ public class ConTecladoRazer extends PersonajeEquipado{
 	}
 	
 	@Override
-	public int obtenerPuntosDeAtaque() {
-		return super.obtenerPuntosDeAtaque() +20;
+	public int obtenerPuntosDeFuerza() {
+		return super.obtenerPuntosDeFuerza() +20;
 	}
+
+	@Override
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
