@@ -24,24 +24,16 @@ import javax.swing.JLabel;
 
 public class Sprite extends JLabel {
 	
-//	JLabel img;
 	
-	
-	Sprite(String path) 
-	{
-	
+	Sprite(String path) {
 		super(new ImageIcon(path));
-		
-	
-		
-		
-	}
+		}
 	
 	Sprite() 
 	{
 		super();
 //		super.setIcon(new ImageIcon("bin/E.gif"));
-		super.setIcon(new ImageIcon("C:\\Diego\\Facultad\\Cursando\\ProgramacionAvanzada\\TP-Taller\\Sprites\\Terminados\\GIF\\Capacitor\\CapacitorIzquierda.gif"));
+		super.setIcon(new ImageIcon("D:/Documents/Proyectos/jrpg/servidor/bin/tiletest.png"));
 		
 //		super.setPreferredSize(new Dimension(32,32));
 	}

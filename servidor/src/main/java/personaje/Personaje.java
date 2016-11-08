@@ -4,18 +4,15 @@ public abstract class Personaje implements Atacable {
 	protected String nombre;
 	protected int salud;
 	protected int energia;
+	
 	protected int fuerza;
 	protected int ingenio;
-	//protected int saludpornivel=this.nivel*10;
-	//protected int energiapornivel=this.nivel*10;
-	//protected int fuerzapornivel=this.nivel*10;
-	//protected int ingeniopornivel=this.nivel*10;
-	protected boolean sexo;
+	protected boolean sexo; 
 	protected int nivel = 1;
-	protected int topeExperienciaNivel = 100; //nivel 1 necesita 100 de exp. despues se actualiza en subirDeNivel()
 	protected int experiencia = 0;
+	protected String SpritePath;
 	
-	
+	public abstract String getSpritepath();
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
 			atacado.serAtacado(this.obtenerPuntosDeAtaque());
@@ -33,8 +30,8 @@ public abstract class Personaje implements Atacable {
 	// sino solamente me suma la experiencia obtenida.
 	
 	protected void despuesDeAtacar(int experienciaObtenida) {
-		if( this.experiencia + experienciaObtenida >= topeExperienciaNivel){
-			this.experiencia = this.experiencia + experienciaObtenida - topeExperienciaNivel;
+		if( this.experiencia + experienciaObtenida >= this.getTopeExperienciaNivel()){
+			this.experiencia = this.experiencia + experienciaObtenida - getTopeExperienciaNivel();
 			subirDeNivel();
 		}
 		else{
@@ -45,7 +42,6 @@ public abstract class Personaje implements Atacable {
 	protected void subirDeNivel(){
 		if(this.nivel < 32){
 			this.nivel++;
-			this.topeExperienciaNivel = nivel*100;
 		}
 	}
 	
@@ -70,19 +66,13 @@ public abstract class Personaje implements Atacable {
 			this.salud -= (daño - (this.obtenerPuntosDeDefensa()) /10 );
 	}
 
-	//CLASE pelea
-	//metodo turno(jugador1)
-	//{ atacar.jugador2();
-	//  estavivo?
-	//  desaparecer de la pantalla.
-	//  sino pasar el turno a otro.
 
 	public void serCurado() {
-		this.salud = 490 + this.nivel*10; //Le agregue el 490
+		this.salud = this.getmaxsalud();
 	}
 
 	public void serEnergizado() {
-		this.energia = 490 + this.nivel*10; //Le agregue el 490
+		this.energia = this.getmaxenergia();
 	}
 	
 	public int getSalud() {
@@ -92,25 +82,27 @@ public abstract class Personaje implements Atacable {
 	///////////////////////
 	
 	public int obtenerPuntosDeAtaque() {
-		return 10+this.fuerza;
+		return getatk() + this.fuerza;
 	}
+
+	protected abstract int getatk();
 
 	/////////////////////////////
 	
 	public int obtenerPuntosDeSalud() {
-		return calcularPuntosDeSalud()+this.salud;
+		return calcularPuntosDeSalud()+getmaxsalud(); // Modificadores + valor inherente
 	}
-	public abstract int calcularPuntosDeSalud();
+	public abstract int calcularPuntosDeSalud(); //Este metodo sirve para poder calcular el valor de lo0s modificadores.
 	///////////////////////
 	public int obtenerPuntosDeEnergia() {
-		return calcularPuntosDeEnergia()+this.energia;
+		return calcularPuntosDeEnergia()+getmaxenergia(); // Modificadores + valor inherente
 	}
 	public abstract int calcularPuntosDeEnergia();
 	
 	///////////////
 	
 	public int obtenerPuntosDeIngenio() {
-		return calcularPuntosDeIngenio()+this.ingenio;
+		return calcularPuntosDeIngenio()+this.ingenio; // Modificadores + valor inherente
 	}
 	
 	public abstract int calcularPuntosDeIngenio();
@@ -119,16 +111,13 @@ public abstract class Personaje implements Atacable {
 
 	@Override
 	public int darExperiencia() {
-		return this.nivel*10;
+		return  getExperiencia()/10; //Es igual al anterior em el caso default, y es compatible con otras formulas de experiencia.
 	}
 
 	public int getTopeExperienciaNivel() {
-		return topeExperienciaNivel;
+		return this.nivel * 100;
 	}
 
-	public void setTopeExperienciaNivel(int topeExperienciaNivel) {
-		this.topeExperienciaNivel = topeExperienciaNivel;
-	}
 
 	public int getExperiencia() {
 		return experiencia;
@@ -141,6 +130,9 @@ public abstract class Personaje implements Atacable {
 	public int getNivel() {
 		return nivel;
 	}
+	
+	public abstract int getmaxsalud();
+	public abstract int getmaxenergia();
 	
 	
 	

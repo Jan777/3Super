@@ -19,15 +19,21 @@ import output.Output;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JComboBox;
 
 
 public class Estado extends JFrame {
 	
-	JLabel label;
-	Point loc;
 	MapaLogico ml;
 	Visor vs;
-	Output test;
+	private JTextField textField;
 
 
 	/**
@@ -57,26 +63,10 @@ public class Estado extends JFrame {
 	public Estado() {
 		
 		ml = new MapaLogico();
-		test = new Output();
-		test.setBounds(110, 110, 430, 270);
-		test.setEnabled(true);
-		test.setVisible(true);
-		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		loc = new Point();
 		
-		label = new JLabel("Todo Mal");
-		label.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				loc = e.getPoint();
-				procesar();
-			}
-		});
-		getContentPane().add(label, BorderLayout.NORTH);
 		
 		JSplitPane splitPane = new JSplitPane();
 		getContentPane().add(splitPane, BorderLayout.SOUTH);
@@ -85,8 +75,8 @@ public class Estado extends JFrame {
 		btnVer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ml.notifyObservers();
-				test.repaint();
 				
+					vs.setVisible(true);
 					vs.repaint();
 				
 				
@@ -98,24 +88,41 @@ public class Estado extends JFrame {
 		JButton btnGenerar = new JButton("Generar");
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if (vs==null)
 				 vs=new Visor();
 				 vs.showMapaLogico(ml);
-				vs.setVisible(true);
-				test.addLayer(ml);
 			
 			}
 		});
 		splitPane.setRightComponent(btnGenerar);
 		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(99, 40, 335, 10);
+		panel.add(panel_1);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(31, 69, 37, 14);
+		panel.add(lblNombre);
+		
+		textField = new JTextField();
+		textField.setBounds(99, 66, 335, 20);
+		panel.add(textField);
+		textField.setColumns(10);
+		
 
 	}
 	
-	public void procesar()
+	private void procesar()
 	{
+		
+//		Funcion para hacer el tick logico. 
 		ml.notifyObservers();
 
-		label.setText(ml.toString());
-		label.repaint();
 	}
 	
 
