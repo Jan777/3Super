@@ -71,7 +71,7 @@ public class Login extends JFrame {
 		campo_contra.setBounds(144, 127, 130, 20);
 		contentPane.add(campo_contra);
 		
-		JButton botonlogin = new JButton("Entrar");
+		JButton botonlogin = new JButton("Iniciar Sesion\r\n");
 		botonlogin.addMouseListener(new MouseAdapter() {
 		});
 		botonlogin.addActionListener(new ActionListener() {
@@ -88,6 +88,8 @@ public class Login extends JFrame {
 					
 					
 					JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
+					
+					
 				}
 				
 				
@@ -95,7 +97,18 @@ public class Login extends JFrame {
 
 	
 		});
-		botonlogin.setBounds(185, 200, 89, 23);
+		botonlogin.setBounds(243, 201, 124, 23);
 		contentPane.add(botonlogin);
+		
+		JButton botonRegistrar = new JButton("Registrarse");
+		botonRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Registro reg = new Registro();
+				reg.setVisible(true);
+				dispose();
+			}
+		});
+		botonRegistrar.setBounds(104, 201, 129, 23);
+		contentPane.add(botonRegistrar);
 	}
 }
