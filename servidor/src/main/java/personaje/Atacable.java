@@ -1,12 +1,11 @@
 package personaje;
 
-import java.awt.Point;
-
-import servidor.MapaAlianza;
+import output.Sprite;
 
 public interface Atacable {
 
 		
+	
 		void serAtacado(int daño);
 		
 		int darExperiencia();
@@ -15,5 +14,6 @@ public interface Atacable {
 
 		void revivir();
 
-
+		public Sprite getSprite(); //Todo objeto que se pueda atacar tiene que poder ser visualizado
+		
 }

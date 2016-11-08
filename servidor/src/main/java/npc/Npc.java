@@ -1,5 +1,6 @@
 package npc;
 
+import output.Sprite;
 import personaje.Atacable;
 
 public abstract class Npc implements Atacable{
@@ -43,5 +44,8 @@ public abstract class Npc implements Atacable{
 	public void revivir() {
 		this.serCurado(); //solo le da salud, no lo energiza, es para los Test nada mas.
 	}
+	
+	public Sprite getSprite()
+	{return new Sprite();} //Si alguna ves usamos esto, que alguien ponga un sprite de verdad.
 	
 }

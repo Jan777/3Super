@@ -1,5 +1,7 @@
 package personaje;
 
+import output.Sprite;
+
 public abstract class Personaje implements Atacable {
 	protected String nombre;
 	protected int salud=100;
@@ -23,7 +25,6 @@ public abstract class Personaje implements Atacable {
 	protected int experiencia = 0;
 	protected String SpritePath;
 	
-	public abstract String getSpritepath();
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
 			atacado.serAtacado(this.obtenerPuntosDeFuerza());
@@ -56,9 +57,6 @@ public abstract class Personaje implements Atacable {
 		}
 	}
 	
-	//HACER METODO REVIVIR
-	//METODO MORIR?? dropea items y luego revive, etc
-	//La ENERGIA tendria que subirse cada tanto tiempo si no nunca lo va a terminar de matar
 	
 	public void revivir() {
 		this.serCurado();
@@ -140,6 +138,16 @@ public abstract class Personaje implements Atacable {
 
 	public int getNivel() {
 		return nivel;
+	}
+	
+	public String getSpritePath(){
+		return this.SpritePath;
+	}
+	public Sprite getSprite(){
+		return new Sprite(SpritePath);
+	}
+	public void setSpritePath(String path){
+		this.SpritePath=path;
 	}
 
 	

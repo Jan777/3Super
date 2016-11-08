@@ -12,9 +12,8 @@ public class Humano extends Personaje{
 	}
 
 	@Override
-	public String getSpritepath() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getSpritePath() {
+		return super.getSpritePath();
 	}
 
 

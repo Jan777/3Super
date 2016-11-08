@@ -2,6 +2,7 @@ package equipamiento;
 
 import personaje.*;
 
+
 public class ConImpresoraHP extends PersonajeEquipado{
 	public ConImpresoraHP(Personaje personajeDecorado) {
 		super(personajeDecorado);
@@ -14,9 +15,10 @@ public class ConImpresoraHP extends PersonajeEquipado{
 
 	@Override
 	public String getSpritepath() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.personajeDecorado.getSpritePath();
 	}
+
 
 
 }

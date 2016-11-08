@@ -1,5 +1,6 @@
 package equipamiento;
 import personaje.*;
+import output.Sprite;
 
 public abstract class PersonajeEquipado extends Personaje{
 
@@ -39,6 +40,20 @@ public abstract class PersonajeEquipado extends Personaje{
 	@Override
 	public int obtenerPuntosDeIngenio() {
 		return this.personajeDecorado.obtenerPuntosDeIngenio();
+	}
+
+	public String getSpritepath() {
+		// TODO Auto-generated method stub
+		return this.personajeDecorado.getSpritePath();
+	}
+	
+	public Sprite getSprite() {
+		// TODO Auto-generated method stub
+		return this.personajeDecorado.getSprite();
+	}
+	
+	public void setSpritePath(String path){
+		this.personajeDecorado.setSpritePath(path);
 	}
 	
 }

@@ -25,15 +25,15 @@ import javax.swing.JLabel;
 public class Sprite extends JLabel {
 	
 	
-	Sprite(String path) {
+	public Sprite(String path) {
 		super(new ImageIcon(path));
 		}
 	
-	Sprite() 
+	public Sprite() 
 	{
 		super();
 //		super.setIcon(new ImageIcon("bin/E.gif"));
-		super.setIcon(new ImageIcon("D:/Documents/Proyectos/jrpg/servidor/bin/tiletest.png"));
+		super.setIcon(new ImageIcon("servidor/bin/tiletest.png"));
 		
 //		super.setPreferredSize(new Dimension(32,32));
 	}

@@ -1,5 +1,7 @@
 package npc;
 
+import output.Sprite;
+
 public class Resistencia extends Npc{
 	public Resistencia() {
 		super();
@@ -20,6 +22,11 @@ public class Resistencia extends Npc{
 	@Override
 	public void revivir() {
 	
+	}
+	
+	public Sprite getSprite()
+	{
+		return super.getSprite();
 	}
 	
 }

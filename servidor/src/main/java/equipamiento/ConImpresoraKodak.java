@@ -1,6 +1,7 @@
 package equipamiento;
 
 import personaje.*;
+import output.Sprite;
 
 public class ConImpresoraKodak extends PersonajeEquipado{
 	public ConImpresoraKodak(Personaje personajeDecorado) {
@@ -14,9 +15,15 @@ public class ConImpresoraKodak extends PersonajeEquipado{
 
 	@Override
 	public String getSpritepath() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.personajeDecorado.getSpritePath();
 	}
+
+	@Override
+	public Sprite getSprite() {
+		return this.personajeDecorado.getSprite();
+	}
+
 
 
 }

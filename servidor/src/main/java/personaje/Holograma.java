@@ -8,7 +8,7 @@ public class Holograma extends Personaje{
 	}
 
 	@Override
-	public String getSpritepath() {
+	public String getSpritePath() {
 		// TODO Auto-generated method stub
 		return null;
 	}
