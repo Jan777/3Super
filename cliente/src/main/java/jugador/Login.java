@@ -95,7 +95,27 @@ public class Login extends JFrame {
 
 	
 		});
-		botonlogin.setBounds(185, 200, 89, 23);
+		botonlogin.setBounds(185, 202, 89, 23);
 		contentPane.add(botonlogin);
+		
+		JButton btnRegistrar = new JButton("Registrarse");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Registro reg = new Registro();
+				reg.setVisible(true);
+				dispose();
+			}
+		});
+		btnRegistrar.setBounds(41, 202, 124, 23);
+		contentPane.add(btnRegistrar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(298, 202, 89, 23);
+		contentPane.add(btnCancelar);
 	}
 }
