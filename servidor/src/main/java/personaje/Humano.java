@@ -1,6 +1,7 @@
 package personaje;
 
 import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Humano extends Personaje{
 	
@@ -8,7 +9,7 @@ public class Humano extends Personaje{
 		
 			
 			super();
-			super.setSpritePath("/servidor/src/main/resources/Sprites/GIF/Humano/Programador/HumanoProgramadorQuieto.gif");
+			super.setSpritePath("src\\main\\resources\\Sprites\\GIF\\Humano\\Programador\\HumanoProgramadorQuieto.gif");
 		
 		
 	}
@@ -20,8 +21,9 @@ public class Humano extends Personaje{
 
 	@Override
 	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		Rectangle r =this.getSprite().getBounds();
+		
+		return new Point((int)(r.getX()/r.getHeight()),(int)(r.getY()/r.getWidth())); //TODO: revisar si pue bien el orden
 	}
 
 	@Override

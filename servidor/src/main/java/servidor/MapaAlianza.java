@@ -1,5 +1,6 @@
 package servidor;
 
+import java.awt.Point;
 import java.util.ArrayList;
 
 import output.Sprite;
@@ -56,7 +57,10 @@ public class MapaAlianza extends MapaLogico {
 
 	@Override
 	public Sprite getSprite(int x, int y) {
-		// TODO Auto-generated method stub
+		for (Atacable a : miembros){
+			if (a.getPosition()==new Point(x,y))
+				return a.getSprite();
+		}
 		return null;
 	}
 

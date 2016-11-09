@@ -47,6 +47,8 @@ public class Output  extends JPanel{
     }
    
     private void drawSelf(Graphics2D g2, int width, int height) {
+    	
+    	g2.drawString(System.getProperty("user.dir"),50,50);
 
 		for (Layer l : Layers)
 			l.printLayer(this, g2);

@@ -82,6 +82,7 @@ public class Visor extends JFrame {
 	public void repaint()
 	{
 //		super.repaint();
+	
 		out.repaint();
 	}
 }

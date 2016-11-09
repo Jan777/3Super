@@ -34,6 +34,7 @@ public class Layer implements Observer{ //TODO: repensar la clase para hacerla m
 		{
 			if(s!=null)
 			s.printSprite(c, g);
+			
 		}
 	}
 	
