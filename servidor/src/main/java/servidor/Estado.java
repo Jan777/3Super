@@ -2,6 +2,8 @@ package servidor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Point;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -12,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+
+import personaje.Humano;
 
 
 public class Estado extends JFrame {
@@ -58,6 +62,12 @@ public class Estado extends JFrame {
 		
 		mapasLogicos.add(ma);
 		mapasLogicos.add(mo);
+		Humano h;
+		for (int i=1;i<4;i++){
+			h=new Humano("Sujeto de Pruebas numero" + (int)i);
+			h.setPosition(new Point(this.getWidth()/i,this.getHeight()/i));
+			ma.addMiembro(h);
+		}
 		
 		
 		

@@ -10,7 +10,7 @@ import personaje.Atacable;
 public class MapaAlianza extends MapaLogico {
 	
 	private String nombre;
-	private ArrayList<Atacable> miembros;
+	private ArrayList<Atacable> miembros; //TODO: Redefinir como array Bi-dimensional, como deberia haber sido desde el comienzo
 	
 	public MapaAlianza(String n)
 	{
