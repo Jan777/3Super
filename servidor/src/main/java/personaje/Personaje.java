@@ -79,9 +79,16 @@ public abstract class Personaje implements Atacable {
 	public void serCurado() {
 		this.salud = this.getmaxsalud(); //por default pongo el maximo
 	}
+	
+	public void serCurado(int cant) {
+		this.salud += cant;
+	}
 
 	public void serEnergizado() {
 		this.energia = this.getmaxenergia(); // por default pongo el maximo
+	}
+	public void serEnergizado(int cant) {
+		this.energia +=cant;
 	}
 	
 	public int getSalud() {

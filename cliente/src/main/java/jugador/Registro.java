@@ -1,6 +1,5 @@
 package jugador;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +14,10 @@ import java.awt.event.ActionEvent;
 
 public class Registro extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1453514283810873060L;
 	private JPanel contentPane;
 	private JTextField campoUsu;
 	private JPasswordField campoContra;

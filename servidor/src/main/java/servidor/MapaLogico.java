@@ -1,14 +1,19 @@
 package servidor;
 
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import output.Sprite;
+
 // Aunque se puede usar por si misma, la idea es heredar de mapa logico. Esta clase sirve para saber si  cada celda esta ocupada o no.
-public class MapaLogico extends Observable{
-	int w,h;
-	boolean celdas[][];
-	Random rnd;
+public abstract class MapaLogico extends Observable {
+	protected int w,h;
+	protected  Random rnd;
+	protected double razon=0.5;
 	public MapaLogico()
 	{
 		super();
@@ -16,14 +21,10 @@ public class MapaLogico extends Observable{
 		w=32;
 		h=32;
 		rnd = new Random();
-		celdas= new boolean[w][h];
-		
-		for (int i=0; i < h; i++) 
-			for (int j=0; j < w; j++) 
-				celdas[i][j]= (rnd.nextDouble()+0.5)>1;
+					
 	}
 	
-	public MapaLogico(double razon) //rango va desde 0% hasta 100%
+	public MapaLogico(int w, int h, double razon) //rango va desde 0% hasta 100%
 	{
 		super();
 		
@@ -33,20 +34,15 @@ public class MapaLogico extends Observable{
 		
 		razon=Math.min(razon, 0.5);
 		
-		w=32;
-		h=32;
+		this.razon=razon;
+		this.w=w;
+		this.h=h;
 		rnd = new Random();
-		celdas= new boolean[w][h];
 		
-		for (int i=0; i < h; i++) 
-			for (int j=0; j < w; j++) 
-				celdas[i][j]= (rnd.nextDouble()+razon)>1;
 	}
 	
-	public boolean ocupada(int x, int y)
-	{
-		return celdas[x][y];
-	}
+	public abstract boolean ocupada(int x, int y);
+	
 
 	public int getW() {
 		return w;
@@ -56,21 +52,29 @@ public class MapaLogico extends Observable{
 		return h;
 	}
 	
-	public String toString() //Para test de generacion
-	{
-		String aux = new String("");
-		for (int i=0; i < h; i++) {
-			for (int j=0; j < w; j++) 
-				if (celdas[i][j]) aux += "*";
-				else aux += ".";
-		aux+= '\n';}
-		return aux;
-	}
+//	public String toString() //Para test de generacion
+//	{
+//		String aux = new String("");
+//		for (int i=0; i < h; i++) {
+//			for (int j=0; j < w; j++) 
+//				if (celdas[i][j]) aux += "*";
+//				else aux += ".";
+//		aux+= '\n';}
+//		return aux;
+//	}
 	
 	public void monitorear(Observer o)
 	{
 		this.addObserver(o);
 	}
+	
+	public abstract Sprite getSprite(int x, int y);
+		
+	
+
+
+	
+
 	
 	
 	

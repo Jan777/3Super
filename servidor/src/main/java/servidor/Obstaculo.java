@@ -1,0 +1,36 @@
+package servidor;
+
+import java.awt.Point;
+
+import output.Sprite;
+
+public class Obstaculo implements IhasSprite {
+	
+	int id=0;
+
+	@Override
+	public Sprite getSprite() {
+		return new Sprite(getSpritePath());
+	}
+
+	@Override
+	public String getSpritePath() {
+		return id>0? "servidor\bin\tiletest.png" : "servidor\bin\null";
+	}
+	
+	public void setid(int i) {id=i;}
+	public boolean getOcupado() {return id>0?true:false;}
+
+	@Override
+	public Point getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPosition(Point p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

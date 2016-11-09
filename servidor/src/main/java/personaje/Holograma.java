@@ -1,6 +1,16 @@
 package personaje;
 
+import java.awt.Point;
+
 public class Holograma extends Personaje{
+	
+	Holograma()
+	{
+		
+			super();
+			super.setSpritePath("<Hardcodee el sprite aqui>");
+		
+	}
 
 	@Override
 	public boolean puedeAtacar() {
@@ -8,10 +18,18 @@ public class Holograma extends Personaje{
 	}
 
 	@Override
-	public String getSpritePath() {
+	public Point getPosition() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setPosition(Point p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 	
 }

@@ -1,5 +1,7 @@
 package npc;
 
+import java.awt.Point;
+
 import output.Sprite;
 
 public class Resistencia extends Npc{
@@ -24,9 +26,24 @@ public class Resistencia extends Npc{
 	
 	}
 	
-	public Sprite getSprite()
-	{
+	public Sprite getSprite(){
 		return super.getSprite();
+	}
+	
+	public String getSpritePath(){
+		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/ResistenciaIzquierda.gif";
+	}
+
+	@Override
+	public Point getPosition() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPosition(Point p) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

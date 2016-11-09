@@ -9,6 +9,10 @@ import javax.swing.border.EmptyBorder;
 
 public class Mapa extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -751031079532977799L;
 	private JPanel contentPane;
 
 	/**

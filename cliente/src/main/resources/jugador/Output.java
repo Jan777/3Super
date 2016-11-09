@@ -3,15 +3,15 @@ package jugador;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.net.MalformedURLException;
-
 import javax.swing.JPanel;
 
 
 public class Output  extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3025019011659769483L;
 	Layer capa;
 	Sprite sprt;
 	

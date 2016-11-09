@@ -1,17 +1,19 @@
 package servidor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JSeparator;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 
 public class StrtServidor extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1690646219223304489L;
 	private JPanel contentPane;
 
 	/**

@@ -2,6 +2,7 @@ package servidor;
 
 import java.util.ArrayList;
 
+import output.Sprite;
 import personaje.Atacable;
 
 //Toda entidad que pueda ser atacxable tiene que estar registrada en al menos una alianza. 
@@ -9,9 +10,18 @@ import personaje.Atacable;
 public class MapaAlianza extends MapaLogico {
 	
 	private String nombre;
-	private String pathSprite;
-	
 	private ArrayList<Atacable> miembros;
+	
+	public MapaAlianza(String n)
+	{
+		super(32,32,0);
+		this.nombre=n;
+		miembros= new ArrayList<Atacable>();
+		
+	}
+	
+	
+	
 	
 	public void addMiembro(Atacable a)
 	{
@@ -29,8 +39,28 @@ public class MapaAlianza extends MapaLogico {
 	}
 	public boolean esHostil(MapaAlianza ma)
 	{
-		return ma.nombre != this.nombre;
+		return ma.nombre != this.nombre; //O estas con Nosotros, o estas contra Nosotros. 
 	}
+
+
+
+
+	@Override
+	public boolean ocupada(int x, int y) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+
+	@Override
+	public Sprite getSprite(int x, int y) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 	

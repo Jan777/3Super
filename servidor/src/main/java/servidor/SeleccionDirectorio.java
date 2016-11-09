@@ -13,6 +13,10 @@ import java.awt.event.ActionEvent;
 
 public class SeleccionDirectorio extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8691344935461643615L;
 	private final JPanel contentPanel = new JPanel();
 	private JFileChooser jfc;
 

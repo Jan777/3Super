@@ -1,23 +1,24 @@
 package output;
 
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
 
+import servidor.IhasSprite;
 import servidor.MapaLogico;
 
 //Esta clase se usa como conveniencia, para poder siempre dibujar sprites de forma agrupada.
 
-public class Layer implements Observer{
+public class Layer implements Observer{ //TODO: repensar la clase para hacerla mas generica
 	
-	LinkedList <Sprite> sprites;
+	ArrayList <Sprite> sprites;
 	
 	Layer(){
 		
-		sprites = new LinkedList<Sprite>();
+		sprites = new ArrayList<Sprite>();
 		
 		
 	}
@@ -29,7 +30,6 @@ public class Layer implements Observer{
 	
 	public void printLayer(Component c, Graphics2D g)
 	{
-		g.drawString(this.toString(), 20, 20);
 		for(Sprite s : sprites)
 		{
 			s.printSprite(c, g);
@@ -44,7 +44,7 @@ public class Layer implements Observer{
 			for(int i=0;i<ml.getW();i++)
 				for (int j=0;j<ml.getH();j++)
 					if(ml.ocupada(i, j)) 
-						{Sprite s = new Sprite();
+						{Sprite s= ml.getSprite(i,j);
 						s.setpos(i * ml.getH(), j * ml.getW()); 
 						this.addSprite(s);}
 		

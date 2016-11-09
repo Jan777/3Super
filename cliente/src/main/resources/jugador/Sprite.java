@@ -1,21 +1,9 @@
 package jugador;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 //Quiza te preguntes porque una clase sprite que es un Label con otro nombre... 
@@ -26,6 +14,11 @@ public class Sprite extends JLabel {
 //	JLabel img;
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1776399298201431777L;
+
 	Sprite(String path) 
 	{
 	

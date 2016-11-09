@@ -1,37 +1,27 @@
 package servidor;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Point;
-
 import javax.swing.JFrame;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 
-import output.Layer;
-import output.Output;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JComboBox;
 
 
 public class Estado extends JFrame {
 	
-	MapaLogico ml;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8171413268402334608L;
+
+	LinkedList<MapaLogico> mapasLogicos;
 	Visor vs;
 	private JTextField textField;
 
@@ -62,40 +52,19 @@ public class Estado extends JFrame {
 	 */
 	public Estado() {
 		
-		ml = new MapaLogico();
+		mapasLogicos=new LinkedList<MapaLogico>();
+		MapaAlianza ma= new MapaAlianza("Humanos");
+		MapaObstaculos mo= new MapaObstaculos(32, 32, 0.5);
+		
+		mapasLogicos.add(ma);
+		mapasLogicos.add(mo);
+		
+		
+		
+
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		
-		
-		JSplitPane splitPane = new JSplitPane();
-		getContentPane().add(splitPane, BorderLayout.SOUTH);
-		
-		JButton btnVer = new JButton("Ver");
-		btnVer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ml.notifyObservers();
-				
-					vs.setVisible(true);
-					vs.repaint();
-				
-				
-				
-			}
-		});
-		splitPane.setLeftComponent(btnVer);
-		
-		JButton btnGenerar = new JButton("Generar");
-		btnGenerar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (vs==null)
-				 vs=new Visor();
-				 vs.showMapaLogico(ml);
-			
-			}
-		});
-		splitPane.setRightComponent(btnGenerar);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
@@ -114,6 +83,22 @@ public class Estado extends JFrame {
 		panel.add(textField);
 		textField.setColumns(10);
 		
+		JButton btnGenerar = new JButton("Generar");
+		btnGenerar.setBounds(10, 228, 320, 23);
+		panel.add(btnGenerar);
+		btnGenerar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (vs==null)
+				 vs=new Visor();
+				for (MapaLogico ml : mapasLogicos)
+				 vs.showMapaLogico(ml);
+					vs.setVisible(true);
+					vs.repaint();
+			
+			}
+		});
+		
 
 	}
 	
@@ -121,6 +106,7 @@ public class Estado extends JFrame {
 	{
 		
 //		Funcion para hacer el tick logico. 
+		for (MapaLogico ml : mapasLogicos)
 		ml.notifyObservers();
 
 	}

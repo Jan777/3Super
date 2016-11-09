@@ -1,10 +1,11 @@
 package personaje;
 
-import output.Sprite;
 
-public interface Atacable {
+import servidor.IhasSprite;
 
-		
+public interface Atacable extends IhasSprite{ //Todo objeto que se pueda atacar tiene que poder ser visualizado
+
+
 	
 		void serAtacado(int daño);
 		
@@ -14,6 +15,6 @@ public interface Atacable {
 
 		void revivir();
 
-		public Sprite getSprite(); //Todo objeto que se pueda atacar tiene que poder ser visualizado
+		
 		
 }
