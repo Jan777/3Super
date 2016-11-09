@@ -32,7 +32,7 @@ public class Sprite extends JLabel {
 	Sprite() 
 	{
 		super();
-		super.setIcon(new ImageIcon("bin/E.gif"));
+		super.setIcon(new ImageIcon("src/E.gif"));
 		
 //		super.setPreferredSize(new Dimension(32,32));
 	}
