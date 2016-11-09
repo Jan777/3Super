@@ -6,7 +6,13 @@ import output.Sprite;
 
 public class Obstaculo implements IhasSprite {
 	
-	int id=0;
+	int id=0,x,y;
+	
+	Obstaculo(int x, int y, int id){
+		this.x=x;
+		this.y=y;
+		this.id=id;
+	}
 
 	@Override
 	public Sprite getSprite() {

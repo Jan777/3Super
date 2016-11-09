@@ -32,6 +32,7 @@ public class Layer implements Observer{ //TODO: repensar la clase para hacerla m
 	{
 		for(Sprite s : sprites)
 		{
+			if(s!=null)
 			s.printSprite(c, g);
 		}
 	}
@@ -43,8 +44,9 @@ public class Layer implements Observer{ //TODO: repensar la clase para hacerla m
 			
 			for(int i=0;i<ml.getW();i++)
 				for (int j=0;j<ml.getH();j++)
-					if(ml.ocupada(i, j)) 
+//					if(ml.ocupada(i, j)) 
 						{Sprite s= ml.getSprite(i,j);
+						if (s!=null)
 						s.setpos(i * ml.getH(), j * ml.getW()); 
 						this.addSprite(s);}
 		
