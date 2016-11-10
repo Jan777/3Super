@@ -36,14 +36,14 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			String input = sc.nextLine();
 			User user = mapper.readValue(input, User.class);
 			String accion = user.getAccion() ;
-			System.out.println("Accion!: "+accion);
+			
 			
 			if(accion.compareTo("login")==0)
 			{
 				
 				String userEnviado = user.getNombre() ;
 				String passEnviada = user.getPass() ;
-				System.out.println("Llega al servidor la accion login: "+userEnviado+passEnviada);
+				System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
 				//Comprobar en Base de DATOS
 				if(userEnviado.equals("ivan"))
 				{
@@ -53,11 +53,47 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
 		            out.flush();
-		            
+		            System.out.println("Pase parte");
 					//mando array con mundos
 		                      
 					///CREO THERAD SEGUN EL MUNDO
 					
+		            Scanner sc2;
+					sc2 = new Scanner(socket.getInputStream());
+					//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 
+					String input2 = sc2.nextLine();
+					User user2 = mapper.readValue(input2, User.class);
+					String accion2 = user2.getAccion() ;
+		            System.out.println(accion2);
+		            if(accion2.compareTo("oprimioCerrar")==0){
+		            	System.out.println("Se ha desconectado: " + user2.getNombre());
+		            }
+		            
+		            if(accion2.compareTo("entrarAMundo")==0){
+						
+						ServerThread partida;
+						int mundoSeleccionado = user2.getMundoSelec();
+						 switch (mundoSeleccionado) {
+			             case 1:
+			            	 System.out.println("Entre al mundo Fisico");
+			            	 listaDeConexionesMundo1.add(socket);
+			            	 partida = new ServerThread(socket, listaDeConexionesMundo1, user2.getNombre());
+			                 Thread nuevoProcesoParalelo1 = new Thread(partida);
+			                 nuevoProcesoParalelo1.start();
+			                 break;
+			             case 2:
+			            	 System.out.println("Entre al mundo Enlace de Datos");
+			            	 listaDeConexionesMundo2.add(socket);
+			                 partida = new ServerThread(socket, listaDeConexionesMundo2, user2.getNombre());
+			                 Thread nuevoProcesoParalelo2 = new Thread(partida);
+			                 nuevoProcesoParalelo2.start();
+			                 break;
+			             default:
+			                 break;
+			                 }
+						
+					}
+		            
 				}
 				else {
 					User userAEnviar = new User(null, null, "error", null,null, 0);
@@ -72,29 +108,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				
 			}
 			
-			if(accion.compareTo("entrarAMundo")==0){
-				System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA: "+ accion);
-				ServerThread partida;
-				int mundoSeleccionado = user.getMundoSelec();
-				 switch (mundoSeleccionado) {
-	             case 1:
-	            	 System.out.println("Entre al mundo Fisico");
-	            	 listaDeConexionesMundo1.add(socket);
-	            	 partida = new ServerThread(socket, listaDeConexionesMundo1, user.getNombre());
-	                 Thread nuevoProcesoParalelo1 = new Thread(partida);
-	                 nuevoProcesoParalelo1.start();
-	                 break;
-	             case 2:
-	            	 listaDeConexionesMundo2.add(socket);
-	                 partida = new ServerThread(socket, listaDeConexionesMundo2, user.getNombre());
-	                 Thread nuevoProcesoParalelo2 = new Thread(partida);
-	                 nuevoProcesoParalelo2.start();
-	                 break;
-	             default:
-	                 break;
-	                 }
-				
-			}
+			
 			if(accion=="registrar")
 			{
 				String userEnviado = user.getNombre() ;

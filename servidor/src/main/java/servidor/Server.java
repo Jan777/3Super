@@ -24,7 +24,7 @@ public class Server {
             while (true) {
                 System.out.println("Esperando un cliente");
                 Socket socket = server.accept();
-                System.out.println("PaseSocket");
+                
                 /*
                 Scanner sc;
     			sc = new Scanner(socket.getInputStream());

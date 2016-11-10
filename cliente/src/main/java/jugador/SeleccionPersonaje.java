@@ -31,6 +31,7 @@ public class SeleccionPersonaje extends JFrame {
 	private static final long serialVersionUID = -2726214439028001680L;
 	private JPanel contentPane;
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -51,7 +52,7 @@ public class SeleccionPersonaje extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public SeleccionPersonaje(Socket socket,User user) {
+	public SeleccionPersonaje(final Socket socket,final User user) {
 		setTitle("Seleccion de Personaje");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -82,7 +83,7 @@ public class SeleccionPersonaje extends JFrame {
 		lblMapa.setBounds(10, 125, 46, 14);
 		contentPane.add(lblMapa);
 		
-		JComboBox comboMapa = new JComboBox();
+		final JComboBox comboMapa = new JComboBox();
 		comboMapa.setModel(new DefaultComboBoxModel(new String[] {"Fisica", "Enlace de Datos", "Red(SOON)","Transporte(SOON)","Sesion(SOON)","Presentacion(SOON)","Aplicacion(SOON))"}));
 		comboMapa.setBounds(58, 122, 104, 20);
 		contentPane.add(comboMapa);
@@ -92,30 +93,35 @@ public class SeleccionPersonaje extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				ObjectMapper mapper = new ObjectMapper();
-				
+				User user2 = new User(user.getPass(),user.getNombre(),null,null,null,0);
 				
 				String mapaSeleccionado = (String) comboMapa.getSelectedItem();
 				switch (mapaSeleccionado) {
 				case "Fisica":
-					user.setMundoSelec(1);
+					user2.setMundoSelec(1);
 					break;
 				case "Enlace de Datos":
-					user.setMundoSelec(2);
+					user2.setMundoSelec(2);
 				default:
+					//Poner mensaje de error
 					break;
 				}
-	            user.setAccion("entrarAMundo");
-	            String jsonInString;
+	            	
+				user2.setAccion("entrarAMundo");
+		        String jsonInString;
+	            System.out.println("paso case1");
 				try {
 					//Le envio al servidor la informacion del mundo al que quiere entrar el usuario
-					jsonInString = mapper.writeValueAsString(user);
+		            
+					jsonInString = mapper.writeValueAsString(user2);
 					PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 					out.println(jsonInString);
 					out.flush();
+					System.out.println("paso case2");
 					ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
-		            
+		            System.out.println("paso case3: "+ user2.getAccion());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -135,8 +141,47 @@ public class SeleccionPersonaje extends JFrame {
 		btnMapa.setBounds(143, 200, 151, 23);
 		contentPane.add(btnMapa);
 		
+		JButton btnChau = new JButton("Chau"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
+		btnChau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+								
+	            try {
+	            	 ObjectMapper mapper = new ObjectMapper();
+	        		 String jsonInString;
+	        		 User user2 = new User(null,null,"oprimioCerrar",null,null,0);
+	        		 jsonInString = mapper.writeValueAsString(user2);
+	        		 PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+	        		 out.println(jsonInString);
+	        		 out.flush();
+					socket.close();
+					System.exit(0);
+					//dispose();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
+		btnChau.setBounds(300, 200, 151, 23);
+		contentPane.add(btnChau);
+
 		
 		
+	}
+
+
+	private void desconectar(Socket socket) throws IOException {
+		 socket.close();
+		 ObjectMapper mapper = new ObjectMapper();
+		 String jsonInString;
+		 User user2 = new User(null,null,"oprimioCerrar",null,null,0);
+		 jsonInString = mapper.writeValueAsString(user2);
+		 PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+		 out.println(jsonInString);
+		 out.flush();
+	     System.exit(0);
 		
 	}
 }

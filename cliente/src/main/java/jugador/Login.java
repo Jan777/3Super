@@ -17,9 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -35,6 +39,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField campo_usuario;
 	private JPasswordField campo_contra;
+	Socket socket;
 
 	/**
 	 * Launch the application.
@@ -45,6 +50,8 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,33 +97,32 @@ public class Login extends JFrame {
 				
 				
 				String password = new String(campo_contra.getPassword());
-				
+				//Socket socket;
 				
 				//////////////
 				try {
 					final int PORT = 4445;
 					String server = "127.0.0.1";
-		            Socket socket = new Socket(server, PORT);
+		            socket = new Socket(server, PORT);
 		            System.out.println("Te conectaste a: " + server);
 					
 			        ObjectMapper mapper = new ObjectMapper();
-					Scanner sc = new Scanner(System.in);
-					Scanner input = new Scanner(socket.getInputStream());
+					//Scanner sc = new Scanner(System.in);
+					//Scanner input = new Scanner(socket.getInputStream());
 
 		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
-		            
 		            String jsonInString = mapper.writeValueAsString(user);
-
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
-
 		            out.flush();
+		            
 
 		            ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
 		            
 		            //Leo la informacion que vuelve del servidor
+		            Scanner input = new Scanner(socket.getInputStream());
 					String in = input.nextLine();
 					user = mapper.readValue(in, User.class);
 					System.out.println("La re accion: "+user.getAccion());
@@ -171,10 +177,19 @@ public class Login extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					socket.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dispose();
 			}
 		});
 		btnCancelar.setBounds(298, 202, 89, 23);
 		contentPane.add(btnCancelar);
+		
+	
 	}
+	
 }

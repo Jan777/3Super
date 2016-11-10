@@ -19,6 +19,17 @@ public class ServerThread implements Runnable {// The Runnable interface should 
         this.listaDeConexiones = listaDeSala;
         this.nickName = alias;
     }
+    public boolean estaConectado() throws IOException {
+        if (!this.socket.isConnected()) {// SI EL SOCKET ESTA DESCONECTADO LO ELIMINA DE MI LISTA DE CONEXIONES.
+            for (int x = 0; x < this.listaDeConexiones.size(); x++) {
+                if (this.listaDeConexiones.get(x) == this.socket) {
+                    this.listaDeConexiones.remove(x);
+                }
+            }
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
@@ -26,7 +37,17 @@ public class ServerThread implements Runnable {// The Runnable interface should 
         try {
             this.input = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
 
+            
+                if (this.estaConectado()) { // VERIFICO QUE EL SOCKET ESTE CONECTADO, SI NO LO ESTA CIERRO ESE SOCKET.
+                    if (!this.input.hasNext()) { // SI NO HA TIENE MENSAJE ACTUAL BUCLEO A LA ESPERA DE UNO
+                        return;
+                    }
+                }
+            
+                
+
             while (true) {
+            	
 
                     this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
                     System.out.println(this.nickName + " dice: " + this.mensaje);
