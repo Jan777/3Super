@@ -126,6 +126,7 @@ public class Login extends JFrame {
 					String in = input.nextLine();
 					user = mapper.readValue(in, User.class);
 					System.out.println("La re accion: "+user.getAccion());
+					
 		            if(user.getAccion().compareTo("abrirSeleccionMundo")==0){
 		            	System.out.println("Aca tengo que abrir la seleccion de mundos");
 						SeleccionPersonaje sp = new SeleccionPersonaje(socket,user);

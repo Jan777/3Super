@@ -44,7 +44,6 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                     }
                 }
             
-                
 
             while (true) {
             	
