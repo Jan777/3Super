@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import output.Sprite;
 import personaje.Atacable;
 
-//Toda entidad que pueda ser atacxable tiene que estar registrada en al menos una alianza. 
+//Toda entidad que pueda ser atacable tiene que estar registrada en al menos una alianza. 
 //El juego va a tener muchos de estos mapas logicos, uno para cada tipo, y tiene que permitir cambiarse de una alianza a la otra.
 public class MapaAlianza extends MapaLogico {
 	
@@ -20,8 +20,6 @@ public class MapaAlianza extends MapaLogico {
 		miembros= new ArrayList<Atacable>();
 		
 	}
-	
-	
 	
 	
 	public void addMiembro(Atacable a)
@@ -42,8 +40,6 @@ public class MapaAlianza extends MapaLogico {
 	{
 		return ma.nombre != this.nombre; //O estas con Nosotros, o estas contra Nosotros. 
 	}
-
-
 
 
 	@Override

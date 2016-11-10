@@ -16,13 +16,12 @@ public class SpriteSheet {
 	BufferedImage sheet;
 	int size=32, cantw, canth; //Tamanio del lado del sprite, utilizado para calcular las coordenadas en pixeles.
 	
-	SpriteSheet(String path)//TODO: Validar path para que no reviente si la imagen no existe.
-		{
-				
-				sheet= (BufferedImage) new ImageIcon(path).getImage();
-				
-				
-		}
+	SpriteSheet(String path)// TODO: Validar path para que no reviente si la imagen no existe.
+	{
+
+		sheet = (BufferedImage) new ImageIcon(path).getImage();
+
+	}
 	void setsize ( int s)
 	{
 		this.size=s;

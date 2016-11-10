@@ -5,6 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+import comun.User;
+import comunicacion.Client;
+import comunicacion.ClientThread;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -13,6 +20,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
 
 
 
@@ -76,10 +86,59 @@ public class Login extends JFrame {
 		});
 		botonlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String usuario="admin";
-				String contrasenia="1234";
-				String password = new String(campo_contra.getPassword()); //para obtener el valor cuando ingrese password
 				
+				
+				
+				String password = new String(campo_contra.getPassword());
+				
+				
+				//////////////
+				try {
+					final int PORT = 4445;
+					String server = "127.0.0.1";
+		            Socket socket = new Socket(server, PORT);
+		            System.out.println("Te conectaste a: " + server);
+					
+			        ObjectMapper mapper = new ObjectMapper();
+					Scanner sc = new Scanner(System.in);
+					Scanner input = new Scanner(socket.getInputStream());
+
+		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
+		            
+		            String jsonInString = mapper.writeValueAsString(user);
+
+		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
+
+		            out.flush();
+
+		            ClientThread newClient = new ClientThread(socket);
+		            Thread thread = new Thread(newClient);
+		            thread.start();
+		            
+		            //Leo la informacion que vuelve del servidor
+					String in = input.nextLine();
+					user = mapper.readValue(in, User.class);
+					System.out.println("La re accion: "+user.getAccion());
+		            if(user.getAccion().compareTo("abrirSeleccionMundo")==0){
+		            	System.out.println("Aca tengo que abrir la seleccion de mundos");
+						SeleccionPersonaje sp = new SeleccionPersonaje(socket,user);
+						sp.setVisible(true);
+						dispose();
+						
+					}else{	
+						
+						JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
+					}
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				
+	            ///////////
+				//String password = new String(campo_contra.getPassword()); //para obtener el valor cuando ingrese password
+				/*
 				if(campo_usuario.getText().equals(usuario) && password.equalsIgnoreCase(contrasenia)){
 					SeleccionPersonaje sp = new SeleccionPersonaje();
 					sp.setVisible(true);
@@ -89,7 +148,7 @@ public class Login extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
 				}
-				
+				*/
 				
 			}
 
