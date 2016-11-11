@@ -171,7 +171,6 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	public void mover(){
 		this.pos=this.vel;
 		this.vel.setLocation(vel.getX()+acc.getX(), vel.getY()+acc.getY());
-		this.actualizar();
 		}
 	public Point procMovimiento(){ mover(); return this.pos;}
 	private void actualizar(){
