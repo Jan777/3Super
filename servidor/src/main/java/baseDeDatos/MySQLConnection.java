@@ -74,14 +74,12 @@ public class MySQLConnection {
 		}
 	}
 	
-	public static int registrarse (String usuario, String password) throws SQLException{
+	public int registrarse (String usuario, String password) throws SQLException{
 		
 		
-		Connection conn = getConnection();
 		sentencia = null;
 		
 		try {
-			
 			
 			java.sql.Statement s = conn.createStatement(); 
 			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\""+usuario+"\",\""+password+"\")";
@@ -99,16 +97,14 @@ public class MySQLConnection {
 			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
-		finally {
-			conn.close();
-		}
+		
 		
 	}
 		
 		
-	private static int verificarExistenciaUsuario(String usuario) throws SQLException {
+	public int verificarExistenciaUsuario(String usuario) throws SQLException {
 		
-		Connection conn = getConnection();
+		
 		sentencia = null;
 		boolean respuesta = false;
 		
@@ -123,12 +119,10 @@ public class MySQLConnection {
 			}
 			if(respuesta == true){
 				System.out.println("Usuario existente");
-				conn.close();
 				return 1;
 			}
 			else{
 				System.out.println("Usuario Inexistente");
-				conn.close();
 				return 0;
 			}
 		
@@ -136,22 +130,20 @@ public class MySQLConnection {
 		}
 		catch(SQLException ex){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
-			conn.close();
 			return 0;
 		}
 		
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
-			conn.close();
 			return 0;
 		}
 		
 		
 	}
 	
-	private static int verificarUserYPassword(String usuario, String password) throws SQLException {
+	public int verificarUserYPassword(String usuario, String password) throws SQLException {
 		
-		Connection conn = getConnection();
+		
 		sentencia = null;
 		boolean respuesta = false;
 		
@@ -166,12 +158,10 @@ public class MySQLConnection {
 			}
 			if(respuesta == true){
 				System.out.println("Acceso Permitido");
-				conn.close();
 				return 1;
 			}
 			else{
 				System.out.println("Acceso Denegado");
-				conn.close();
 				return 0;
 			}
 		
@@ -193,15 +183,16 @@ public class MySQLConnection {
 	
 	public static void main(String[] args) throws SQLException {
 		
-		
+		MySQLConnection mySQLCon = new MySQLConnection();
+		mySQLCon.conn = getConnection();
 		
 		//conexionBD.consultar("select * from usuarios");
-		//registrarse("jorge","contragfg");
+		mySQLCon.registrarse("jorge67","contragfg");
 		
 		
-		
-		verificarUserYPassword("ivan","12345");
-		verificarExistenciaUsuario("jorge");
+		mySQLCon.verificarUserYPassword("ivan","12345");
+		mySQLCon.verificarExistenciaUsuario("jorge");
+		mySQLCon.close();
 	}
 
 	
