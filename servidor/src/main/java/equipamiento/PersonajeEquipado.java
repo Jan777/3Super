@@ -2,7 +2,7 @@ package equipamiento;
 import personaje.*;
 import output.Sprite;
 
-public abstract class PersonajeEquipado extends Personaje{
+public abstract class PersonajeEquipado extends Personaje{ //TODO: no me esta convenciendo extender personaje. Capaz una clase llamada equipo y que sea un atributo de personaje? Asi como esta, un equipamiento tiene que poder moverse, atacar, etc.
 
 	Personaje personajeDecorado;
 	int nivelItem;

@@ -1,8 +1,10 @@
 package personaje;
 
+import java.awt.Point;
+
 import output.Sprite;
 
-public abstract class Personaje implements Atacable {
+public abstract class Personaje implements Atacable, IamMovil {
 	protected String nombre;
 	protected int salud=100;
 	protected int energia=50;
@@ -24,6 +26,9 @@ public abstract class Personaje implements Atacable {
 	protected int nivel = 1;
 	protected int experiencia = 0;
 	protected String SpritePath;
+	protected Point pos;
+	protected Point vel;
+	protected Point acc;
 	
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
@@ -156,8 +161,16 @@ public abstract class Personaje implements Atacable {
 	public void setSpritePath(String path){
 		this.SpritePath=path;
 	}
-
 	
+	public Point getPos() {return this.pos;}
+	public Point getVel() {return this.vel;}
+	public Point getAcc() {return this.acc;}
+	public Point getNextStep(){return this.vel;} // Why? For the glory of Satan of course!
+	public void mover(){
+		this.pos=this.vel;
+		this.vel.setLocation(vel.getX()+acc.getX(), vel.getY()+acc.getY());
+		}
+	public Point procMovimiento(){ mover(); return this.pos;}
 	
 	
 }

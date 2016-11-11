@@ -61,6 +61,12 @@ public class MapaAlianza extends MapaLogico {
 	}
 
 
+	public void procesarMovimiento() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 	
 	

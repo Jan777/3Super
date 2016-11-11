@@ -12,6 +12,10 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     String mensaje = "";
     ArrayList<Socket> listaDeConexiones = new ArrayList<>();
     String nickName;
+    final int mTPS=30;
+    long millis=0;
+    final int MPT= 1000/mTPS; //millisegundos por tick.
+    int ticks=0;
 
     //CONSTRUCTOR DEL CHAT
     public ServerThread(Socket socket, ArrayList<Socket> listaDeSala, String alias) {
@@ -43,13 +47,36 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                         return;
                     }
                 }
-            
-
+            MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
+            MapaAlianza mA= new MapaAlianza("humanos");
+/*******
+ *  A partir de aca iria el setup inicial.
+ *  Se tiene que enviar los mapas logicos al cliente para que su output pueda a�adir los layers
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+            	
+                
+            long millis = System.currentTimeMillis();
             while (true) {
             	
 
                     this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
                     System.out.println(this.nickName + " dice: " + this.mensaje);
+                    
+                    if ((System.currentTimeMillis() - millis) >=MPT && ticks < mTPS){
+                    	millis=System.currentTimeMillis();
+                    	
+                    	mA.procesarMovimiento();
+                    	
+                    	
+                    }
 
                     for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
                         Socket tempSocket = this.listaDeConexiones.get(x);

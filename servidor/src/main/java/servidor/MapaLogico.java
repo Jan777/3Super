@@ -1,6 +1,7 @@
 package servidor;
 
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -10,7 +11,7 @@ import java.util.Random;
 import output.Sprite;
 
 // Aunque se puede usar por si misma, la idea es heredar de mapa logico. Esta clase sirve para saber si  cada celda esta ocupada o no.
-public abstract class MapaLogico extends Observable {
+public abstract class MapaLogico extends Observable implements Serializable {
 	protected int w,h;
 	protected  Random rnd;
 	protected double razon=0.5;
