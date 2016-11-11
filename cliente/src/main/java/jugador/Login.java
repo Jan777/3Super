@@ -89,8 +89,7 @@ public class Login extends JFrame {
 		contentPane.add(campo_contra);
 		
 		JButton botonlogin = new JButton("Entrar");
-		botonlogin.addMouseListener(new MouseAdapter() {
-		});
+	
 		botonlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -107,8 +106,8 @@ public class Login extends JFrame {
 		            System.out.println("Te conectaste a: " + server);
 					
 			        ObjectMapper mapper = new ObjectMapper();
-					//Scanner sc = new Scanner(System.in);
-					//Scanner input = new Scanner(socket.getInputStream());
+					Scanner sc = new Scanner(System.in);
+//					Scanner input = new Scanner(socket.getInputStream());
 
 		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
 		            String jsonInString = mapper.writeValueAsString(user);
@@ -122,11 +121,14 @@ public class Login extends JFrame {
 		            System.out.println("Creando thread");
 		            thread.start();
 		            
-		            this.wait(10);
+		           
 
 		            
 		            //Leo la informacion que vuelve del servidor
-		            Scanner input = new Scanner(socket.getInputStream());
+		            Scanner input;
+		            do
+		            { input = new Scanner(socket.getInputStream()); }
+		            while (input.hasNext()==false);
 					String in = input.nextLine();
 					user = mapper.readValue(in, User.class);
 					System.out.println("La re accion: "+user.getAccion());

@@ -52,6 +52,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		            String jsonInString = mapper.writeValueAsString(userAEnviar);
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
+		           
 		            out.flush();
 		            System.out.println("Pase parte");
 					//mando array con mundos
@@ -59,8 +60,11 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 					///CREO THERAD SEGUN EL MUNDO
 					
 		            Scanner sc2;
+		            System.out.println("entrando al contructor");
 					sc2 = new Scanner(socket.getInputStream());
-					//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 
+					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+					//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 	
+//					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
 					String input2 = sc2.nextLine();
 					User user2 = mapper.readValue(input2, User.class);
 					String accion2 = user2.getAccion() ;
@@ -93,6 +97,8 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			                 }
 						
 					}
+		            else
+		            	System.out.println("Se ha desconectado: " + user2.getNombre());
 		            
 				}
 				else {

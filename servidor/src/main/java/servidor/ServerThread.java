@@ -83,7 +83,7 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
                         Socket tempSocket = this.listaDeConexiones.get(x);
                         PrintWriter tempOut = new PrintWriter(tempSocket.getOutputStream()); // OBTENGO EL CANAL DE SALIDA PARA ENVIARLE EL MENSAJE A EL SOCKET
                         for (String m : mensajes){
-                        tempOut.println(this.nickName + ": " + m); // ENVIA EL MENSAJE
+                        tempOut.println(this.nickName + ": " + this.mensaje); // ENVIA EL MENSAJE
                         tempOut.flush();} // LIMPIO EL BUFFER DE SALIDA
                         System.out.println("mensaje enviado a: " + tempSocket.getLocalAddress().getHostName());
                     }
