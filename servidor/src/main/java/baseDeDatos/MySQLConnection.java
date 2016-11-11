@@ -1,6 +1,8 @@
 package baseDeDatos;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
@@ -72,22 +74,70 @@ public class MySQLConnection {
 	}
 	
 	
-	public static void main(String[] args) throws SQLException {
+	
+	public void consultar(String sql){
+			//Establecer Conexion. 
+		MySQLConnection conexionBD = new MySQLConnection();
+		conexionBD.getConnection();
+		ResultSet rs = null;
+		try {
+				java.sql.Statement s = conexionBD.conn.createStatement(); 
+				rs = s.executeQuery(sql); 
+				while (rs.next()) 
+					{ 
+					    System.out.println ("Usuario: " + rs.getString(1) + " / Contraseña: " + rs.getString(2)); 
+					}
+					
+			}catch(SQLException ex){
+				JOptionPane.showMessageDialog(null, "No logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "No Logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
+			} 
+	}
+	
+	public void registrarse (String sql){
 		
 		MySQLConnection conexionBD = new MySQLConnection();
 		conexionBD.getConnection();
-
+		Statement sentencia = null;
 		
-		
-		java.sql.Statement s = conexionBD.conn.createStatement(); 
-		ResultSet rs = s.executeQuery ("select * from usuarios");
-
-		
-		// Recorremos el resultado, mientras haya registros para leer, y escribimos el resultado en pantalla. 
-		while (rs.next()) 
-		{ 
-		    System.out.println ("Usuario: " + rs.getString(1) + " / Contraseña: " + rs.getString(2)); 
+		try {
+			java.sql.Statement s = conexionBD.conn.createStatement(); 
+			sentencia.execute(sql);
+			System.out.println("Se inserto correctamente");
 		}
+		catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
+		} 
+		
+	}
+		
+		
+	
+	
+	
+	public static void main(String[] args) throws SQLException {
+		
+		
+		MySQLConnection conexionBD = new MySQLConnection();
+		//conexionBD.consultar("select * from usuarios");
+		conexionBD.registrarse("INSERT INTO usuarios(usuario,contraseña)" + "VALUES('pepe',\"12345\")");
+		
+//		MySQLConnection conexionBD = new MySQLConnection();
+//		conexionBD.getConnection();
+//		java.sql.Statement s = conexionBD.conn.createStatement(); 
+//		ResultSet rs = s.executeQuery ("select * from usuarios");
+//		// Recorremos el resultado, mientras haya registros para leer, y escribimos el resultado en pantalla. 
+//		while (rs.next()) 
+//		{ 
+//		    System.out.println ("Usuario: " + rs.getString(1) + " / Contraseña: " + rs.getString(2)); 
+//		}
+//		
+//		
 		
 		//conn = MySQLConnection.getConnection();
 	}
