@@ -126,9 +126,11 @@ public class Login extends JFrame {
 		            
 		            //Leo la informacion que vuelve del servidor
 		            Scanner input;
-		            do
-		            { input = new Scanner(socket.getInputStream()); }
-		            while (input.hasNext()==false);
+		            do{ 
+		            	input = new Scanner(socket.getInputStream());
+		            	
+		            }while (input.hasNext()==false);
+		            
 					String in = input.nextLine();
 					user = mapper.readValue(in, User.class);
 					System.out.println("La re accion: "+user.getAccion());

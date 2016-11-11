@@ -74,32 +74,6 @@ public class MySQLConnection {
 		}
 	}
 	
-	
-	
-	public void consultar(String sql){
-			//Establecer Conexion. 
-		MySQLConnection conexionBD = new MySQLConnection();
-		conexionBD.getConnection();
-		ResultSet rs = null;
-		try {
-				java.sql.Statement s = conexionBD.conn.createStatement(); 
-				rs = s.executeQuery(sql); 
-				while (rs.next()) 
-					{ 
-					    System.out.println ("Usuario: " + rs.getString(1) + " / Contraseña: " + rs.getString(2)); 
-					}
-					
-			}catch(SQLException ex){
-				JOptionPane.showMessageDialog(null, "No logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
-			}catch(Exception e){
-				JOptionPane.showMessageDialog(null, "No Logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
-			}
-		finally {
-			conexionBD.close();
-		}
-		;
-	}
-	
 	public static int registrarse (String usuario, String password) throws SQLException{
 		
 		
@@ -110,7 +84,6 @@ public class MySQLConnection {
 			
 			
 			java.sql.Statement s = conn.createStatement(); 
-			//sentencia.execute("INSERT INTO usuarios(usuario,contraseña)" + "VALUES(\""+usuario+"\",\""+password+"\")");
 			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\""+usuario+"\",\""+password+"\")";
 			s.execute(query);
 			
@@ -133,29 +106,106 @@ public class MySQLConnection {
 	}
 		
 		
+	private static int verificarExistenciaUsuario(String usuario) throws SQLException {
+		
+		Connection conn = getConnection();
+		sentencia = null;
+		boolean respuesta = false;
+		
+		try {
+			
+			java.sql.Statement s = conn.createStatement(); 
+			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+ "\"";
+			ResultSet rs = s.executeQuery(query);
+			
+			while(rs.next()){
+				respuesta = true;
+			}
+			if(respuesta == true){
+				System.out.println("Usuario existente");
+				conn.close();
+				return 1;
+			}
+			else{
+				System.out.println("Usuario Inexistente");
+				conn.close();
+				return 0;
+			}
+		
+			
+		}
+		catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			conn.close();
+			return 0;
+		}
+		
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			conn.close();
+			return 0;
+		}
+		
+		
+	}
 	
-	
+	private static int verificarUserYPassword(String usuario, String password) throws SQLException {
+		
+		Connection conn = getConnection();
+		sentencia = null;
+		boolean respuesta = false;
+		
+		try {
+			
+			java.sql.Statement s = conn.createStatement(); 
+			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+"\" and contraseña = \""+password+"\"";
+			ResultSet rs = s.executeQuery(query);
+			
+			while(rs.next()){
+				respuesta = true;
+			}
+			if(respuesta == true){
+				System.out.println("Acceso Permitido");
+				conn.close();
+				return 1;
+			}
+			else{
+				System.out.println("Acceso Denegado");
+				conn.close();
+				return 0;
+			}
+		
+			
+		}
+		catch(SQLException ex){
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			conn.close();
+			return 0;
+		}
+		
+		catch(Exception e){
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			conn.close();
+			return 0;
+		}
+		
+	}
 	
 	public static void main(String[] args) throws SQLException {
 		
 		
 		
 		//conexionBD.consultar("select * from usuarios");
-		registrarse("jorge","contra");
+		//registrarse("jorge","contragfg");
 		
-//		MySQLConnection conexionBD = new MySQLConnection();
-//		conexionBD.getConnection();
-//		java.sql.Statement s = conexionBD.conn.createStatement(); 
-//		ResultSet rs = s.executeQuery ("select * from usuarios");
-//		// Recorremos el resultado, mientras haya registros para leer, y escribimos el resultado en pantalla. 
-//		while (rs.next()) 
-//		{ 
-//		    System.out.println ("Usuario: " + rs.getString(1) + " / Contraseña: " + rs.getString(2)); 
-//		}
-//		
-//		
 		
-		//conn = MySQLConnection.getConnection();
+		
+		verificarUserYPassword("ivan","12345");
+		verificarExistenciaUsuario("jorge");
 	}
+
+	
+
+
 	
 }
