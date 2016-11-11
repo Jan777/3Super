@@ -119,7 +119,11 @@ public class Login extends JFrame {
 
 		            ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
+		            System.out.println("Creando thread");
 		            thread.start();
+		            
+		            this.wait(10);
+
 		            
 		            //Leo la informacion que vuelve del servidor
 		            Scanner input = new Scanner(socket.getInputStream());

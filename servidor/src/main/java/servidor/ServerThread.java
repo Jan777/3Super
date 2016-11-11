@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Queue;
 import java.util.Scanner;
 
-public class ServerThread implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
+public class ServerThread implements Runnable, Observer {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
     Scanner input;
     String mensaje = "";
+    ArrayList<String> mensajes= new ArrayList<String>();
     ArrayList<Socket> listaDeConexiones = new ArrayList<>();
     String nickName;
     final int mTPS=30;
@@ -38,7 +42,12 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
 
-        try {
+    	MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
+        MapaAlianza mA= new MapaAlianza("Alianza1");
+        mA.RegistrarAlianza(this);
+        
+    	
+    	try {
             this.input = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
 
             
@@ -47,42 +56,35 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                         return;
                     }
                 }
-            MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
-            MapaAlianza mA= new MapaAlianza("humanos");
-/*******
- *  A partir de aca iria el setup inicial.
- *  Se tiene que enviar los mapas logicos al cliente para que su output pueda a�adir los layers
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
-            	
+            
+
                 
             long millis = System.currentTimeMillis();
-            while (true) {
+            while (true) { 
             	
 
-                    this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
-                    System.out.println(this.nickName + " dice: " + this.mensaje);
-                    
-                    if ((System.currentTimeMillis() - millis) >=MPT && ticks < mTPS){
+                   if ((System.currentTimeMillis() - millis) >=MPT && ticks <= mTPS){
                     	millis=System.currentTimeMillis();
                     	
-                    	mA.procesarMovimiento();
+                    	mA.procesar();
+                    	
+                    	if (++ticks > mTPS)
+                    		ticks=0;
                     	
                     	
                     }
+                                     
+                    this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
+                    System.out.println(this.nickName + " dice: " + this.mensaje);
+                    
+   
 
                     for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
                         Socket tempSocket = this.listaDeConexiones.get(x);
                         PrintWriter tempOut = new PrintWriter(tempSocket.getOutputStream()); // OBTENGO EL CANAL DE SALIDA PARA ENVIARLE EL MENSAJE A EL SOCKET
-                        tempOut.println(this.nickName + ": " + this.mensaje); // ENVIA EL MENSAJE
-                        tempOut.flush(); // LIMPIO EL BUFFER DE SALIDA
+                        for (String m : mensajes){
+                        tempOut.println(this.nickName + ": " + m); // ENVIA EL MENSAJE
+                        tempOut.flush();} // LIMPIO EL BUFFER DE SALIDA
                         System.out.println("mensaje enviado a: " + tempSocket.getLocalAddress().getHostName());
                     }
                 }
@@ -93,5 +95,11 @@ public class ServerThread implements Runnable {// The Runnable interface should 
         }
 
     }
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		
+		mensajes.add(arg0.getClass().toString() + "cambio su estado");
+		
+	}
 
 }

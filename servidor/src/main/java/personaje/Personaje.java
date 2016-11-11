@@ -1,10 +1,11 @@
 package personaje;
 
 import java.awt.Point;
+import java.util.Observable;
 
 import output.Sprite;
 
-public abstract class Personaje implements Atacable, IamMovil {
+public abstract class Personaje extends Observable implements Atacable, IamMovil {
 	protected String nombre;
 	protected int salud=100;
 	protected int energia=50;
@@ -29,6 +30,7 @@ public abstract class Personaje implements Atacable, IamMovil {
 	protected Point pos;
 	protected Point vel;
 	protected Point acc;
+	
 	
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
@@ -169,8 +171,19 @@ public abstract class Personaje implements Atacable, IamMovil {
 	public void mover(){
 		this.pos=this.vel;
 		this.vel.setLocation(vel.getX()+acc.getX(), vel.getY()+acc.getY());
+		this.actualizar();
 		}
 	public Point procMovimiento(){ mover(); return this.pos;}
+	private void actualizar(){
+		if (this.hasChanged())
+			this.notifyObservers();
+		this.clearChanged();
+	}
+	public void step(){
+		mover();
+//		actuar()
+		actualizar();
+	}
 	
 	
 }
