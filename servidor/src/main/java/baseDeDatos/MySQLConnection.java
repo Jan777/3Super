@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 public class MySQLConnection {
 
 	private static Connection conn;
+	private static Statement sentencia;
 	
 	
 	private MySQLConnection() {
@@ -92,27 +93,42 @@ public class MySQLConnection {
 				JOptionPane.showMessageDialog(null, "No logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
 			}catch(Exception e){
 				JOptionPane.showMessageDialog(null, "No Logro ejecutar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
-			} 
+			}
+		finally {
+			conexionBD.close();
+		}
+		;
 	}
 	
-	public void registrarse (String sql){
+	public static int registrarse (String usuario, String password) throws SQLException{
 		
-		MySQLConnection conexionBD = new MySQLConnection();
-		conexionBD.getConnection();
-		Statement sentencia = null;
+		
+		Connection conn = getConnection();
+		sentencia = null;
 		
 		try {
-			java.sql.Statement s = conexionBD.conn.createStatement(); 
-			sentencia.execute(sql);
+			
+			
+			java.sql.Statement s = conn.createStatement(); 
+			//sentencia.execute("INSERT INTO usuarios(usuario,contraseña)" + "VALUES(\""+usuario+"\",\""+password+"\")");
+			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\""+usuario+"\",\""+password+"\")";
+			s.execute(query);
+			
 			System.out.println("Se inserto correctamente");
+			return 1;
 		}
 		catch(SQLException ex){
 			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
+			return 0;
 		}
 		
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
-		} 
+			return 0;
+		}
+		finally {
+			conn.close();
+		}
 		
 	}
 		
@@ -123,9 +139,9 @@ public class MySQLConnection {
 	public static void main(String[] args) throws SQLException {
 		
 		
-		MySQLConnection conexionBD = new MySQLConnection();
+		
 		//conexionBD.consultar("select * from usuarios");
-		conexionBD.registrarse("INSERT INTO usuarios(usuario,contraseña)" + "VALUES('pepe',\"12345\")");
+		registrarse("jorge","contra");
 		
 //		MySQLConnection conexionBD = new MySQLConnection();
 //		conexionBD.getConnection();
