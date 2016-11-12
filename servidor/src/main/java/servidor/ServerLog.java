@@ -2,11 +2,13 @@ package servidor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import baseDeDatos.MySQLConnection;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import baseDeDatos.MySQLConnection;
 import comun.User;
 
 public class ServerLog implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
@@ -15,9 +17,9 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
     String mensaje = "";
     public  ArrayList<Socket> listaDeConexionesMundo1 = new ArrayList<>();
     public  ArrayList<Socket> listaDeConexionesMundo2 = new ArrayList<>();
-    String nickName;
     ObjectMapper mapper = new ObjectMapper();
-
+    public MySQLConnection mySQLCon;
+    
     //CONSTRUCTOR DEL CHAT
     public ServerLog(Socket socket, ArrayList<Socket> listaDeConexionesMundo1,ArrayList<Socket> listaDeConexionesMundo2) {
         this.socket = socket;
@@ -45,8 +47,18 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				String passEnviada = user.getPass() ;
 				System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
 				//Comprobar en Base de DATOS
-				if(userEnviado.equals("ivan"))
+				
+				//////////CONEXION CON LA BASE DE DATOS////////////
+				mySQLCon = new MySQLConnection();
+				mySQLCon.getConnection();
+
+				///////////////////////////////////////////////////
+				
+				
+				if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
 				{
+					
+					mySQLCon.close(); //CIERRO LA CONEXIÓN
 					System.out.println("Entro con usuario correcto(?)");
 				    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundo1,this.listaDeConexionesMundo2,0);
 		            String jsonInString = mapper.writeValueAsString(userAEnviar);
@@ -126,7 +138,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			//ServerThread chat;
 			
 			
-		} catch (IOException e) {
+		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -14,13 +14,13 @@ import java.sql.ResultSet;
 public class MySQLConnection {
 
 	private static Connection conn;
-	private static Statement sentencia;
+	private static java.sql.Statement sentencia;
 	
 	
-	private MySQLConnection() {
+	public MySQLConnection() {
 	}
 	
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		try {
 			if(conn == null) {	
 				String driver="com.mysql.jdbc.Driver"; //el driver varia segun la BD que usemos
@@ -63,7 +63,7 @@ public class MySQLConnection {
 		return conn;
 	}
 	
-	public static void close() {
+	public void close() {
 		try {
 			if(conn != null) {
 				conn.close();
@@ -82,9 +82,9 @@ public class MySQLConnection {
 		
 		try {
 			
-			java.sql.Statement s = conn.createStatement(); 
+			sentencia = conn.createStatement(); 
 			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\""+usuario+"\",\""+password+"\")";
-			s.execute(query);
+			sentencia.execute(query);
 			
 			System.out.println("Se inserto correctamente");
 			return 1;
@@ -111,9 +111,9 @@ public class MySQLConnection {
 		
 		try {
 			
-			java.sql.Statement s = conn.createStatement(); 
+			sentencia = conn.createStatement(); 
 			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+ "\"";
-			ResultSet rs = s.executeQuery(query);
+			ResultSet rs = sentencia.executeQuery(query);
 			
 			while(rs.next()){
 				respuesta = true;
@@ -150,9 +150,9 @@ public class MySQLConnection {
 		
 		try {
 			
-			java.sql.Statement s = conn.createStatement(); 
+			sentencia = conn.createStatement(); 
 			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+"\" and contraseña = \""+password+"\"";
-			ResultSet rs = s.executeQuery(query);
+			ResultSet rs = sentencia.executeQuery(query);
 			
 			while(rs.next()){
 				respuesta = true;
@@ -170,13 +170,11 @@ public class MySQLConnection {
 		}
 		catch(SQLException ex){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
-			conn.close();
 			return 0;
 		}
 		
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
-			conn.close();
 			return 0;
 		}
 		
@@ -185,10 +183,10 @@ public class MySQLConnection {
 	public static void main(String[] args) throws SQLException {
 		
 		MySQLConnection mySQLCon = new MySQLConnection();
-		mySQLCon.conn = getConnection();
+		mySQLCon.getConnection();
 		
 		//conexionBD.consultar("select * from usuarios");
-		mySQLCon.registrarse("jorge67","contragfg");
+		//mySQLCon.registrarse("jorge67","contragfg");
 		
 		
 		mySQLCon.verificarUserYPassword("ivan","12345");
