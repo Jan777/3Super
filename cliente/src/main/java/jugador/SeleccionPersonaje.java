@@ -109,7 +109,7 @@ public class SeleccionPersonaje extends JFrame {
 	            	
 				user2.setAccion("entrarAMundo");
 		        String jsonInString;
-		        
+	            System.out.println("paso case1");
 				try {
 					//Le envio al servidor la informacion del mundo al que quiere entrar el usuario
 		            
@@ -117,11 +117,11 @@ public class SeleccionPersonaje extends JFrame {
 					PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 					out.println(jsonInString);
 					out.flush();
-
+					System.out.println("paso case2");
 					ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
-		            System.out.println("Accion en Select Personaje: "+ user2.getAccion());
+		            System.out.println("paso case3: "+ user2.getAccion());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -154,9 +154,9 @@ public class SeleccionPersonaje extends JFrame {
 	        		 PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 	        		 out.println(jsonInString);
 	        		 out.flush();
-	        		 socket.close();
-	        		 System.exit(0);
-					
+					socket.close();
+					System.exit(0);
+					//dispose();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

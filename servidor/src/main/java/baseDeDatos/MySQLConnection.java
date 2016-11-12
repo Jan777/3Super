@@ -81,7 +81,7 @@ public class MySQLConnection {
 		sentencia = null;
 		
 		try {
-			
+			System.out.println("Me Registro?");
 			sentencia = conn.createStatement(); 
 			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\""+usuario+"\",\""+password+"\")";
 			sentencia.execute(query);
@@ -98,7 +98,6 @@ public class MySQLConnection {
 			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
-		
 		
 	}
 		

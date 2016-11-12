@@ -50,7 +50,7 @@ public class ClientThread implements Runnable {
     }
 
     public void desconectar() throws Exception {
-
+        this.out.println(" se ha retirado de la sala");
         this.out.flush();
         this.socket.close();
         System.exit(0);

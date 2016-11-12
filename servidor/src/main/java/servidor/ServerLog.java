@@ -6,6 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import baseDeDatos.MySQLConnection;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import baseDeDatos.MySQLConnection;
@@ -43,103 +47,27 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			if(accion.compareTo("login")==0)
 			{
 				
-				String userEnviado = user.getNombre() ;
-				String passEnviada = user.getPass() ;
-				System.out.println("Llega el usuario con la accion: "+userEnviado+","+user.getAccion());
-				//Comprobar en Base de DATOS
-				
-				//////////CONEXION CON LA BASE DE DATOS////////////
-				mySQLCon = new MySQLConnection();
-				mySQLCon.getConnection();
-
-				///////////////////////////////////////////////////
-				
-				
-				if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
-				{
-					
-					mySQLCon.close(); //CIERRO LA CONEXIÓN
-					
-				    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundo1,this.listaDeConexionesMundo2,0);
-		            String jsonInString = mapper.writeValueAsString(userAEnviar);
-		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
-		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
-		            out.flush();
-
-					//mando array con mundos
-		                      
-					///CREO THERAD SEGUN EL MUNDO
-					
-		            Scanner sc2;
-					sc2 = new Scanner(socket.getInputStream());
-					 if (sc2.hasNextLine()) 
-						 System.out.println("sc2ok"); 
-					 else 
-						 System.out.println("sc2mal");
-					 	
-					
-					String input2 = sc2.nextLine();
-					User user2 = mapper.readValue(input2, User.class);
-					String accion2 = user2.getAccion() ;
-		            System.out.println(accion2);
-		            
-		            if(accion2.compareTo("oprimioCerrar")==0){
-		            	System.out.println("Se ha desconectado: " + user2.getNombre());
-		            	out.close();
-		                
-		            	socket.close();
-		            }
-		            
-		            if(accion2.compareTo("entrarAMundo")==0){
-						
-						ServerThread partida;
-						int mundoSeleccionado = user2.getMundoSelec();
-						 switch (mundoSeleccionado) {
-			             case 1:
-			            	 System.out.println("Entre al mundo Fisico");
-			            	 listaDeConexionesMundo1.add(socket);
-			            	 partida = new ServerThread(socket, listaDeConexionesMundo1, user2.getNombre());
-			                 Thread nuevoProcesoParalelo1 = new Thread(partida);
-			                 nuevoProcesoParalelo1.start();
-			                 break;
-			             case 2:
-			            	 System.out.println("Entre al mundo Enlace de Datos");
-			            	 listaDeConexionesMundo2.add(socket);
-			                 partida = new ServerThread(socket, listaDeConexionesMundo2, user2.getNombre());
-			                 Thread nuevoProcesoParalelo2 = new Thread(partida);
-			                 nuevoProcesoParalelo2.start();
-			                 break;
-			             default:
-			                 break;
-			                 }
-						
-					}
-		            else{
-		            	System.out.println("Se ha desconectado: " + user2.getNombre());
-		            	
-		            	socket.close();
-		            }
-		            
-				}
-				else {
-					User userAEnviar = new User(null, null, "error", null,null, 0);
-					
-					String jsonInString = mapper.writeValueAsString(userAEnviar);
-
-					PrintWriter out = new PrintWriter(socket.getOutputStream()); 
-					out.println(jsonInString); 
-
-					out.flush();
-				}
+				login(user);
 				
 			}
 			
 			
-			if(accion=="registrar")
+			if(accion.compareTo("registrar")==0)
 			{
 				String userEnviado = user.getNombre() ;
 				String passEnviada= user.getPass() ;
 				//agregar en base de datos en Base de DATOS
+				mySQLCon = new MySQLConnection();
+				mySQLCon.getConnection();
+				if(mySQLCon.registrarse(userEnviado, passEnviada)==1)
+					{
+					mySQLCon.close();
+					login(user);
+					}
+				else
+				{
+					System.out.println("Error al registrar");
+				}
 				
 			}
 			
@@ -160,6 +88,90 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
         
 */
     }
+
+	private void login(User user)
+			throws SQLException, IOException, JsonGenerationException, JsonMappingException, JsonParseException {
+		String userEnviado = user.getNombre() ;
+		String passEnviada = user.getPass() ;
+		System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
+		//Comprobar en Base de DATOS
+		
+		//////////CONEXION CON LA BASE DE DATOS////////////
+		mySQLCon = new MySQLConnection();
+		mySQLCon.getConnection();
+
+		///////////////////////////////////////////////////
+		
+		
+		if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
+		{
+			
+			mySQLCon.close(); //CIERRO LA CONEXIÓN
+			System.out.println("Entro con usuario correcto(?)");
+		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundo1,this.listaDeConexionesMundo2,0);
+		    String jsonInString = mapper.writeValueAsString(userAEnviar);
+		    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+		    out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
+		   
+		    out.flush();
+		    System.out.println("Pase parte");
+			//mando array con mundos
+		              
+			///CREO THERAD SEGUN EL MUNDO
+			
+		    Scanner sc2;
+		    System.out.println("entrando al contructor");
+			sc2 = new Scanner(socket.getInputStream());
+			 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+			//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 	
+//					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+			String input2 = sc2.nextLine();
+			User user2 = mapper.readValue(input2, User.class);
+			String accion2 = user2.getAccion() ;
+		    System.out.println(accion2);
+		    if(accion2.compareTo("oprimioCerrar")==0){
+		    	System.out.println("Se ha desconectado: " + user2.getNombre());
+		    }
+		    
+		    if(accion2.compareTo("entrarAMundo")==0){
+				
+				ServerThread partida;
+				int mundoSeleccionado = user2.getMundoSelec();
+				 switch (mundoSeleccionado) {
+		         case 1:
+		        	 System.out.println("Entre al mundo Fisico");
+		        	 listaDeConexionesMundo1.add(socket);
+		        	 partida = new ServerThread(socket, listaDeConexionesMundo1, user2.getNombre());
+		             Thread nuevoProcesoParalelo1 = new Thread(partida);
+		             nuevoProcesoParalelo1.start();
+		             break;
+		         case 2:
+		        	 System.out.println("Entre al mundo Enlace de Datos");
+		        	 listaDeConexionesMundo2.add(socket);
+		             partida = new ServerThread(socket, listaDeConexionesMundo2, user2.getNombre());
+		             Thread nuevoProcesoParalelo2 = new Thread(partida);
+		             nuevoProcesoParalelo2.start();
+		             break;
+		         default:
+		             break;
+		             }
+				
+			}
+		    else
+		    	System.out.println("Se ha desconectado: " + user2.getNombre());
+		    
+		}
+		else {
+			User userAEnviar = new User(null, null, "error", null,null, 0);
+			
+			String jsonInString = mapper.writeValueAsString(userAEnviar);
+
+			PrintWriter out = new PrintWriter(socket.getOutputStream()); 
+			out.println(jsonInString); 
+
+			out.flush();
+		}
+	}
     
 
 }
