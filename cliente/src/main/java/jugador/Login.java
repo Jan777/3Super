@@ -94,11 +94,9 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-				
 				String password = new String(campo_contra.getPassword());
 				//Socket socket;
 				
-				//////////////
 				try {
 					final int PORT = 4445;
 					String server = "127.0.0.1";
