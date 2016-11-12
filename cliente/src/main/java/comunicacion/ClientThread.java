@@ -1,18 +1,29 @@
 package comunicacion;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import logica.MapaLogico;
 
 
 public class ClientThread implements Runnable {
     private Socket socket;
     private Scanner sc;
     private PrintWriter out;
+    private ArrayList<MapaLogico> listaml= new ArrayList<MapaLogico>();
+    private ObjectMapper mapper= new ObjectMapper();
 
     public ClientThread(Socket socket) {
         this.socket = socket;
+        inicializar();
     }
 
     @Override
@@ -54,5 +65,29 @@ public class ClientThread implements Runnable {
         this.out.flush();
         this.socket.close();
         System.exit(0);
+    }
+    
+    public void inicializar (){
+    	do{
+//    		String mapainjason= sc.nextLine();
+    		try {
+				listaml.add(mapper.readValue(sc.nextLine(), MapaLogico.class));
+			} catch (JsonParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    	}while (this.sc.hasNext());
+    }
+    public ArrayList<MapaLogico> getML (){
+    
+    	if (listaml.isEmpty()) return null;
+    	return listaml;
     }
 }

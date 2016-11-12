@@ -30,6 +30,8 @@ public class SeleccionPersonaje extends JFrame {
 	 */
 	private static final long serialVersionUID = -2726214439028001680L;
 	private JPanel contentPane;
+	ClientThread newClient;
+	Mapa newMapa;
 
 	
 	/**
@@ -109,7 +111,7 @@ public class SeleccionPersonaje extends JFrame {
 	            	
 				user2.setAccion("entrarAMundo");
 		        String jsonInString;
-	            System.out.println("paso case1");
+	            System.out.println("paso 1");
 				try {
 					//Le envio al servidor la informacion del mundo al que quiere entrar el usuario
 		            
@@ -117,11 +119,18 @@ public class SeleccionPersonaje extends JFrame {
 					PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 					out.println(jsonInString);
 					out.flush();
-					System.out.println("paso case2");
-					ClientThread newClient = new ClientThread(socket);
+					System.out.println("paso 2");
+			
+					newClient = new ClientThread(socket);  //el rpocesamiento de graficos y de logica son independientes
 		            Thread thread = new Thread(newClient);
 		            thread.start();
-		            System.out.println("paso case3: "+ user2.getAccion());
+		         
+		            newMapa = new Mapa(newClient);
+		            thread = new Thread(newMapa);
+		            thread.start();
+		          
+		            System.out.println("paso 3: "+ user2.getAccion());
+		            
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -129,7 +138,7 @@ public class SeleccionPersonaje extends JFrame {
 				}
 				
 				
-					Mapa mapa = new Mapa();
+					Mapa mapa = new Mapa(newClient);
 					mapa.setVisible(true);
 					dispose();
 	             // LE ENVIO EL MENSAJE DE SALA Y NICKNAME

@@ -1,6 +1,7 @@
-package jugador;
+package output;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
@@ -11,43 +12,30 @@ import javax.swing.JLabel;
 
 public class Sprite extends JLabel {
 	
-//	JLabel img;
-	
 	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1776399298201431777L;
+	private static final long serialVersionUID = -7857480321636215710L;
 
-	Sprite(String path) 
-	{
-	
+	public Sprite(String path) {
 		super(new ImageIcon(path));
-		
+		}
 	
-		
-		
-	}
-	
-	Sprite() 
-	{
+	public Sprite() {
 		super();
-		super.setIcon(new ImageIcon("bin/E.gif"));
-		
-//		super.setPreferredSize(new Dimension(32,32));
+		super.setIcon(new ImageIcon("bin/tiletest.png"));	
 	}
 	
 	public void setpos(int x, int y){
 		
 		this.setBounds(x, y, 32, 32);
 		super.setVisible(true);
-		
 	}
 	
 
 	
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g){
 		draw((Graphics2D)g, this.getWidth(),this.getHeight());
 		
 	}
@@ -57,5 +45,15 @@ public class Sprite extends JLabel {
 		g2.setColor(Color.black);
 		super.repaint();
 	}
+	
+	public void printSprite(Component c, Graphics2D g){
+		this.getIcon().paintIcon(c, g, this.getX(), this.getY());
+	}
+//	public void printSprite(Component c, Graphics2D g, int idx)
+//	{
+//		this.get
+//		this.getIcon().paintIcon(c, g, this.getX(), this.getY());
+////		g.drawString(this.getBounds().toString(), 50, 50);
+//	}
 
 }
