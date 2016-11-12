@@ -5,7 +5,9 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import baseDeDatos.MySQLConnection;
+import baseDeDatos.SQLiteJDBC;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
@@ -21,7 +23,8 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
     public  ArrayList<Socket> listaDeConexionesMundoFisico = new ArrayList<>();
     public  ArrayList<Socket> listaDeConexionesMundoEnlace = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
-    public MySQLConnection mySQLCon;
+    public SQLiteJDBC mySQLCon;
+    
     
 
     public ServerLog(Socket socket, ArrayList<Socket> listaDeConexionesMundo1,ArrayList<Socket> listaDeConexionesMundo2) {
@@ -39,7 +42,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			String input = sc.nextLine();
 			User user = mapper.readValue(input, User.class);
 			String accion = user.getAccion() ;
-			
+			mySQLCon = new SQLiteJDBC();
 			
 			//Si el cliente toca ingresar
 			if(accion.compareTo("login")==0)
@@ -55,7 +58,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				
 				
 				//////////CONEXION CON LA BASE DE DATOS////////////
-				mySQLCon = new MySQLConnection();
+				mySQLCon = new SQLiteJDBC();
 				mySQLCon.getConnection();
 				//////////////////////////////////////////////////
 				
@@ -88,10 +91,10 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		String userEnviado = user.getNombre() ;
 		String passEnviada = user.getPass() ;
 		System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
-		//Comprobar en Base de DATOS
+
 		
 		//////////CONEXION CON LA BASE DE DATOS////////////
-		mySQLCon = new MySQLConnection();
+		mySQLCon = new SQLiteJDBC();
 		mySQLCon.getConnection();
 		///////////////////////////////////////////////////
 		
@@ -105,7 +108,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundoFisico,this.listaDeConexionesMundoEnlace,0);
 		    String jsonInString = mapper.writeValueAsString(userAEnviar);
 		    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
-		    out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
+		    out.println(jsonInString); 
 		    out.flush();
 
 			//mando array con mundos
@@ -113,7 +116,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			///CREO THERAD SEGUN EL MUNDO
 			
 		    Scanner sc2;
-
 			sc2 = new Scanner(socket.getInputStream());
 			 if (sc2.hasNextLine()) 
 				 System.out.println("sc2ok"); 
@@ -124,6 +126,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			User user2 = mapper.readValue(input2, User.class);
 			String accion2 = user2.getAccion() ;
 		    System.out.println(accion2);
+		    
 		    
 		    if(accion2.compareTo("oprimioCerrar")==0){
 		    	System.out.println("Se ha desconectado: " + user2.getNombre());
