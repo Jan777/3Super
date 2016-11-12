@@ -18,18 +18,17 @@ import comun.User;
 public class ServerLog implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
     Scanner input;
-    String mensaje = "";
-    public  ArrayList<Socket> listaDeConexionesMundo1 = new ArrayList<>();
-    public  ArrayList<Socket> listaDeConexionesMundo2 = new ArrayList<>();
+    public  ArrayList<Socket> listaDeConexionesMundoFisico = new ArrayList<>();
+    public  ArrayList<Socket> listaDeConexionesMundoEnlace = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
     public MySQLConnection mySQLCon;
     
-    //CONSTRUCTOR DEL CHAT
+
     public ServerLog(Socket socket, ArrayList<Socket> listaDeConexionesMundo1,ArrayList<Socket> listaDeConexionesMundo2) {
         this.socket = socket;
-        this.listaDeConexionesMundo1=listaDeConexionesMundo1;
-        this.listaDeConexionesMundo2=listaDeConexionesMundo2;
-       // this.nickName = alias;
+        this.listaDeConexionesMundoFisico=listaDeConexionesMundo1;
+        this.listaDeConexionesMundoEnlace=listaDeConexionesMundo2;
+
     }
 
     @Override
@@ -37,33 +36,35 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		try {
 			Scanner sc;
 			sc = new Scanner(socket.getInputStream());
-			System.out.println("Entree1");
-			//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 
 			String input = sc.nextLine();
 			User user = mapper.readValue(input, User.class);
 			String accion = user.getAccion() ;
 			
 			
+			//Si el cliente toca ingresar
 			if(accion.compareTo("login")==0)
 			{
-				
 				login(user);
-				
 			}
 			
-			
+
 			if(accion.compareTo("registrar")==0)
 			{
 				String userEnviado = user.getNombre() ;
 				String passEnviada= user.getPass() ;
-				//agregar en base de datos en Base de DATOS
+				
+				
+				//////////CONEXION CON LA BASE DE DATOS////////////
 				mySQLCon = new MySQLConnection();
 				mySQLCon.getConnection();
+				//////////////////////////////////////////////////
+				
+				//Registro un nuevo usuario en la Base de Datos
 				if(mySQLCon.registrarse(userEnviado, passEnviada)==1)
-					{
+				{
 					mySQLCon.close();
 					login(user);
-					}
+				}
 				else
 				{
 					System.out.println("Error al registrar");
@@ -80,13 +81,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		}
          
 
-         
-
-        
-      
-         /*
-        
-*/
     }
 
 	private void login(User user)
@@ -99,7 +93,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		//////////CONEXION CON LA BASE DE DATOS////////////
 		mySQLCon = new MySQLConnection();
 		mySQLCon.getConnection();
-
 		///////////////////////////////////////////////////
 		
 		
@@ -107,28 +100,31 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		{
 			
 			mySQLCon.close(); //CIERRO LA CONEXIÓN
-			System.out.println("Entro con usuario correcto(?)");
-		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundo1,this.listaDeConexionesMundo2,0);
+			
+
+		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundoFisico,this.listaDeConexionesMundoEnlace,0);
 		    String jsonInString = mapper.writeValueAsString(userAEnviar);
 		    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		    out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
-		   
 		    out.flush();
-		    System.out.println("Pase parte");
+
 			//mando array con mundos
 		              
 			///CREO THERAD SEGUN EL MUNDO
 			
 		    Scanner sc2;
-		    System.out.println("entrando al contructor");
+
 			sc2 = new Scanner(socket.getInputStream());
-			 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
-			//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 	
-//					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+			 if (sc2.hasNextLine()) 
+				 System.out.println("sc2ok"); 
+			 else 
+				 System.out.println("sc2mal");
+		
 			String input2 = sc2.nextLine();
 			User user2 = mapper.readValue(input2, User.class);
 			String accion2 = user2.getAccion() ;
 		    System.out.println(accion2);
+		    
 		    if(accion2.compareTo("oprimioCerrar")==0){
 		    	System.out.println("Se ha desconectado: " + user2.getNombre());
 		    }
@@ -140,15 +136,15 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				 switch (mundoSeleccionado) {
 		         case 1:
 		        	 System.out.println("Entre al mundo Fisico");
-		        	 listaDeConexionesMundo1.add(socket);
-		        	 partida = new ServerThread(socket, listaDeConexionesMundo1, user2.getNombre());
+		        	 listaDeConexionesMundoFisico.add(socket);
+		        	 partida = new ServerThread(socket, listaDeConexionesMundoFisico, user2.getNombre());
 		             Thread nuevoProcesoParalelo1 = new Thread(partida);
 		             nuevoProcesoParalelo1.start();
 		             break;
 		         case 2:
 		        	 System.out.println("Entre al mundo Enlace de Datos");
-		        	 listaDeConexionesMundo2.add(socket);
-		             partida = new ServerThread(socket, listaDeConexionesMundo2, user2.getNombre());
+		        	 listaDeConexionesMundoEnlace.add(socket);
+		             partida = new ServerThread(socket, listaDeConexionesMundoEnlace, user2.getNombre());
 		             Thread nuevoProcesoParalelo2 = new Thread(partida);
 		             nuevoProcesoParalelo2.start();
 		             break;
@@ -165,10 +161,8 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			User userAEnviar = new User(null, null, "error", null,null, 0);
 			
 			String jsonInString = mapper.writeValueAsString(userAEnviar);
-
 			PrintWriter out = new PrintWriter(socket.getOutputStream()); 
 			out.println(jsonInString); 
-
 			out.flush();
 		}
 	}

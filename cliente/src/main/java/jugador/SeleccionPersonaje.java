@@ -109,7 +109,7 @@ public class SeleccionPersonaje extends JFrame {
 	            	
 				user2.setAccion("entrarAMundo");
 		        String jsonInString;
-	            System.out.println("paso case1");
+
 				try {
 					//Le envio al servidor la informacion del mundo al que quiere entrar el usuario
 		            
@@ -117,11 +117,10 @@ public class SeleccionPersonaje extends JFrame {
 					PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 					out.println(jsonInString);
 					out.flush();
-					System.out.println("paso case2");
 					ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
-		            System.out.println("paso case3: "+ user2.getAccion());
+		            System.out.println("Se ejecuto la acción: "+ user2.getAccion());
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -132,7 +131,6 @@ public class SeleccionPersonaje extends JFrame {
 					Mapa mapa = new Mapa();
 					mapa.setVisible(true);
 					dispose();
-	             // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
 				
 	            
 				
@@ -141,8 +139,8 @@ public class SeleccionPersonaje extends JFrame {
 		btnMapa.setBounds(143, 200, 151, 23);
 		contentPane.add(btnMapa);
 		
-		JButton btnChau = new JButton("Chau"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
-		btnChau.addActionListener(new ActionListener() {
+		JButton btnCerrar = new JButton("Cerrar"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
+		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 								
@@ -164,8 +162,8 @@ public class SeleccionPersonaje extends JFrame {
 				
 			}
 		});
-		btnChau.setBounds(300, 200, 151, 23);
-		contentPane.add(btnChau);
+		btnCerrar.setBounds(300, 200, 151, 23);
+		contentPane.add(btnCerrar);
 
 		
 		

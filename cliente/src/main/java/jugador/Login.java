@@ -95,7 +95,7 @@ public class Login extends JFrame {
 				
 				
 				String password = new String(campo_contra.getPassword());
-				//Socket socket;
+
 				
 				try {
 					final int PORT = 4445;
@@ -105,12 +105,12 @@ public class Login extends JFrame {
 					
 			        ObjectMapper mapper = new ObjectMapper();
 					Scanner sc = new Scanner(System.in);
-//					Scanner input = new Scanner(socket.getInputStream());
+					//Scanner input = new Scanner(socket.getInputStream());
 
 		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
 		            String jsonInString = mapper.writeValueAsString(user);
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
-		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
+		            out.println(jsonInString); 
 		            out.flush();
 		            
 
@@ -118,8 +118,6 @@ public class Login extends JFrame {
 		            Thread thread = new Thread(newClient);
 		            System.out.println("Creando thread");
 		            thread.start();
-		            
-		           
 
 		            
 		            //Leo la informacion que vuelve del servidor
@@ -147,22 +145,7 @@ public class Login extends JFrame {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
-				
-	            ///////////
-				//String password = new String(campo_contra.getPassword()); //para obtener el valor cuando ingrese password
-				/*
-				if(campo_usuario.getText().equals(usuario) && password.equalsIgnoreCase(contrasenia)){
-					SeleccionPersonaje sp = new SeleccionPersonaje();
-					sp.setVisible(true);
-					dispose();
-				}else{ //cuando ingreso mal el usuario o la contraseña aparece msj de eror
-					
-					
-					JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
-				}
-				*/
-				
+
 			}
 
 	
