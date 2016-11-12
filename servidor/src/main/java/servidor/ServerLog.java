@@ -62,7 +62,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		            Scanner sc2;
 		            System.out.println("entrando al contructor");
 					sc2 = new Scanner(socket.getInputStream());
-					 if (sc2.hasNext()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
 					//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 	
 //					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
 					String input2 = sc2.nextLine();

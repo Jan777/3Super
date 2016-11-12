@@ -9,10 +9,6 @@ import java.util.Observer;
 import java.util.Queue;
 import java.util.Scanner;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
 public class ServerThread implements Runnable, Observer {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
     Scanner input;
@@ -24,8 +20,6 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
     long millis=0;
     final int MPT= 1000/mTPS; //millisegundos por tick.
     int ticks=0;
-	MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
-    MapaAlianza mA= new MapaAlianza("Alianza1");
 
     //CONSTRUCTOR DEL CHAT
     public ServerThread(Socket socket, ArrayList<Socket> listaDeSala, String alias) {
@@ -48,9 +42,10 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
 
-
+    	MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
+        MapaAlianza mA= new MapaAlianza("Alianza1");
         mA.RegistrarAlianza(this);
-        this.inicializarClient(socket);
+        
     	
     	try {
             this.input = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
@@ -72,8 +67,6 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
                     	millis=System.currentTimeMillis();
                     	
                     	mA.procesar();
-                    	
-                    	
                     	
                     	if (++ticks > mTPS)
                     		ticks=0;
@@ -106,42 +99,6 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
 	public void update(Observable arg0, Object arg1) {
 		
 		mensajes.add(arg0.getClass().toString() + "cambio su estado");
-		
-	}
-	
-	public void addClient(Socket s){
-	
-		this.listaDeConexiones.add(s);
-		inicializarClient(s); //TODO contemplar excepciones
-	}
-	
-	public void inicializarClient(Socket s){
-		
-		ObjectMapper mapper= new ObjectMapper();
-		String Mapa="";
-		try {
-			Mapa = mapper.writeValueAsString(mA);
-		} catch (JsonGenerationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JsonMappingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} //mandamos los mapas logicos
-		
-		try {
-			PrintWriter tempOut = new PrintWriter(s.getOutputStream());
-            tempOut.println(Mapa);
-            tempOut.flush(); 
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
 		
 	}
 
