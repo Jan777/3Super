@@ -45,7 +45,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				
 				String userEnviado = user.getNombre() ;
 				String passEnviada = user.getPass() ;
-				System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
+				System.out.println("Llega el usuario con la accion: "+userEnviado+","+user.getAccion());
 				//Comprobar en Base de DATOS
 				
 				//////////CONEXION CON LA BASE DE DATOS////////////
@@ -59,30 +59,35 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				{
 					
 					mySQLCon.close(); //CIERRO LA CONEXIÓN
-					System.out.println("Entro con usuario correcto(?)");
+					
 				    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundo1,this.listaDeConexionesMundo2,0);
 		            String jsonInString = mapper.writeValueAsString(userAEnviar);
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); // LE ENVIO EL MENSAJE DE SALA Y NICKNAME
-		           
 		            out.flush();
-		            System.out.println("Pase parte");
+
 					//mando array con mundos
 		                      
 					///CREO THERAD SEGUN EL MUNDO
 					
 		            Scanner sc2;
-		            System.out.println("entrando al contructor");
 					sc2 = new Scanner(socket.getInputStream());
-					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
-					//SI UN CAMPO ES LOGIN; COMPRUEBO BDD, SI ES REGISTRO, AGREGO 	
-//					 if (sc2.hasNextLine()) System.out.println("sc2ok"); else System.out.println("sc2mal");
+					 if (sc2.hasNextLine()) 
+						 System.out.println("sc2ok"); 
+					 else 
+						 System.out.println("sc2mal");
+					 	
+					
 					String input2 = sc2.nextLine();
 					User user2 = mapper.readValue(input2, User.class);
 					String accion2 = user2.getAccion() ;
 		            System.out.println(accion2);
+		            
 		            if(accion2.compareTo("oprimioCerrar")==0){
 		            	System.out.println("Se ha desconectado: " + user2.getNombre());
+		            	out.close();
+		                
+		            	socket.close();
 		            }
 		            
 		            if(accion2.compareTo("entrarAMundo")==0){
@@ -109,8 +114,11 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			                 }
 						
 					}
-		            else
+		            else{
 		            	System.out.println("Se ha desconectado: " + user2.getNombre());
+		            	
+		            	socket.close();
+		            }
 		            
 				}
 				else {
