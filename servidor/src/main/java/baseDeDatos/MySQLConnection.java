@@ -67,6 +67,7 @@ public class MySQLConnection {
 		try {
 			if(conn != null) {
 				conn.close();
+				conn = null;
 				System.out.println("Desconexión de la BD exitosa.");
 			}
 		} catch (SQLException sqle) {
