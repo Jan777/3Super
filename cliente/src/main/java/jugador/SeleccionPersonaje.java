@@ -22,6 +22,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class SeleccionPersonaje extends JFrame {
 
@@ -35,8 +38,8 @@ public class SeleccionPersonaje extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
+	
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,41 +57,59 @@ public class SeleccionPersonaje extends JFrame {
 	 */
 	public SeleccionPersonaje(final Socket socket,final User user) {
 		setTitle("Seleccion de Personaje");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 500, 350);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
+		
 		
 		JLabel lblRaza = new JLabel("Raza:");
-		lblRaza.setBounds(10, 29, 76, 14);
+		lblRaza.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblRaza.setBounds(130, 126, 76, 14);
 		contentPane.add(lblRaza);
 		
 		JComboBox comboRaza = new JComboBox();
+		comboRaza.setFont(new Font("Arial", Font.PLAIN, 12));
+		comboRaza.setForeground(new Color(255, 255, 255));
+		comboRaza.setBackground(new Color(148, 0, 211));
 		comboRaza.setModel(new DefaultComboBoxModel(new String[] {"Humano", "Holograma", "Bot"}));
-		comboRaza.setBounds(58, 26, 104, 20);
+		comboRaza.setBounds(181, 123, 129, 20);
 		contentPane.add(comboRaza);
 		
 		JLabel lblCasta = new JLabel("Casta:");
-		lblCasta.setBounds(10, 77, 61, 14);
+		lblCasta.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblCasta.setBounds(130, 162, 61, 14);
 		contentPane.add(lblCasta);
 		
 		JComboBox comboCasta = new JComboBox();
+		comboCasta.setBackground(new Color(148, 0, 211));
+		comboCasta.setForeground(new Color(255, 255, 255));
+		comboCasta.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboCasta.setModel(new DefaultComboBoxModel(new String[] {"Programador", "Tester", "Soporte"}));
-		comboCasta.setBounds(58, 74, 104, 20);
+		comboCasta.setBounds(181, 159, 129, 20);
 		contentPane.add(comboCasta);
 		
 		JLabel lblMapa = new JLabel("Mapa:");
-		lblMapa.setBounds(10, 125, 46, 14);
+		lblMapa.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblMapa.setBounds(130, 198, 46, 14);
 		contentPane.add(lblMapa);
 		
 		final JComboBox comboMapa = new JComboBox();
+		comboMapa.setBackground(new Color(148, 0, 211));
+		comboMapa.setForeground(new Color(0, 255, 255));
+		comboMapa.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboMapa.setModel(new DefaultComboBoxModel(new String[] {"Fisica", "Enlace de Datos", "Red(SOON)","Transporte(SOON)","Sesion(SOON)","Presentacion(SOON)","Aplicacion(SOON))"}));
-		comboMapa.setBounds(58, 122, 104, 20);
+		comboMapa.setBounds(181, 192, 129, 20);
 		contentPane.add(comboMapa);
 		
 		JButton btnMapa = new JButton("Jugar");
+		btnMapa.setForeground(new Color(255, 255, 255));
+		btnMapa.setBackground(new Color(148, 0, 211));
+		btnMapa.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnMapa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -136,10 +157,12 @@ public class SeleccionPersonaje extends JFrame {
 				
 			}
 		});
-		btnMapa.setBounds(143, 200, 151, 23);
+		btnMapa.setBounds(97, 251, 121, 23);
 		contentPane.add(btnMapa);
 		
-		JButton btnCerrar = new JButton("Cerrar"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
+		JButton btnCerrar = new JButton("Salir"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
+		btnCerrar.setForeground(new Color(255, 255, 255));
+		btnCerrar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -162,8 +185,13 @@ public class SeleccionPersonaje extends JFrame {
 				
 			}
 		});
-		btnCerrar.setBounds(300, 200, 151, 23);
+		btnCerrar.setBounds(246, 251, 115, 23);
 		contentPane.add(btnCerrar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(SeleccionPersonaje.class.getResource("/imagenes/Titulo_opt4.png")));
+		lblNewLabel.setBounds(162, 22, 464, 60);
+		contentPane.add(lblNewLabel);
 
 		
 		

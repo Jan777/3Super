@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 
 
@@ -63,32 +66,42 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setForeground(Color.WHITE);
+		setBackground(Color.GREEN);
 		setTitle("Login");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 500, 350);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		JLabel usuario = new JLabel("Usuario:");
-		usuario.setBounds(55, 71, 54, 14);
+		usuario.setFont(new Font("Arial", Font.PLAIN, 13));
+		usuario.setBounds(118, 148, 98, 14);
 		contentPane.add(usuario);
 		
 		JLabel contrasenia = new JLabel("Contrase\u00F1a:");
-		contrasenia.setBounds(55, 130, 138, 14);
+		contrasenia.setFont(new Font("Arial", Font.PLAIN, 13));
+		contrasenia.setBounds(118, 196, 138, 14);
 		contentPane.add(contrasenia);
 		
 		campo_usuario = new JTextField();
-		campo_usuario.setBounds(144, 68, 130, 20);
+		campo_usuario.setBounds(200, 146, 151, 20);
 		contentPane.add(campo_usuario);
 		campo_usuario.setColumns(10);
 		
 		campo_contra = new JPasswordField();
-		campo_contra.setBounds(144, 127, 130, 20);
+		campo_contra.setBounds(200, 194, 151, 20);
 		contentPane.add(campo_contra);
 		
 		JButton botonlogin = new JButton("Entrar");
+		botonlogin.setForeground(Color.WHITE);
+		botonlogin.setBackground(new Color(148, 0, 211));
+		botonlogin.setFont(new Font("Arial", Font.PLAIN, 11));
 	
 		botonlogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -150,10 +163,14 @@ public class Login extends JFrame {
 
 	
 		});
-		botonlogin.setBounds(185, 202, 89, 23);
+		botonlogin.setBounds(200, 244, 105, 20);
 		contentPane.add(botonlogin);
+		JButton roundButton = new JButton("Redondo");
 		
 		JButton btnRegistrar = new JButton("Registrarse");
+		btnRegistrar.setForeground(Color.WHITE);
+		btnRegistrar.setBackground(new Color(148, 0, 211));
+		btnRegistrar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Registro reg = new Registro();
@@ -161,14 +178,18 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		btnRegistrar.setBounds(41, 202, 124, 23);
+		btnRegistrar.setBounds(41, 244, 124, 20);
 		contentPane.add(btnRegistrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Salir");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setBackground(new Color(148, 0, 211));
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					socket.close();
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -176,10 +197,14 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(298, 202, 89, 23);
+		btnCancelar.setBounds(332, 244, 105, 21);
 		contentPane.add(btnCancelar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/Titulo_opt2.png")));
+		lblNewLabel.setBounds(129, 13, 484, 124);
+		contentPane.add(lblNewLabel);
 		
 	
 	}
-	
 }

@@ -21,6 +21,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class Registro extends JFrame {
 
@@ -55,45 +58,53 @@ public class Registro extends JFrame {
 	 */
 	public Registro() {
 		setTitle("Registro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 500, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 434, 261);
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(0, 0, 484, 371);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNombreUsuario = new JLabel("Nombre Usuario:");
-		lblNombreUsuario.setBounds(10, 36, 128, 14);
+		lblNombreUsuario.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblNombreUsuario.setBounds(28, 101, 128, 14);
 		panel.add(lblNombreUsuario);
 		
 		campoUsu = new JTextField();
-		campoUsu.setBounds(113, 33, 180, 20);
+		campoUsu.setBounds(116, 98, 170, 20);
 		panel.add(campoUsu);
 		campoUsu.setColumns(10);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
-		lblContrasea.setBounds(10, 90, 97, 14);
+		lblContrasea.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblContrasea.setBounds(28, 141, 97, 14);
 		panel.add(lblContrasea);
 		
 		campoContra = new JPasswordField();
-		campoContra.setBounds(113, 87, 180, 20);
+		campoContra.setBounds(116, 138, 170, 20);
 		panel.add(campoContra);
 		
 		JLabel lblDireccinEmail = new JLabel("Direcci\u00F3n e-mail:");
-		lblDireccinEmail.setBounds(10, 152, 97, 14);
+		lblDireccinEmail.setFont(new Font("Arial", Font.PLAIN, 11));
+		lblDireccinEmail.setBounds(28, 180, 97, 14);
 		panel.add(lblDireccinEmail);
 		
 		campoMail = new JTextField();
-		campoMail.setBounds(123, 149, 170, 20);
+		campoMail.setBounds(116, 177, 170, 20);
 		panel.add(campoMail);
 		campoMail.setColumns(10);
 		
 		JButton btnReg = new JButton("Registrar");
+		btnReg.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnReg.setBackground(new Color(148, 0, 211));
+		btnReg.setForeground(new Color(255, 255, 255));
 				btnReg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -155,7 +166,7 @@ public class Registro extends JFrame {
 
 	
 		});
-		btnReg.setBounds(123, 211, 89, 23);
+		btnReg.setBounds(153, 246, 89, 23);
 		panel.add(btnReg);
 		
 		
@@ -174,12 +185,30 @@ public class Registro extends JFrame {
 		
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
+		btnCancelar.setBackground(new Color(148, 0, 211));
+		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(236, 211, 89, 23);
+		btnCancelar.setBounds(267, 246, 89, 23);
 		panel.add(btnCancelar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Registro.class.getResource("/imagenes/Titulo_opt4.png")));
+		lblNewLabel.setBounds(153, 11, 464, 58);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(Registro.class.getResource("/imagenes/HumanoProgQuieto_4.png")));
+		lblNewLabel_2.setBounds(385, 101, 61, 95);
+		panel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(Registro.class.getResource("/imagenes/HumanoTesterQuieto_1.png")));
+		lblNewLabel_1.setBounds(303, 101, 89, 95);
+		panel.add(lblNewLabel_1);
 	}
 }
