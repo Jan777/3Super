@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
@@ -168,21 +169,7 @@ public class Registro extends JFrame {
 		});
 		btnReg.setBounds(153, 246, 89, 23);
 		panel.add(btnReg);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -190,6 +177,14 @@ public class Registro extends JFrame {
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					socket.close();
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				dispose();
 			}
 		});

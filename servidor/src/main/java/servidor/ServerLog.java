@@ -114,13 +114,24 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			//mando array con mundos
 		              
 			///CREO THERAD SEGUN EL MUNDO
-			
+
+
+			Scanner sc2;
+		    do{ 
+            	sc2 = new Scanner(socket.getInputStream());
+            	
+            }while (sc2.hasNext()==false);
+            
+		    
+		/*
 		    Scanner sc2;
 			sc2 = new Scanner(socket.getInputStream());
 			 if (sc2.hasNextLine()) 
 				 System.out.println("sc2ok"); 
 			 else 
 				 System.out.println("sc2mal");
+	
+		*/ 
 		
 			String input2 = sc2.nextLine();
 			User user2 = mapper.readValue(input2, User.class);

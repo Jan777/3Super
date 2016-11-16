@@ -162,6 +162,7 @@ public class SeleccionPersonaje extends JFrame {
 		
 		JButton btnCerrar = new JButton("Salir"); //Cierro el socket cuando cierro ventana de Seleccion de Personaje
 		btnCerrar.setForeground(new Color(255, 255, 255));
+		btnCerrar.setBackground(new Color(148, 0, 211));
 		btnCerrar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnCerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
