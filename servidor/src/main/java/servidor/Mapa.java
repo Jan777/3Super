@@ -2,14 +2,16 @@ package servidor;
 
 public class Mapa {
 	
-	int ancho, alto, nceldas, resolucion; //pixeles, pixeles, cantidad de celdas por lado del mapa, cantidad de pixeles por lado de la celda. 
+	int ancho, //pixeles
+		alto, //pixeles
+		nceldas, //cantidad de celdas por lado del mapa
+		resolucion; //cantidad de pixeles por lado de la celda
 	
 	SpriteSheet Sprites;
 	Mapa()
 	{
 		ancho=alto=1024;
 		nceldas=resolucion=32;
-		
 	}
 
 }

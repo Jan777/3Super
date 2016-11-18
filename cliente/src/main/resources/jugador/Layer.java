@@ -9,8 +9,7 @@ public class Layer {
 	Layer(){
 		
 		sprites = new LinkedList<Sprite>();
-		boolean fow=false;
-		
+		//boolean fow=false;
 		
 	}
 

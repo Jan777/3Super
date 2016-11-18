@@ -7,7 +7,6 @@ import java.awt.Point;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JSplitPane;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -19,20 +18,12 @@ import personaje.Humano;
 
 
 public class Estado extends JFrame {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8171413268402334608L;
 
 	LinkedList<MapaLogico> mapasLogicos;
 	Visor vs;
 	private JTextField textField;
 
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -40,10 +31,6 @@ public class Estado extends JFrame {
 					Estado frame = new Estado();
 					frame.setVisible(true);
 					frame.procesar();
-					
-					
-				
-					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,9 +38,6 @@ public class Estado extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Estado() {
 		
 		mapasLogicos=new LinkedList<MapaLogico>();
@@ -68,10 +52,6 @@ public class Estado extends JFrame {
 			h.setPosition(new Point(this.getWidth()/i,this.getHeight()/i));
 			ma.addMiembro(h);
 		}
-		
-		
-		
-
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -108,22 +88,11 @@ public class Estado extends JFrame {
 			
 			}
 		});
-		
-
 	}
 	
-	private void procesar()
-	{
-		
-//		Funcion para hacer el tick logico. 
+	private void procesar()  //Metodo para hacer el tick logico. 
+	{	
 		for (MapaLogico ml : mapasLogicos)
 		ml.notifyObservers();
-
 	}
-	
-
-
-	
 }
-
-;

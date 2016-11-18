@@ -3,13 +3,13 @@ package servidor;
 import output.Sprite;
 
 public class Fondo extends MapaLogico {
-
+	private static final long serialVersionUID = 1L;
+	
 	Sprite tileset;
 	Fondo()
 	{
 		super(32,32,0); //Hago el fondo sin obstaculos.
 		tileset = new Sprite("tilesetpath");
-		
 	}
 	@Override
 	public boolean ocupada(int x, int y) {

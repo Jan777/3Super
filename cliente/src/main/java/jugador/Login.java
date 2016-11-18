@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import comun.User;
-import comunicacion.Client;
 import comunicacion.ClientThread;
 
 import javax.swing.JLabel;
@@ -20,9 +19,6 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -31,22 +27,14 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-
-
 public class Login extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6087367122783786127L;
+	
 	private JPanel contentPane;
 	private JTextField campo_usuario;
 	private JPasswordField campo_contra;
 	Socket socket;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -62,9 +50,6 @@ public class Login extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Login() {
 		setForeground(Color.WHITE);
 		setBackground(Color.GREEN);
@@ -104,6 +89,7 @@ public class Login extends JFrame {
 		botonlogin.setFont(new Font("Arial", Font.PLAIN, 11));
 	
 		botonlogin.addActionListener(new ActionListener() {
+			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
@@ -117,6 +103,7 @@ public class Login extends JFrame {
 		            System.out.println("Te conectaste a: " + server);
 					
 			        ObjectMapper mapper = new ObjectMapper();
+					@SuppressWarnings("unused")
 					Scanner sc = new Scanner(System.in);
 					//Scanner input = new Scanner(socket.getInputStream());
 
@@ -165,6 +152,7 @@ public class Login extends JFrame {
 		});
 		botonlogin.setBounds(200, 244, 105, 20);
 		contentPane.add(botonlogin);
+		@SuppressWarnings("unused")
 		JButton roundButton = new JButton("Redondo");
 		
 		JButton btnRegistrar = new JButton("Registrarse");
@@ -204,7 +192,6 @@ public class Login extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/Titulo_opt2.png")));
 		lblNewLabel.setBounds(129, 13, 484, 124);
 		contentPane.add(lblNewLabel);
-		
-	
+
 	}
 }

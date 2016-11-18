@@ -28,9 +28,6 @@ import javax.swing.ImageIcon;
 
 public class Registro extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1453514283810873060L;
 	private JPanel contentPane;
 	private JTextField campoUsu;
@@ -38,9 +35,6 @@ public class Registro extends JFrame {
 	private JTextField campoMail;
 	Socket socket;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -54,9 +48,6 @@ public class Registro extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Registro() {
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -107,11 +98,10 @@ public class Registro extends JFrame {
 		btnReg.setBackground(new Color(148, 0, 211));
 		btnReg.setForeground(new Color(255, 255, 255));
 				btnReg.addActionListener(new ActionListener() {
+			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent arg0) {
 				
-				
 				String password = new String(campoContra.getPassword());
-
 				
 				try {
 					final int PORT = 4445;
@@ -120,6 +110,7 @@ public class Registro extends JFrame {
 		            System.out.println("Te conectaste a: " + server);
 					
 			        ObjectMapper mapper = new ObjectMapper();
+					@SuppressWarnings("unused")
 					Scanner sc = new Scanner(System.in);
 					//Scanner input = new Scanner(socket.getInputStream());
 
@@ -129,13 +120,11 @@ public class Registro extends JFrame {
 		            out.println(jsonInString); 
 		            out.flush();
 		            
-
 		            ClientThread newClient = new ClientThread(socket);
 		            Thread thread = new Thread(newClient);
 		            System.out.println("Creando thread");
 		            thread.start();
 
-		            
 		            //Leo la informacion que vuelve del servidor
 		            Scanner input;
 		            do{ 
@@ -161,16 +150,11 @@ public class Registro extends JFrame {
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
-				
-
 			}
-
-	
 		});
 		btnReg.setBounds(153, 246, 89, 23);
 		panel.add(btnReg);
 
-		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Arial", Font.PLAIN, 12));
 		btnCancelar.setBackground(new Color(148, 0, 211));

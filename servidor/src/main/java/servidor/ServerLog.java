@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import baseDeDatos.MySQLConnection;
 import baseDeDatos.SQLiteJDBC;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -14,7 +13,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import baseDeDatos.MySQLConnection;
+
 import comun.User;
 
 public class ServerLog implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
@@ -25,16 +24,14 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
     ObjectMapper mapper = new ObjectMapper();
     public SQLiteJDBC mySQLCon;
     
-    
-
     public ServerLog(Socket socket, ArrayList<Socket> listaDeConexionesMundo1,ArrayList<Socket> listaDeConexionesMundo2) {
         this.socket = socket;
         this.listaDeConexionesMundoFisico=listaDeConexionesMundo1;
         this.listaDeConexionesMundoEnlace=listaDeConexionesMundo2;
-
     }
 
-    @Override
+    @SuppressWarnings("resource")
+	@Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
 		try {
 			Scanner sc;
@@ -50,12 +47,10 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				login(user);
 			}
 			
-
 			if(accion.compareTo("registrar")==0)
 			{
 				String userEnviado = user.getNombre() ;
 				String passEnviada= user.getPass() ;
-				
 				
 				//////////CONEXION CON LA BASE DE DATOS////////////
 				mySQLCon = new SQLiteJDBC();
@@ -74,18 +69,15 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				}
 				
 			}
-			
 			//ServerThread chat;
-			
 			
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-         
-
     }
 
+	@SuppressWarnings("resource")
 	private void login(User user)
 			throws SQLException, IOException, JsonGenerationException, JsonMappingException, JsonParseException {
 		String userEnviado = user.getNombre() ;
@@ -101,20 +93,16 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		
 		if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
 		{
-			
 			mySQLCon.close(); //CIERRO LA CONEXIÓN
 			
-
 		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundoFisico,this.listaDeConexionesMundoEnlace,0);
 		    String jsonInString = mapper.writeValueAsString(userAEnviar);
 		    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		    out.println(jsonInString); 
 		    out.flush();
 
-			//mando array con mundos
-		              
+			//mando array con mundos     
 			///CREO THERAD SEGUN EL MUNDO
-
 
 			Scanner sc2;
 		    do{ 
@@ -179,6 +167,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			out.println(jsonInString); 
 			out.flush();
 		}
+		
 	}
     
 

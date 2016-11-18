@@ -1,12 +1,10 @@
 package servidor;
 
-import comun.User;
-import org.codehaus.jackson.map.ObjectMapper;
+//import org.codehaus.jackson.map.ObjectMapper;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Server {
     //MUNDOS DISPONIBLES
@@ -18,8 +16,9 @@ public class Server {
 
     	try {
             final int PORT = 4445;
-            ServerSocket server = new ServerSocket(PORT);
-            ObjectMapper mapper = new ObjectMapper();
+            @SuppressWarnings("resource") //no cierro server
+			ServerSocket server = new ServerSocket(PORT);
+            //ObjectMapper mapper = new ObjectMapper();
 
             while (true) {
                 System.out.println("Esperando un cliente");
@@ -33,8 +32,11 @@ public class Server {
                 /// HASTA ACA
                 
             }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    	
+    	
     }
 }

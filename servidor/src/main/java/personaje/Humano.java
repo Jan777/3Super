@@ -5,13 +5,9 @@ import java.awt.Rectangle;
 
 public class Humano extends Personaje{
 	
-	public Humano(String name) {
-		
-			
-			super();
-			super.setSpritePath("src\\main\\resources\\Sprites\\GIF\\Humano\\Programador\\HumanoProgramadorQuieto.gif");
-		
-		
+	public Humano(String name) {			
+		super();
+		super.setSpritePath("src\\main\\resources\\Sprites\\GIF\\Humano\\Programador\\HumanoProgramadorQuieto.gif");
 	}
 
 	@Override

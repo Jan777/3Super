@@ -20,7 +20,8 @@ public class Client {
             
             //Aca va NICKNAME Y PASS
             
-            Scanner sc = new Scanner(System.in);
+            @SuppressWarnings("resource")
+			Scanner sc = new Scanner(System.in);
 
             User user = new User(sc.next(), sc.next(),null,null,null,0);
             

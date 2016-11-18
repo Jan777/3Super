@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class ServerThread implements Runnable, Observer {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
@@ -42,47 +41,37 @@ public class ServerThread implements Runnable, Observer {// The Runnable interfa
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
 
-    	MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
+    	//MapaObstaculos mO= new MapaObstaculos(32, 32, 0.5);
         MapaAlianza mA= new MapaAlianza("Alianza1");
         mA.RegistrarAlianza(this);
-        
-    	
+       
     	try {
             this.input = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
 
-            
                 if (this.estaConectado()) { // VERIFICO QUE EL SOCKET ESTE CONECTADO, SI NO LO ESTA CIERRO ESE SOCKET.
                     if (!this.input.hasNext()) { // SI NO HA TIENE MENSAJE ACTUAL BUCLEO A LA ESPERA DE UNO
                         return;
                     }
                 }
             
-
-                
             long millis = System.currentTimeMillis();
             while (true) { 
             	
-
                    if ((System.currentTimeMillis() - millis) >=MPT && ticks <= mTPS){
                     	millis=System.currentTimeMillis();
-                    	
                     	mA.procesar();
                     	
                     	if (++ticks > mTPS)
-                    		ticks=0;
-                    	
-                    	
+                    		ticks=0;	
                     }
                                      
                     this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
                     System.out.println(this.nickName + " dice: " + this.mensaje);
-                    
-   
 
                     for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
                         Socket tempSocket = this.listaDeConexiones.get(x);
                         PrintWriter tempOut = new PrintWriter(tempSocket.getOutputStream()); // OBTENGO EL CANAL DE SALIDA PARA ENVIARLE EL MENSAJE A EL SOCKET
-                        for (String m : mensajes){
+                        for (@SuppressWarnings("unused") String m : mensajes){
                         tempOut.println(this.nickName + ": " + this.mensaje); // ENVIA EL MENSAJE
                         tempOut.flush();} // LIMPIO EL BUFFER DE SALIDA
                         System.out.println("mensaje enviado a: " + tempSocket.getLocalAddress().getHostName());

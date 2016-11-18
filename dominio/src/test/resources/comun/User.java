@@ -3,7 +3,9 @@ import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 public class User implements Serializable {
-    private String pass;
+	private static final long serialVersionUID = 1L;
+	
+	private String pass;
     private String nombre;
     private String accion;
     private  ArrayList<Socket> listaDeConexionesMundo1 = new ArrayList<>();

@@ -64,7 +64,6 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		}
 	}
 	
-	
 	public void revivir() {
 		this.serCurado();
 		this.serEnergizado();
@@ -184,7 +183,4 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		actualizar();
 	}
 	
-	
 }
-
-

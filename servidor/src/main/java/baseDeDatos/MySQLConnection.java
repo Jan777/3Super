@@ -1,10 +1,8 @@
 package baseDeDatos;
+
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,8 +13,7 @@ public class MySQLConnection {
 
 	private static Connection conn;
 	private static java.sql.Statement sentencia;
-	
-	
+
 	public MySQLConnection() {
 	}
 	
@@ -24,7 +21,6 @@ public class MySQLConnection {
 		try {
 			if(conn == null) {	
 				String driver="com.mysql.jdbc.Driver"; //el driver varia segun la BD que usemos
-				
 				
 				/*
 				 * PARA LOGIN DE http://www.freesqldatabase.com/
@@ -76,8 +72,6 @@ public class MySQLConnection {
 	}
 	
 	public int registrarse (String usuario, String password) throws SQLException{
-		
-		
 		sentencia = null;
 		
 		try {
@@ -97,14 +91,10 @@ public class MySQLConnection {
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
-		}
-		
+		}	
 	}
-		
-		
+
 	public int verificarExistenciaUsuario(String usuario) throws SQLException {
-		
-		
 		sentencia = null;
 		boolean respuesta = false;
 		
@@ -124,9 +114,7 @@ public class MySQLConnection {
 			else{
 				System.out.println("Usuario Inexistente");
 				return 0;
-			}
-		
-			
+			}	
 		}
 		catch(SQLException ex){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
@@ -136,14 +124,10 @@ public class MySQLConnection {
 		catch(Exception e){
 			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
-		}
-		
-		
+		}	
 	}
 	
 	public int verificarUserYPassword(String usuario, String password) throws SQLException {
-		
-		
 		sentencia = null;
 		boolean respuesta = false;
 		

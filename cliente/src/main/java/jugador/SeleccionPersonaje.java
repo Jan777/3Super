@@ -1,6 +1,5 @@
 package jugador;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,8 +18,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Color;
@@ -28,16 +25,9 @@ import javax.swing.ImageIcon;
 
 public class SeleccionPersonaje extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2726214439028001680L;
 	private JPanel contentPane;
 
-	
-	/**
-	 * Launch the application.
-	 */
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -65,7 +55,6 @@ public class SeleccionPersonaje extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setResizable(false);
-		
 		
 		JLabel lblRaza = new JLabel("Raza:");
 		lblRaza.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -198,7 +187,7 @@ public class SeleccionPersonaje extends JFrame {
 		
 	}
 
-
+	@SuppressWarnings("unused")
 	private void desconectar(Socket socket) throws IOException {
 		 socket.close();
 		 ObjectMapper mapper = new ObjectMapper();
