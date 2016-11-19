@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
+import logica.MapaAlianza;
+
 public class ServerThread implements Runnable, Observer {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
     Scanner input;

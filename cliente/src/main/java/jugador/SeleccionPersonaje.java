@@ -7,8 +7,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import comun.User;
 import comunicacion.ClientThread;
+import comunicacion.User;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;

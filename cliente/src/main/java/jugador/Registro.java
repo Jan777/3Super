@@ -8,8 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import comun.User;
 import comunicacion.ClientThread;
+import comunicacion.User;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -162,13 +162,7 @@ public class Registro extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
-					socket.close();
-					
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 				dispose();
 			}
 		});

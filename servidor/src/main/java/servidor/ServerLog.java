@@ -7,14 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import baseDeDatos.SQLiteJDBC;
+import comunicacion.User;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-
-
-import comun.User;
 
 public class ServerLog implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;

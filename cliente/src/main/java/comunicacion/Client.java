@@ -1,7 +1,8 @@
 package comunicacion;
 
-import comun.User;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import comunicacion.User;
 
 import java.io.PrintWriter;
 import java.net.Socket;
