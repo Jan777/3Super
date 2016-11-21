@@ -64,10 +64,16 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				else
 				{
 					System.out.println("Error al registrar");
+					User userAEnviar = new User(null,null,"errorRegistro",null,null,0);
+				    String jsonInString = mapper.writeValueAsString(userAEnviar);
+				    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+				    out.println(jsonInString); 
+				    out.flush();
+					socket.close();
 				}
 				
 			}
-			//ServerThread chat;
+
 			
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block

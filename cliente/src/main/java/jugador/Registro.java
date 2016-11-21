@@ -143,8 +143,20 @@ public class Registro extends JFrame {
 						dispose();
 						
 					}else{	
-						
 						JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
+						
+						//socket.close();
+						dispose();
+						try {
+							Login frame = new Login();
+							frame.setVisible(true);
+							
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						
 					}
 					
 				} catch (Exception e) {

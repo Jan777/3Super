@@ -49,12 +49,12 @@ public class SQLiteJDBC
 			return 1;
 			
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error",JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error",JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 	}
@@ -89,12 +89,12 @@ public class SQLiteJDBC
 			
 		}
 		catch(SQLException ex){
-			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 		
 		catch(Exception e){
-			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 		
