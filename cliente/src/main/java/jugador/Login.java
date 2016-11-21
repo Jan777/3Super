@@ -114,10 +114,10 @@ public class Login extends JFrame {
 		            out.flush();
 		            
 
-		            ClientThread newClient = new ClientThread(socket);
-		            Thread thread = new Thread(newClient);
-		            System.out.println("Creando thread");
-		            thread.start();
+		           // ClientThread newClient = new ClientThread(socket);
+		           // Thread thread = new Thread(newClient);
+		           // System.out.println("Creando thread");
+		           // thread.start();
 
 		            
 		            //Leo la informacion que vuelve del servidor

@@ -127,10 +127,11 @@ public class SeleccionPersonaje extends JFrame {
 					PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 					out.println(jsonInString);
 					out.flush();
-					ClientThread newClient = new ClientThread(socket);
+					ClientThread newClient = new ClientThread(socket,mapaSeleccionado);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
 		            System.out.println("Se ejecuto la acción: "+ user2.getAccion());
+		            dispose();
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -138,10 +139,9 @@ public class SeleccionPersonaje extends JFrame {
 				}
 				
 				
-					Mapa mapa = new Mapa();
-					mapa.setVisible(true);
-					dispose();
-				
+					
+					
+
 	            
 				
 			}

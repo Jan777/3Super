@@ -120,10 +120,10 @@ public class Registro extends JFrame {
 		            out.println(jsonInString); 
 		            out.flush();
 		            
-		            ClientThread newClient = new ClientThread(socket);
-		            Thread thread = new Thread(newClient);
-		            System.out.println("Creando thread");
-		            thread.start();
+		           // ClientThread newClient = new ClientThread(socket);
+		           // Thread thread = new Thread(newClient);
+		            //System.out.println("Creando thread");
+		           // thread.start();
 
 		            //Leo la informacion que vuelve del servidor
 		            Scanner input;
@@ -143,8 +143,8 @@ public class Registro extends JFrame {
 						dispose();
 						
 					}else{	
-						JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
 						
+						JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
 						//socket.close();
 						dispose();
 						try {
@@ -156,7 +156,7 @@ public class Registro extends JFrame {
 							e.printStackTrace();
 						}
 						
-						
+					
 					}
 					
 				} catch (Exception e) {

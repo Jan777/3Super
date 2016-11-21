@@ -25,8 +25,8 @@ public class SpriteSheet {
 	void setsize ( int s)
 	{
 		this.size=s;
-		cantw= Math.floorDiv(this.sheet.getWidth(), size);
-		canth= Math.floorDiv(this.sheet.getHeight(), size);
+		///cantw= Math.floorDiv(this.sheet.getWidth(), size);
+		///canth= Math.floorDiv(this.sheet.getHeight(), size);
 	}
 	
 	SpriteSheet(String path, int s)//TODO: Validar path para que no reviente si la imagen no existe.

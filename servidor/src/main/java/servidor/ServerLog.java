@@ -70,10 +70,11 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				    out.println(jsonInString); 
 				    out.flush();
 					socket.close();
+					
 				}
 				
 			}
-
+			//ServerThread chat;
 			
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block

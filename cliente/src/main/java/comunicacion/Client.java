@@ -33,9 +33,9 @@ public class Client {
 
             out.flush();
 
-            ClientThread newClient = new ClientThread(socket);
-            Thread thread = new Thread(newClient);
-            thread.start();
+         //   ClientThread newClient = new ClientThread(socket);
+           // Thread thread = new Thread(newClient);
+           // thread.start();
 
             String textoTeclado = "";
             while (!textoTeclado.equals("fin")) { //MIENTRAS NO ESCRIBA FIN PODRE ENVIAR LOS MENSAJES QUE QUIERA
@@ -43,10 +43,10 @@ public class Client {
                 textoTeclado = bufferDeTeclado.nextLine();
 
                 if (textoTeclado.equals("fin")) { // SI ESCRIBO FIN DESCONECTA TODO
-                    newClient.desconectar();
+             //       newClient.desconectar();
                     bufferDeTeclado.close();
                 } else {
-                    newClient.enviarDatos(textoTeclado);
+            //        newClient.enviarDatos(textoTeclado);
                 }
             }
 

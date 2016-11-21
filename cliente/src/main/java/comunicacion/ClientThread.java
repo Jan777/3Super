@@ -5,35 +5,49 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import jugador.MapaEnlaceDatos;
+import jugador.MapaFisico;
+
 
 public class ClientThread implements Runnable {
     private Socket socket;
     private Scanner sc;
     private PrintWriter out;
+    private String mapaSeleccionado;
 
-    public ClientThread(Socket socket) {
+    public ClientThread(Socket socket, String mapaSeleccionado) {
         this.socket = socket;
+        this.mapaSeleccionado=mapaSeleccionado;
     }
 
     @Override
     public void run() {
-        try {
-            this.sc = new Scanner(this.socket.getInputStream());
-            this.out = new PrintWriter(this.socket.getOutputStream());
-            this.out.flush();
-
-            while (true) {
-                recibirDatos();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                this.socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    	
+    	switch (mapaSeleccionado) {
+		case "Fisica":
+			MapaFisico mapaF = new MapaFisico();
+			mapaF.setVisible(true);
+			break;
+		case "Enlace de Datos":
+			MapaEnlaceDatos mapaED = new MapaEnlaceDatos();
+			mapaED.setVisible(true);
+		default:
+			//Poner mensaje de error
+			break;
+		}
+    	
+    	ClientRecibirAct clientRecibirAct = new ClientRecibirAct(socket,mapaSeleccionado);
+        Thread threadRecibirAct = new Thread(clientRecibirAct);
+        threadRecibirAct.start();
+        
+    	ClientAcciones clientAcciones = new ClientAcciones(socket,mapaSeleccionado);
+        Thread threadRecibirAcciones = new Thread(clientAcciones);
+        threadRecibirAcciones.start();
+    	
+    	
+    	
+    	
+    	
     }
 
 
