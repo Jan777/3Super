@@ -17,17 +17,17 @@ o Puntos de Ataque del Personaje*/
 	public void equiparItemAfectaPuntos(){
 		
 		Personaje diego = new Humano("diego");
-		//aca tiene 40 PA, porque tiene 30 de fuerza + 10 de ataque. // PA = Puntos Ataq.
+		//aca tiene 50 PA,  // PA = Puntos Ataq.
 		
 		diego = new ConMouseNoganet(diego);
-		// Ahora debe tener 30 PA, porque el mouse le da -10
-
-		Assert.assertEquals(30, diego.obtenerPuntosDeFuerza());
+		// Ahora debe tener 40 PA, porque el mouse le da -10
+		
+		Assert.assertEquals(40, diego.obtenerPuntosDeFuerza());
 		
 		diego = new ConMouseThermaltake(diego);
-		// Ahora debe tener 60 PA, porque el mouse hace 30*2
+		// Ahora debe tener 80 PA, porque el mouse hace 40*2
 		
-		Assert.assertEquals(60, diego.obtenerPuntosDeFuerza());
+		Assert.assertEquals(80, diego.obtenerPuntosDeFuerza());
 	}
 	
 /* Dado un Personaje, cuando el Personaje recoja un item entonces
@@ -37,18 +37,18 @@ o Puntos de Ataque del Personaje*/
 	public void equiparMuchosItems(){
 		
 		Personaje diego = new Humano("diego");
-		//aca tiene 40 PA, porque tiene 30 de fuerza + 10 de ataque. // PA = Puntos Ataq.
+		//aca tiene 50 PA // PA = Puntos Ataq.
 		
 		diego = new ConMouseThermaltake(diego);
-		// Ahora debe tener 80 PA, porque el mouse hace 40*2
+		// Ahora debe tener 100 PA, porque el mouse hace 50*2
 		diego = new ConMouseThermaltake(diego);
-		// Ahora debe tener 160 PA, porque el mouse hace 80*2
+		// Ahora debe tener 2000 PA, porque el mouse hace 100*2
 		diego = new ConMouseThermaltake(diego);
-		// Ahora debe tener 320 PA, porque el mouse hace 169*2
+		// Ahora debe tener 400 PA, porque el mouse hace 200*2
 		diego = new ConMouseThermaltake(diego);
-		// Ahora debe tener 640 PA, porque el mouse hace 320*2
+		// Ahora debe tener 800 PA, porque el mouse hace 400*2
 		
-		Assert.assertEquals(640, diego.obtenerPuntosDeFuerza());
+		Assert.assertEquals(800, diego.obtenerPuntosDeFuerza());
 	}
-	
+			
 }

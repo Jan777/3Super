@@ -1,17 +1,19 @@
 package personaje;
 
 import java.awt.Point;
+import java.util.Calendar;
 import java.util.Observable;
 
+import alianza.Alianza;
 import output.Sprite;
 
 public abstract class Personaje extends Observable implements Atacable, IamMovil {
 	protected String nombre;
 	protected int salud=100;
 	protected int energia=50;
-	protected int fuerza=1;
-	protected int ingenio=1;
-	protected int defensa=0;
+	protected int fuerza=50;
+	protected int ingenio=10;
+	protected int defensa=5;
 	protected int multavsalud=1;
 	protected int modavsalud=0;
 	protected float multavenergia=1;
@@ -22,10 +24,11 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	protected int modavfuerza=0;
 	protected float multavdefensa=1;
 	protected int modavdefensa=0;
-	
+	protected Alianza alianzaAct;
+	public Calendar limiteMinimoPermanenciaAlianza;
 	protected boolean sexo; //= mucho
 	protected int nivel = 1;
-	protected int experiencia = 0;
+	protected int experiencia = 10;
 	protected String SpritePath;
 	protected Point pos;
 	protected Point vel;
@@ -77,7 +80,7 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	
 	@Override
 	public void serAtacado(int daño) {
-		if ( ( daño - (this.obtenerPuntosDeDefensa()) /10 ) > 0)
+		if ( ( daño - (this.obtenerPuntosDeDefensa()) /10)  > 0)
 			this.salud -= (daño - (this.obtenerPuntosDeDefensa()) /10 );
 	}
 
@@ -99,6 +102,59 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	
 	public int getSalud() {
 		return this.salud;
+	}
+	
+	public int getEnergia(){
+		return this.energia;
+	}
+	
+	
+	public void romperAlianzaAct(){
+		this.alianzaAct.obtenerIntegrantes().remove(this);
+		this.alianzaAct = null;
+	}
+	
+	
+	public void setAlianzaAct(Alianza alianzaAct) {
+		this.alianzaAct = alianzaAct;
+	}
+
+	public Alianza obtenerAlianzaAct() {
+		return alianzaAct;
+	}
+	
+	
+	public boolean crearAlianza(Personaje p) {
+		/*
+		 * Si this no tiene alianza, la creo y me agrego
+		 */
+		if (this.alianzaAct == null) {
+			Alianza alianza = new Alianza();
+			this.alianzaAct = alianza;
+			alianza.añadirPerAAlianza(this);
+		}
+		
+		/*
+		 * Si p no tiene alianza, lo agrego a mi alianza
+		 * */
+		
+		if (p.alianzaAct == null) {
+			
+			p.alianzaAct = this.alianzaAct;
+			alianzaAct.añadirPerAAlianza(p);
+			
+			return true;
+		} else
+			// EL PERSONAJE YA ESTA EN UNA ALIANZA, NO SE PUEDE VOLVER A ALIAR
+		return false;
+	}
+		
+	public Calendar getLimiteMinimoPermanenciaAlianza() {
+		return limiteMinimoPermanenciaAlianza;
+	}
+
+	public void setLimiteMinimoPermanenciaAlianza(Calendar limiteMinimoPermanenciaAlianza) {
+		this.limiteMinimoPermanenciaAlianza = limiteMinimoPermanenciaAlianza;
 	}
 	
 	//Las Siguientes funciones calculan el maximo de los attributos, no los valores actuales. 
@@ -133,7 +189,7 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 
 	@Override
 	public int darExperiencia() {
-		return  getExperiencia()/10; //Es igual al anterior em el caso default, y es compatible con otras formulas de experiencia.
+		return  getExperiencia(); //Es igual al anterior em el caso default, y es compatible con otras formulas de experiencia.
 	}
 
 	public int getTopeExperienciaNivel() {

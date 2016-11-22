@@ -15,9 +15,10 @@ public class ExperienciaTests {
 	public void aumentarExperienciaAlMatarNPC(){
 		Humano diego = new Humano("diego");
 		Resistencia npc = new Resistencia();
-		
-		for(int i=0; i<10; i++)
+	
+		for(int i=0; i<2; i++)
 			diego.atacar(npc);
+		
 
 		// Lo ataco hasta matarlo y me tiene que dar 10 de experiencia
 		Assert.assertEquals(10, diego.getExperiencia());
@@ -32,9 +33,9 @@ public class ExperienciaTests {
 		Humano diego = new Humano("diego");
 		Humano matias = new Humano("matias");
 		
-		for(int i=0; i<50; i++)
+		for(int i=0; i<10; i++)
 			diego.atacar(matias);
-
+		
 		// Lo ataco hasta matarlo y me tiene que dar 10 de experiencia
 		Assert.assertEquals(10, diego.getExperiencia());
 	}
@@ -47,10 +48,10 @@ public class ExperienciaTests {
 		Humano diego = new Humano("diego");
 		Humano matias = new Humano("matias");
 		
-		for(int i=0; i<50; i++)
+		for(int i=0; i<10; i++)
 			diego.atacar(matias);
 		
-		Assert.assertEquals(0, matias.getExperiencia());
+		Assert.assertEquals(10, matias.getExperiencia());
 	}
 		
 /* Dado un Personaje, cuando obtenga una cierta cantidad de experiencia 
