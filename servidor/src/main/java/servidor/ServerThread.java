@@ -11,6 +11,8 @@ import java.util.Scanner;
 import comunicacion.AccionesAEnviar;
 import comunicacion.MapaAEnviar;
 import logica.MapaAlianza;
+import logica.MapaLogico;
+import logica.MapaObstaculos;
 
 public class ServerThread implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
@@ -19,11 +21,15 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     ArrayList<AccionesAEnviar> mensajes= new ArrayList<>();
     ArrayList<Socket> listaDeConexiones = new ArrayList<>();
     String nickName;
+    MapaObstaculos mo;
     
     public ServerThread(Socket socket, ArrayList<Socket> listaDeSala, String alias) {
         this.socket = socket;
         this.listaDeConexiones = listaDeSala;
         this.nickName = alias;
+        mo= new MapaObstaculos(32,32, 0.4);
+        
+        
     }
     public boolean estaConectado() throws IOException {
         if (!this.socket.isConnected()) {// SI EL SOCKET ESTA DESCONECTADO LO ELIMINA DE MI LISTA DE CONEXIONES.
@@ -47,7 +53,8 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                     if (!this.input.hasNext()) { // SI NO HA TIENE MENSAJE ACTUAL BUCLEO A LA ESPERA DE UNO
                         return;
                     }
-                }            
+                } //Nano, i'm so sorry.
+                
 	            ServerMandarActualizacion mapaAEnviar = new ServerMandarActualizacion(listaDeConexiones,mensajes);           
                 Thread threadMandarAct = new Thread(mapaAEnviar);
                 threadMandarAct.start();
@@ -57,7 +64,7 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                 threadRecibir.start();
             }
          catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
 
     }

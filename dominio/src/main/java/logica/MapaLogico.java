@@ -14,6 +14,7 @@ public abstract class MapaLogico extends Observable implements Serializable {
 	protected int w,h;
 	protected  Random rnd;
 	protected double razon=0.5;
+	protected int  mapa[][];
 	public MapaLogico()
 	{
 		super();
@@ -26,13 +27,23 @@ public abstract class MapaLogico extends Observable implements Serializable {
 	public MapaLogico(int w, int h, double razon) //rango va desde 0% hasta 100%
 	{
 		super();
-		razon -= 0.5;
-		razon=Math.max(razon, -0.5);
-		razon=Math.min(razon, 0.5);
+		
+		razon=Math.max(razon, 0);
+		razon=Math.min(razon, 1);
 		this.razon=razon;
 		this.w=w;
 		this.h=h;
 		rnd = new Random();
+		mapa = new int[w][h];
+		
+		for (int i=0; i<w; i++)
+			for (int j=0; j<h;j++){
+				if (rnd.nextDouble()>razon)
+					mapa[i][j]=0;
+				else
+					mapa[i][j]=rnd.nextInt(2)+1;
+			}
+				
 	}
 	
 	public abstract boolean ocupada(int x, int y);

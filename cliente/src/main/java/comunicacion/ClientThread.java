@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import jugador.MapaEnlaceDatos;
 import jugador.MapaFisico;
+import world.Game;
 
 
 public class ClientThread implements Runnable {
@@ -23,18 +24,21 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
     	
-    	switch (mapaSeleccionado) {
-		case "Fisica":
-			MapaFisico mapaF = new MapaFisico();
-			mapaF.setVisible(true);
-			break;
-		case "Enlace de Datos":
-			MapaEnlaceDatos mapaED = new MapaEnlaceDatos();
-			mapaED.setVisible(true);
-		default:
-			//Poner mensaje de error
-			break;
-		}
+    	Game game = new Game("The bug", 640, 480);
+		game.start();
+    	
+//    	switch (mapaSeleccionado) {
+//		case "Fisica":
+//			MapaFisico mapaF = new MapaFisico();
+//			mapaF.setVisible(true);
+//			break;
+//		case "Enlace de Datos":
+//			MapaEnlaceDatos mapaED = new MapaEnlaceDatos();
+//			mapaED.setVisible(true);
+//		default:
+//			//Poner mensaje de error
+//			break;
+//		}
     	
     	ClientRecibirAct clientRecibirAct = new ClientRecibirAct(socket,mapaSeleccionado);
         Thread threadRecibirAct = new Thread(clientRecibirAct);

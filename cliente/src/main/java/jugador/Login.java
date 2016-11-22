@@ -40,7 +40,9 @@ public class Login extends JFrame {
 			public void run() {
 				try {
 					Login frame = new Login();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
+					
 					
 					
 				} catch (Exception e) {
@@ -63,6 +65,7 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
 		
 		JLabel usuario = new JLabel("Usuario:");
 		usuario.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -134,6 +137,7 @@ public class Login extends JFrame {
 		            if(user.getAccion().compareTo("abrirSeleccionMundo")==0){
 		            	System.out.println("Aca tengo que abrir la seleccion de mundos");
 						SeleccionPersonaje sp = new SeleccionPersonaje(socket,user);
+						sp.setLocationRelativeTo(null);
 						sp.setVisible(true);
 						dispose();
 						
@@ -163,6 +167,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Registro reg = new Registro();
 				reg.setVisible(true);
+				reg.setLocationRelativeTo(null);
 				dispose();
 			}
 		});

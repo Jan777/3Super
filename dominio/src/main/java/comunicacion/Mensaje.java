@@ -1,3 +1,11 @@
 package comunicacion;
-public class Mensaje {
+import java.net.Socket;
+
+public interface Mensaje extends Runnable {
+	
+	
+	void enviar();
+	
+
+	
 }
