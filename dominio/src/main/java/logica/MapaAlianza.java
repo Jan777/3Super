@@ -16,6 +16,7 @@ public class MapaAlianza extends MapaLogico {
 	
 	private String nombre;
 	private ArrayList<Personaje> miembros; //Redefinir como array Bi-dimensional, como deberia haber sido desde el comienzo
+	private int radio = 5;
 	
 	public MapaAlianza(String n)
 	{
@@ -78,6 +79,16 @@ public void addMiembro(String Nombre){
 	@Override
 	public boolean ocupada(int x, int y) {
 		return false;
+	}
+	
+	public ArrayList<Personaje> hayEquipo(int x, int y){
+		 ArrayList<Personaje> aux= new  ArrayList<Personaje>();
+		 
+		 for (Personaje p : miembros){
+			if (Point.distance(p.getPos().getX(), p.getPos().getY(), x, y) < radio)
+				aux.add(p);
+		 }
+		 return aux;
 	}
 
 	@Override
