@@ -13,7 +13,7 @@ import personaje.Personaje;
 //El juego va a tener muchos de estos mapas logicos, uno para cada tipo, y tiene que permitir cambiarse de una alianza a la otra.
 public class MapaAlianza extends MapaLogico {
 	private static final long serialVersionUID = 1L;
-	
+	private int radio=5;
 	private String nombre;
 	private ArrayList<Personaje> miembros; //Redefinir como array Bi-dimensional, como deberia haber sido desde el comienzo
 	
@@ -94,4 +94,15 @@ public void addMiembro(String Nombre){
 			p.step();
 		}
 	}
+	
+	public ArrayList<Personaje> hayEquipo(int x, int y){
+		   ArrayList<Personaje> aux= new  ArrayList<Personaje>();
+		   
+		   for (Personaje p : miembros){
+		   if (Point.distance(p.getPos().getX(), p.getPos().getY(), x, y) < radio)
+		    aux.add(p);
+		   }
+		   return aux;
+	 }
+	
 }

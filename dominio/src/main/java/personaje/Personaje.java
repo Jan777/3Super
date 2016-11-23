@@ -1,6 +1,7 @@
 package personaje;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Observable;
 
@@ -99,7 +100,9 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	public void serEnergizado(int cant) {
 		this.energia +=cant;
 	}
-	
+	public String getNombre(){
+		return this.nombre;
+	}
 	public int getSalud() {
 		return this.salud;
 	}
@@ -123,6 +126,7 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		return alianzaAct;
 	}
 	
+
 	
 	public boolean crearAlianza(Personaje p) {
 		/*
@@ -156,6 +160,8 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	public void setLimiteMinimoPermanenciaAlianza(Calendar limiteMinimoPermanenciaAlianza) {
 		this.limiteMinimoPermanenciaAlianza = limiteMinimoPermanenciaAlianza;
 	}
+	
+	
 	
 	//Las Siguientes funciones calculan el maximo de los attributos, no los valores actuales. 
 	///////////////////////
@@ -232,6 +238,8 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		if (this.hasChanged())
 			this.notifyObservers();
 		this.clearChanged();
+		
+		
 	}
 	public void step(){
 		mover();
