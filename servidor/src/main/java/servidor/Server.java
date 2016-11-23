@@ -4,15 +4,16 @@ package servidor;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Server {
     //MUNDOS DISPONIBLES
-    public static ArrayList<Socket> listaDeConexionesMundoFisico = new ArrayList<>();
-    public static ArrayList<Socket> listaDeConexionesMundoEnlace = new ArrayList<>();
+//    public static ArrayList<Socket> listaDeConexionesMundoFisico = new ArrayList<>();
+//    public static ArrayList<Socket> listaDeConexionesMundoEnlace = new ArrayList<>();
+		
 
     
     public static void main(String[] args) throws Exception {
+    	CommHandler sala=null;
 
     	try {
             final int PORT = 4445;
@@ -26,10 +27,14 @@ public class Server {
 
                 //CREAR THREAD LOGUEO
                 /// De aca para abajo hay q psarlo al thread de logueo
-                ServerLog log = new ServerLog(socket,listaDeConexionesMundoFisico,listaDeConexionesMundoEnlace);           
-                Thread thread = new Thread(log);
+                //ServerLog log = new ServerLog(socket,listaDeConexionesMundoFisico,listaDeConexionesMundoEnlace);
+                if (sala==null){
+                sala = new CommHandler();
+                Thread thread = new Thread(sala);
                 thread.start();
-                /// HASTA ACA
+                }	
+                sala.addSocket(socket);
+
                 
             }
             

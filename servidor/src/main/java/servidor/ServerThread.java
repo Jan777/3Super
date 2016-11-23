@@ -9,19 +9,15 @@ import java.util.Observer;
 import java.util.Scanner;
 
 import comunicacion.AccionesAEnviar;
+import comunicacion.CommHandler;
 import comunicacion.MapaAEnviar;
 import logica.MapaAlianza;
 import logica.MapaLogico;
 import logica.MapaObstaculos;
 
-public class ServerThread implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
-    Socket socket;
-    Scanner input;
-    String mensaje = "";
-    ArrayList<AccionesAEnviar> mensajes= new ArrayList<>();
-    ArrayList<Socket> listaDeConexiones = new ArrayList<>();
-    String nickName;
-    MapaObstaculos mo;
+public class ServerThread extends CommHandler {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
+
+    
     
     public ServerThread(Socket socket, ArrayList<Socket> listaDeSala, String alias) {
         this.socket = socket;

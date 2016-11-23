@@ -24,11 +24,11 @@ public class Mensaje {
 		return msg;
 	}
 	
-	boolean SoyReceptor(int id){
+	public boolean SoyReceptor(int id){
 		return id==idReceptor? true:false;
 	}
 	
-	boolean SoyEmisor(int id){
+	public boolean SoyEmisor(int id){
 		return id==idEmisor? true:false;
 	}
 	

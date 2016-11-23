@@ -1,72 +1,99 @@
-package comunicacion;
+package servidor;
 
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
+
 import java.util.concurrent.LinkedBlockingQueue;
+
+import javax.swing.JOptionPane;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.net.*;
+import baseDeDatos.SQLiteJDBC;
+import comunicacion.*;
+
+import logica.MapaLogico;
+import logica.MapaObstaculos;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 
 public class CommHandler implements Runnable {
 
-	private LinkedBlockingQueue<Mensaje> mensajes;
+	protected LinkedBlockingQueue<Mensaje> mensajes;
 	ObjectMapper mapper = new ObjectMapper();
-	private ArrayList <Socket> sockets; //sockets a añadir
-	private Map <Integer, Link> links; 
-	private boolean running = false;
+	protected ArrayList <Socket> sockets; //sockets a añadir
+	protected ArrayList <Link> links; 
+	protected boolean running = false;
 	Socket socket = null;
 	int id;
+	int idcliente=1;
+	ArrayList<MapaLogico> mapaslogicos;
+	SQLiteJDBC mySQL;
 
-	public CommHandler(Socket sck)
+	public CommHandler() //Solo para servidor
 	{
-		this.socket=sck;
+
 		running = true;
 		id=0;
+		mapaslogicos=new ArrayList<MapaLogico>();
+		mapaslogicos.add(new MapaObstaculos(32, 32, 0.4));
+		mySQL= new SQLiteJDBC();
+		
+		
 	}
 
-	public CommHandler(Socket sck, int id)
+	public CommHandler(int id)//Solo para cliente
 	{
-		this.socket=sck;
+
 		running = true;
 		this.id=id;
 	}
 
+	public void addSocket(Socket sck){
+		sockets.add(sck);
+	}
+	
+	public boolean Login(Credenciales cr){
+		mySQL.getConnection();
+		try {
+			if (mySQL.verificarUserYPassword(cr.getNombre(), cr.getPass())==1){
+				//TODO agregar la logica del logueo.
+				return true;
+			}
+			else
+				JOptionPane.showMessageDialog(null, "Flaco, No estas registrado","Error", JOptionPane.ERROR_MESSAGE);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
 		
 	public void run() {
 		while (running)
 			try {
-
 				for (Socket s : sockets){
-					links.add(new Link(s)); //FIXME cambiar para que sea map
-					links.put(links., value)
+					links.add(new Link(s));
+					mensajes.add(new Inicializacion(mapaslogicos, idcliente));
+					idcliente++;
 					sockets.remove(s);
 				}
-
-
 			}
 
-		catch (InterruptedException e)
+		catch (Exception e)
 		{ e.printStackTrace();}
 
-		catch (RuntimeException rte) {
-			rte.printStackTrace();
-			//shutDown();
-		}
-
-		catch (Throwable t) {
-			t.printStackTrace();
 		}
 
 
-	}
 
-	 public class Link {//Sabias que se podian definir clases en classes?
+
+	  class Link {//Sabias que se podian definir clases en classes?
 
 		private ObjectInputStream in;
 		private ObjectOutputStream out;
@@ -93,8 +120,13 @@ public class CommHandler implements Runnable {
 				online = true;
 			}
 			
+			try{
 			in = new ObjectInputStream(socket.getInputStream());
 			out = new ObjectOutputStream(socket.getOutputStream());
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 			Thread lector = new Thread(new Lectura(), "Cliente: " + clientId + " reading thread");
 			lector.setDaemon(true);
 			lector.start();
@@ -124,6 +156,7 @@ public class CommHandler implements Runnable {
 				stillAlive = false;
 			}
 		}
+	  
 
 		private class Lectura implements Runnable { // Its classes all the way down
 
@@ -184,9 +217,9 @@ public class CommHandler implements Runnable {
 		}
 
 
-
 	}
+	
 }
 
 
-}
+
