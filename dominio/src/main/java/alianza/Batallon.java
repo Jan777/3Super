@@ -15,11 +15,7 @@ public class Batallon {
 	protected int proxVict;	
 	protected List<Personaje> luchadores = new LinkedList<Personaje>();
 	protected List<Personaje> luchadoresDead = new LinkedList<Personaje>();
-	
-	
-	/*
-	 * Esto tendra que resolverlo el server
-	 * */
+
 	
 	public Batallon ( Collection<Personaje> personaje){		
 		this.proxVict = -1;
