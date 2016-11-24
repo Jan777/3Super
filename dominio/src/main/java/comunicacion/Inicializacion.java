@@ -1,6 +1,6 @@
 package comunicacion;
 
-public class inicializacion implements Mensaje {
+public class Inicializacion implements Mensaje {
 
 
 
