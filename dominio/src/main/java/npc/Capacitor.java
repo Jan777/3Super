@@ -4,11 +4,12 @@ import java.awt.Point;
 
 import output.Sprite;
 
-public class Resistencia extends Npc{
-	public Resistencia() {
+public class Capacitor extends Npc{
+	
+	public Capacitor() {
 		super();
 		nivel=1;
-		this.nombre="Resistencia";
+		this.nombre="Capacitor";
 		this.salud=this.nivel*100;
 	}
 
@@ -22,7 +23,7 @@ public class Resistencia extends Npc{
 	}
 	
 	public String getSpritePath(){
-		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/ResistenciaIzquierda.gif";
+		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/CapacitorIzquierda.gif";
 	}
 
 	@Override
@@ -36,5 +37,5 @@ public class Resistencia extends Npc{
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }

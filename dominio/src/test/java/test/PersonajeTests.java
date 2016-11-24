@@ -2,6 +2,8 @@ package test;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import npc.Capacitor;
 import npc.Resistencia;
 import personaje.Humano;
 
@@ -21,6 +23,20 @@ public class PersonajeTests {
 		
 		// No pudo atacar porque no tiene mas energia, atacar me devuelva false.
 		Assert.assertEquals(false, diego.atacar(npc));
+	}
+	
+	@Test
+	public void queMueraNpc(){
+		Humano diego = new Humano("diego");
+		Capacitor npc = new Capacitor();
+		
+		for(int i=0; i<10; i++){
+			diego.atacar(npc); // le pego a full
+			System.out.println(npc.getSalud());
+		}
+			
+		// Murio el capacitor
+		Assert.assertEquals(false, npc.estaVivo());
 	}
 	
 	@Test
@@ -88,30 +104,6 @@ public class PersonajeTests {
 //		
 //		Assert.assertEquals(false,diego.estaVivo());
 //	}
-
-	
-	/*  * Dado un **Personaje**, cuando el **Personaje** aumenta/decrementa su Energía, 
-	 * entonces aumenta o decrementa su **Puntos de Ataque**.
-	 */
-	
-	@Test
-	public void quePersonajeAumenteoDecrementePtosDeAtaque(){
-		
-		Humano nano = new Humano("nano");
-		Humano matias = new Humano("matias");
-		
-		//antes de atacar matias tiene 50  de energia
-		matias.atacar(nano);
-		
-		//despues de atacar matias tiene 0 de energia por lo tanto tambien decrementa sus putos
-		//de ataque=ptos de fuerza
-		
-		
-		Assert.assertEquals(0,matias.getEnergia());
-		Assert.assertEquals(50,matias.obtenerPuntosDeFuerza());
-	}
-	
-	
-	
+//	
 	
 }

@@ -3,6 +3,7 @@ package world.entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import world.entities.Entity;
 import world.Handler;
 
 public abstract class Entity {

@@ -5,7 +5,8 @@ import java.awt.Graphics;
 import world.Handler;
 import world.entities.EntityManager;
 import world.entities.creatures.Player;
-import world.entities.statics.Tree;
+import world.entities.statics.SpriteCapacitor;
+import world.entities.statics.SpriteNPC;
 import world.tiles.Tile;
 import world.utils.Utils;
 
@@ -21,9 +22,10 @@ public class World {
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-		// Temporary entity code!
-		entityManager.addEntity(new Tree(handler, 100, 250));
-		
+
+		entityManager.addEntity(new SpriteCapacitor(handler, 100, 250));
+		entityManager.addEntity(new SpriteCapacitor(handler, 100, 350));
+		entityManager.addEntity(new SpriteCapacitor(handler, 1000, 430));
 		loadWorld(path);
 		
 		entityManager.getPlayer().setX(spawnX);
@@ -52,14 +54,15 @@ public class World {
 	
 	public Tile getTile(int x, int y){
 		if(x < 0 || y < 0 || x >= width || y >= height)
-			return Tile.grassTile;
+			return Tile.suelo2Tile;
 		
 		Tile t = Tile.tiles[tiles[x][y]];
 		if(t == null)
-			return Tile.dirtTile;
+			return Tile.sueloTile;
 		return t;
 	}
 	
+	//aca leo el mapa
 	private void loadWorld(String path){
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");

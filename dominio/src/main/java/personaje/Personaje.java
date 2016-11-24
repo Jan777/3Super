@@ -34,8 +34,24 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	protected Point pos;
 	protected Point vel;
 	protected Point acc;
+	private int x, y;
 	
-	
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public final boolean atacar(Atacable atacado) {
 		if (puedeAtacar() && atacado.estaVivo()) {
 			atacado.serAtacado(this.obtenerPuntosDeFuerza());
@@ -126,13 +142,7 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		return alianzaAct;
 	}
 	
-	public boolean puedenAtacarse(Personaje p){
-		
-		if(this.obtenerAlianzaAct() == p.obtenerAlianzaAct() )
-			return false;	
-		return true;
-	}
-	 
+
 	
 	public boolean crearAlianza(Personaje p) {
 		/*

@@ -34,8 +34,6 @@ public class Login extends JFrame {
 	private JTextField campo_usuario;
 	private JPasswordField campo_contra;
 	Socket socket;
-	CommHandler ch;
-	int id=2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -105,19 +103,18 @@ public class Login extends JFrame {
 					final int PORT = 4445;
 					String server = "127.0.0.1";
 		            socket = new Socket(server, PORT);
-//		            System.out.println("Te conectaste a: " + server);
+		            System.out.println("Te conectaste a: " + server);
 					
-//			        ObjectMapper mapper = new ObjectMapper();
-//					@SuppressWarnings("unused")
-//					Scanner sc = new Scanner(System.in);
-//					Scanner input = new Scanner(socket.getInputStream());
+			        ObjectMapper mapper = new ObjectMapper();
+					@SuppressWarnings("unused")
+					Scanner sc = new Scanner(System.in);
+					//Scanner input = new Scanner(socket.getInputStream());
 
-//		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
-//		            String jsonInString = mapper.writeValueAsString(user);
-//		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
-//		            out.println(jsonInString); 
-//		            out.flush();
-		            ch = new CommHandler()
+		            User user = new User(password, campo_usuario.getText(),"login",null,null,0);
+		            String jsonInString = mapper.writeValueAsString(user);
+		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
+		            out.println(jsonInString); 
+		            out.flush();
 		            
 
 		           // ClientThread newClient = new ClientThread(socket);

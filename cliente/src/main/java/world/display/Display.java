@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 public class Display {
 
 	private JFrame frame;
-	private Canvas canvas;
+	private Canvas canvas; //canvas permite dibujar los graficos en él
 	
 	private String title;
 	private int width, height;

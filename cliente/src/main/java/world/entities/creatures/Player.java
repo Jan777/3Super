@@ -3,17 +3,21 @@ package world.entities.creatures;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import personaje.Humano;
+import personaje.Personaje;
 import world.Handler;
 import world.gfx.Animation;
 import world.gfx.Assets;
 
 public class Player extends Creature {
 	
-	//Animations
-	private world.gfx.Animation animDown, animUp, animLeft, animRight;
+	private Personaje personaje;
+	private Animation animDown, animUp, animLeft, animRight;
 	
-	public Player(world.Handler handler, float x, float y) {
+	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+		
+		personaje = new Humano("Diego");
 		
 		bounds.x = 22;
 		bounds.y = 44;
@@ -26,6 +30,8 @@ public class Player extends Creature {
 		animLeft = new Animation(500, Assets.player_left);
 		animRight = new Animation(500, Assets.player_right);
 	}
+
+	
 
 	@Override
 	public void tick() {
@@ -56,12 +62,8 @@ public class Player extends Creature {
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-		
-//		g.setColor(Color.red);
-//		g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()),
-//				(int) (y + bounds.y - handler.getGameCamera().getyOffset()),
-//				bounds.width, bounds.height);
+		g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()),
+				   (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 	}
 	
 	private BufferedImage getCurrentAnimationFrame(){
@@ -74,6 +76,14 @@ public class Player extends Creature {
 		}else{
 			return animDown.getCurrentFrame();
 		}
+	}
+
+	public Personaje getPersonaje() {
+		return personaje;
+	}
+
+	public void setPersonaje(Personaje personaje) {
+		this.personaje = personaje;
 	}
 
 }

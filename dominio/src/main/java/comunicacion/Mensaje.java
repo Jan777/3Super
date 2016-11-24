@@ -1,38 +1,9 @@
 package comunicacion;
 
-import java.io.IOException;
-import java.io.Serializable;
-
-public class Mensaje {
-	
-	int idEmisor;
-	int idReceptor;
-	Object msg;
-	
-	Mensaje(int idEmisor, int idReceptor, Object paquete){
-		this.idEmisor=idEmisor;
-		this.idReceptor=idReceptor;
-		empaquetar (paquete);
-	}
+public interface Mensaje {
 	
 	
-	void empaquetar(Object Mensaje) {
-		msg = Mensaje;
-	}
-	
-	public Object desenpaquetar(){
-		return msg;
-	}
-	
-	public boolean SoyReceptor(int id){
-		return id==idReceptor? true:false;
-	}
-	
-	public boolean SoyEmisor(int id){
-		return id==idEmisor? true:false;
-	}
-	
-
+	void procesar();
 	
 	
 

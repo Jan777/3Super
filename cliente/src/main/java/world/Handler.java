@@ -13,7 +13,7 @@ public class Handler {
 		this.game = game;
 	}
 	
-	public world.gfx.GameCamera getGameCamera(){
+	public GameCamera getGameCamera(){
 		return game.getGameCamera();
 	}
 	

@@ -2,8 +2,6 @@ package alianza;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.management.ImmutableDescriptor;
-
 import personaje.Personaje;
 
 public class Alianza {
@@ -21,8 +19,11 @@ public class Alianza {
 	}
 
 	public Alianza(){
+		//nombre=nombreParametro;
 		integrantes = new ArrayList<Personaje>();
 		id = this.obtenerProxAlianza();
+		
+
 	}
 
 	private int obtenerProxAlianza(){
@@ -51,7 +52,6 @@ public class Alianza {
 	public void romperAlianza(Personaje personaje){
 
 		Calendar actual = Calendar.getInstance();
-	
 		if(cantTotalMin(personaje.limiteMinimoPermanenciaAlianza, actual)>=5){
 			Iterator<Personaje> iter = integrantes.iterator();
 			while (iter.hasNext()) 	{
@@ -78,6 +78,10 @@ public class Alianza {
 	public ArrayList<Personaje> obtenerIntegrantes() {
 		return integrantes;
 	}
+	/*
+	 * @mauroat - 27/10/16
+	 * La idea de este método es que finalizados los combates reparta experiencia entre los miembros de la alianza
+	 * */
 
 	public int obtenerIdAlianza() {
 		return id;
@@ -97,6 +101,5 @@ public class Alianza {
 		totalMinutos=((tiempFin.getTimeInMillis()-tiempIni.getTimeInMillis())/1000/60);
 		return totalMinutos;
 	}
-	
 	
 }

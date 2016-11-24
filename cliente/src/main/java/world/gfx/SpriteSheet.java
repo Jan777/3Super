@@ -10,6 +10,7 @@ public class SpriteSheet {
 		this.sheet = sheet;
 	}
 	
+	//en este metodo corto la imagen donde quiero, y me devuelve un BufferedImage
 	public BufferedImage crop(int x, int y, int width, int height){
 		return sheet.getSubimage(x, y, width, height);
 	}

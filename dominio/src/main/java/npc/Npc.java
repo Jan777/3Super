@@ -22,11 +22,8 @@ public abstract class Npc implements Atacable{
 	}
 	
 	public int obtenerPuntosDeSalud() {
-		return calcularPuntosDeSalud()+this.salud;
+		return this.salud;
 	}
-	public abstract int calcularPuntosDeSalud();
-	
-	public abstract int obtenerPuntosDeDefensa();
 	
 	@Override
 	public int darExperiencia() {

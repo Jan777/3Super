@@ -13,9 +13,9 @@ import personaje.Personaje;
 //El juego va a tener muchos de estos mapas logicos, uno para cada tipo, y tiene que permitir cambiarse de una alianza a la otra.
 public class MapaAlianza extends MapaLogico {
 	private static final long serialVersionUID = 1L;
+	private int radio=5;
 	private String nombre;
 	private ArrayList<Personaje> miembros; //Redefinir como array Bi-dimensional, como deberia haber sido desde el comienzo
-	private int radio = 5;
 	
 	public MapaAlianza(String n)
 	{
@@ -79,7 +79,6 @@ public void addMiembro(String Nombre){
 	public boolean ocupada(int x, int y) {
 		return false;
 	}
-	
 
 	@Override
 	public Sprite getSprite(int x, int y) {
