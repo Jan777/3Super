@@ -126,7 +126,13 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		return alianzaAct;
 	}
 	
-
+	public boolean puedenAtacarse(Personaje p){
+		
+		if(this.obtenerAlianzaAct() == p.obtenerAlianzaAct() )
+			return false;	
+		return true;
+	}
+	 
 	
 	public boolean crearAlianza(Personaje p) {
 		/*

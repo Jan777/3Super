@@ -60,4 +60,32 @@ public class AlianzaTests {
 		Assert.assertEquals(2, bruno.obtenerAlianzaAct().cantMiembrosQueHayAlianza());
 	}
 	
+	@Test
+	public void probarQueDosPersonajesDeLaMismaAlianzaNopuedenAtacarse(){
+		
+		Personaje bruno = new Humano("bruno");
+		Personaje ivan = new Humano("ivan");
+		
+		bruno.crearAlianza(ivan);
+		
+		Assert.assertEquals(false, ivan.puedenAtacarse(bruno));
+	}
+	
+	@Test
+	public void probarQueDosPersonajesDeDisntitaAlianzaNopuedenAtacarse(){
+		
+
+		Personaje alan = new Humano("alan");
+		Personaje ivan = new Humano("ivan");
+		
+		Personaje diego = new Humano("diego");
+		Personaje rodri= new Humano("rodri");
+		
+		ivan.crearAlianza(alan);
+		diego.crearAlianza(rodri);
+		
+		Assert.assertEquals(true, alan.puedenAtacarse(rodri));
+		
+	}
+	
 }

@@ -88,6 +88,30 @@ public class PersonajeTests {
 //		
 //		Assert.assertEquals(false,diego.estaVivo());
 //	}
-//	
+
+	
+	/*  * Dado un **Personaje**, cuando el **Personaje** aumenta/decrementa su Energía, 
+	 * entonces aumenta o decrementa su **Puntos de Ataque**.
+	 */
+	
+	@Test
+	public void quePersonajeAumenteoDecrementePtosDeAtaque(){
+		
+		Humano nano = new Humano("nano");
+		Humano matias = new Humano("matias");
+		
+		//antes de atacar matias tiene 50  de energia
+		matias.atacar(nano);
+		
+		//despues de atacar matias tiene 0 de energia por lo tanto tambien decrementa sus putos
+		//de ataque=ptos de fuerza
+		
+		
+		Assert.assertEquals(0,matias.getEnergia());
+		Assert.assertEquals(50,matias.obtenerPuntosDeFuerza());
+	}
+	
+	
+	
 	
 }

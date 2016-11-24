@@ -52,7 +52,7 @@ public class Alianza {
 
 		Calendar actual = Calendar.getInstance();
 	
-		if(cantTotalMin(personaje.limiteMinimoPermanenciaAlianza, actual)>=3){
+		if(cantTotalMin(personaje.limiteMinimoPermanenciaAlianza, actual)>=5){
 			Iterator<Personaje> iter = integrantes.iterator();
 			while (iter.hasNext()) 	{
 				Personaje user = iter.next();
@@ -98,11 +98,5 @@ public class Alianza {
 		return totalMinutos;
 	}
 	
-	public static boolean puedenAtacarse(Personaje p1, Personaje p2){
-		
-		if(p1.obtenerAlianzaAct() == p2.obtenerAlianzaAct())
-			return false;	
-		return true;
-	}
-	 
+	
 }
