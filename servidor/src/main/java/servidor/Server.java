@@ -17,11 +17,11 @@ public class Server {
     //MUNDOS DISPONIBLES
     public static ArrayList<Socket> listaDeConexionesMundoFisico = new ArrayList<>();
     public static ArrayList<Socket> listaDeConexionesMundoEnlace = new ArrayList<>();
-    private int puerto;
-    private String IPServidor;
+    private static int puerto;
+    private static String IPServidor;
 
     
-    public  void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
     	try {
     		leerArchivoConfig();
@@ -48,14 +48,14 @@ public class Server {
     	
     	
     }
-    private void leerArchivoConfig() throws IOException {
+    private static void leerArchivoConfig() throws IOException {
     	Scanner entrada = null;
     	try {
 			entrada = new Scanner(new File(PATH_CONFIGURACION));
 			
 			if(entrada.hasNextLine()) {
-				this.IPServidor = entrada.nextLine().substring(3);
-				this.puerto = Integer.parseInt(entrada.nextLine().substring(7));
+				IPServidor = entrada.nextLine().substring(3);
+				puerto = Integer.parseInt(entrada.nextLine().substring(7));
 			}
 			
 		} catch (FileNotFoundException e) {
