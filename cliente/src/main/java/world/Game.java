@@ -154,14 +154,15 @@ public class Game implements Runnable {
 				if(estaPeleando == false)
 				{
 					if( Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getX() - player.getX() ) < 30
-								&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - player.getY() < 30)
+								&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - player.getY() < 30
+								&& this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea == true )
 					{
 						ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), player, this);
 						ventanaPelea.setVisible(true);
 						estaPeleando = true;
+						this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea = false;
 					}
 				}
-
 		}
 
 		
@@ -172,18 +173,19 @@ public class Game implements Runnable {
 		GameNpc npc2 = new GameNpc(handler, 600, 50);
 		listaNpcs.add(npc2);
 
-		
 		for (GameNpc npc : listaNpcs) {
 			npc.render(g);
 			
 			if(estaPeleando == false)
 			{
 				if( Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getX() - npc.getX() ) < 30
-							&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - npc.getY() < 30)
+							&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - npc.getY() < 30
+							&& this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea == true )
 				{
 					ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), npc, this);
 					ventanaPelea.setVisible(true);
 					estaPeleando = true;
+					this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea = false;
 				}
 			}
 		}
@@ -197,7 +199,7 @@ public class Game implements Runnable {
 	public void run(){
 		init();
 		
-		int fps = 100;
+		int fps = 20;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
 		long now;
