@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-
 import org.codehaus.jackson.map.ObjectMapper;
-
-import jugador.MapaEnlaceDatos;
-import jugador.MapaFisico;
 import world.Game;
 
 
@@ -30,34 +26,6 @@ public class ClientThread implements Runnable {
     	
     	Game game = new Game("The bug", 640, 480, socket);
 		game.start();
-		
-		
-		
-
-//    	switch (mapaSeleccionado) {
-//		case "Fisica":
-//			MapaFisico mapaF = new MapaFisico();
-//			mapaF.setVisible(true);
-//			break;
-//		case "Enlace de Datos":
-//			MapaEnlaceDatos mapaED = new MapaEnlaceDatos();
-//			mapaED.setVisible(true);
-//		default:
-//			//Poner mensaje de error
-//			break;
-//		}
-    	/*
-    	ClientRecibirAct clientRecibirAct = new ClientRecibirAct(socket,mapaSeleccionado);
-        Thread threadRecibirAct = new Thread(clientRecibirAct);
-        threadRecibirAct.start();
-        
-    	ClientAcciones clientAcciones = new ClientAcciones(socket,mapaSeleccionado);
-        Thread threadRecibirAcciones = new Thread(clientAcciones);
-        threadRecibirAcciones.start();
-    	*/
-    	
-    	
-    	
     	
     }
 

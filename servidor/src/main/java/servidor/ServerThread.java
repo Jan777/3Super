@@ -10,12 +10,8 @@ import java.util.Scanner;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import comunicacion.AccionesAEnviar;
 import comunicacion.Jugador;
-import comunicacion.MapaAEnviar;
-import logica.MapaAlianza;
-import logica.MapaLogico;
-import logica.MapaObstaculos;
+
 
 public class ServerThread implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;

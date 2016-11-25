@@ -2,7 +2,6 @@ package npc;
 
 import java.awt.Point;
 
-import output.Sprite;
 
 public class Resistencia extends Npc{
 	public Resistencia() {
@@ -17,10 +16,7 @@ public class Resistencia extends Npc{
 	
 	}
 	
-	public Sprite getSprite(){
-		return super.getSprite();
-	}
-	
+
 	public String getSpritePath(){
 		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/ResistenciaIzquierda.gif";
 	}

@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.Observable;
 
 import alianza.Alianza;
-import output.Sprite;
 
-public abstract class Personaje extends Observable implements Atacable, IamMovil {
+
+public abstract class Personaje implements Atacable {
 	protected String nombre;
 	protected int salud=100;
 	protected int energia=50;
@@ -234,9 +234,7 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 	public String getSpritePath(){
 		return this.SpritePath;
 	}
-	public Sprite getSprite(){
-		return new Sprite(SpritePath);
-	}
+
 	public void setSpritePath(String path){
 		this.SpritePath=path;
 	}
@@ -249,18 +247,11 @@ public abstract class Personaje extends Observable implements Atacable, IamMovil
 		this.pos=this.vel;
 		this.vel.setLocation(vel.getX()+acc.getX(), vel.getY()+acc.getY());
 		}
-	public Point procMovimiento(){ mover(); return this.pos;}
-	private void actualizar(){
-		if (this.hasChanged())
-			this.notifyObservers();
-		this.clearChanged();
-		
-		
-	}
+
 	public void step(){
 		mover();
 //		actuar()
-		actualizar();
+
 	}
 	
 }

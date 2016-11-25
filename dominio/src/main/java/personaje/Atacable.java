@@ -1,9 +1,8 @@
 package personaje;
 
+import java.awt.Point;
 
-import output.IhasSprite;
-
-public interface Atacable extends IhasSprite{ //Todo objeto que se pueda atacar tiene que poder ser visualizado
+public interface Atacable{ //Todo objeto que se pueda atacar tiene que poder ser visualizado
 
 
 	
@@ -14,6 +13,10 @@ public interface Atacable extends IhasSprite{ //Todo objeto que se pueda atacar 
 		public boolean estaVivo();
 
 		void revivir();
+
+		void setPosition(Point p);
+
+		Point getPosition();
 
 		
 		

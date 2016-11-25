@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import logica.MapaAlianza;
 import personaje.Personaje;
 
 public class Batallon {

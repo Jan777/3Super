@@ -2,7 +2,7 @@ package npc;
 
 import java.awt.Point;
 
-import output.Sprite;
+
 
 public class Capacitor extends Npc{
 	
@@ -17,10 +17,7 @@ public class Capacitor extends Npc{
 	public void revivir() {
 	
 	}
-	
-	public Sprite getSprite(){
-		return super.getSprite();
-	}
+
 	
 	public String getSpritePath(){
 		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/CapacitorIzquierda.gif";
