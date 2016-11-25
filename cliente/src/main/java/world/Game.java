@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
@@ -32,6 +34,8 @@ public class Game implements Runnable {
 	
 	private ArrayList<Player> listaJugadores;
 	private ArrayList<GameNpc> listaNpcs;
+	private Queue<Jugador> colaBuffer;
+	
 	Socket socket;
 	Jugador jugadorMio;
 	Jugador jugadorRecibido;
@@ -144,9 +148,13 @@ public class Game implements Runnable {
 		String input = sc.nextLine();
 		jugadorRecibido = mapper.readValue(input, Jugador.class);
 		
-		if(jugadorRecibido.getId() != jugadorMio.getId()){
+		colaBuffer.add(jugadorRecibido);
 		
-			Player player = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
+		Jugador jugadorATratar = colaBuffer.remove();
+		
+		if(jugadorATratar.getId() != jugadorMio.getId()){
+		
+			Player player = new Player(handler, jugadorATratar.getX(),jugadorATratar.getY());
 		
 		
 			player.render(g);
@@ -166,12 +174,7 @@ public class Game implements Runnable {
 		}
 
 		
-		listaNpcs = new ArrayList<GameNpc>();
 		
-		GameNpc npc1 = new GameNpc(handler, 500, 200);
-		listaNpcs.add(npc1);
-		GameNpc npc2 = new GameNpc(handler, 600, 50);
-		listaNpcs.add(npc2);
 
 		for (GameNpc npc : listaNpcs) {
 			npc.render(g);
@@ -182,14 +185,21 @@ public class Game implements Runnable {
 							&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - npc.getY() < 30
 							&& this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea == true )
 				{
-					ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), npc, this);
+					ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), npc,this);
 					ventanaPelea.setVisible(true);
 					estaPeleando = true;
 					this.gameState.getWorld().getEntityManager().getHandler().getKeyManager().pelea = false;
 				}
 			}
 		}
-
+		
+		if(jugadorRecibido.getMurioIndex() >= 0 ){
+			//int index = jugadorRecibido.getMurioIndex();
+			listaNpcs.remove(jugadorRecibido.getMurioIndex());
+			jugadorMio.setMurioIndex(-1);
+		}
+		
+		
 		//termino de dibujar aca
 		bs.show(); //muestro lo que tiene el bufferstrategy
 		g.dispose(); //hago dispose de los graficos
@@ -206,6 +216,18 @@ public class Game implements Runnable {
 		long lastTime = System.nanoTime();
 		long timer = 0;
 		int ticks = 0;
+		
+		colaBuffer=new LinkedList();
+		listaNpcs = new ArrayList<GameNpc>();
+
+		GameNpc npc1 = new GameNpc(handler, 500, 200);
+		listaNpcs.add(npc1);
+		GameNpc npc2 = new GameNpc(handler, 600, 50);
+		listaNpcs.add(npc2);
+		GameNpc npc3 = new GameNpc(handler, 50, 50);
+		listaNpcs.add(npc3);
+		GameNpc npc4 = new GameNpc(handler, 500, 500);
+		listaNpcs.add(npc4);
 		
 		while(running){
 			now = System.nanoTime();
@@ -226,7 +248,6 @@ public class Game implements Runnable {
 			}
 			
 			if(timer >= 1000000000){
-				System.out.println("Ticks and Frames: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}
@@ -275,6 +296,22 @@ public class Game implements Runnable {
 
 	public void setEstaPeleando(boolean estaPeleando) {
 		this.estaPeleando = estaPeleando;
+	}
+
+	public ArrayList<GameNpc> getListaNpcs() {
+		return listaNpcs;
+	}
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public Jugador getJugadorMio() {
+		return jugadorMio;
+	}
+
+	public void setJugadorMio(Jugador jugadorMio) {
+		this.jugadorMio = jugadorMio;
 	}
 
 }

@@ -27,9 +27,8 @@ public class ServerThread implements Runnable {// The Runnable interface should 
         this.socket = socket;
         this.listaDeConexiones = listaDeSala;
         this.nickName = alias;
-        //mo= new MapaObstaculos(32,32, 0.4);
-        
-        
+
+
     }
     public boolean estaConectado() throws IOException {
         if (!this.socket.isConnected()) {// SI EL SOCKET ESTA DESCONECTADO LO ELIMINA DE MI LISTA DE CONEXIONES.
@@ -46,33 +45,27 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
    
-    	try {/*
-            this.sc = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
+		try {
+			while (true) {
 
-                if (this.estaConectado()) { // VERIFICO QUE EL SOCKET ESTE CONECTADO, SI NO LO ESTA CIERRO ESE SOCKET.
-                    if (!this.sc.hasNext()) { // SI NO HA TIENE MENSAJE ACTUAL BUCLEO A LA ESPERA DE UNO
-                        return;
-                    }
-                } //Nano, i'm so sorry.
-                */
-                while(true){
-                		
-        				sc = new Scanner(socket.getInputStream());
-        				String input = sc.nextLine();
-        				jugadorParaActualizar = mapper.readValue(input, Jugador.class);
-        				//jugadorParaActualizar.mostrarUbicacion();
-        				
-        				
-        				for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
-                            Socket tempSocket = this.listaDeConexiones.get(x);
-                			String jsonInString = mapper.writeValueAsString(jugadorParaActualizar);
-                			out = new PrintWriter(tempSocket.getOutputStream()); 
-                			out.println(jsonInString); 
-                			out.flush();
-        				}
-        		}
+				sc = new Scanner(socket.getInputStream());
+				String input = sc.nextLine();
+				jugadorParaActualizar = mapper.readValue(input, Jugador.class);
+				
+				//System.out.println(jugadorParaActualizar.getMurioIndex());
+				
+				// Actualizo Ubicación enviada a todos los sockets
+				for (int x = 0; x < this.listaDeConexiones.size(); x++) {
+					Socket tempSocket = this.listaDeConexiones.get(x);
+					String jsonInString = mapper.writeValueAsString(jugadorParaActualizar);
+					out = new PrintWriter(tempSocket.getOutputStream());
+					out.println(jsonInString);
+					out.flush();
+				}
+				
+			}
 
-         }
+		}
          catch (Exception e) {
             e.printStackTrace(); 
         }

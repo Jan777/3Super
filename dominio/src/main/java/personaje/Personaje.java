@@ -239,6 +239,15 @@ public abstract class Personaje implements Atacable {
 		this.SpritePath=path;
 	}
 	
+	public int getFuerza() {
+		return fuerza;
+	}
+
+	public void setFuerza(int fuerza) {
+		this.fuerza = fuerza;
+	}
+
+	
 	public Point getPos() {return this.pos;}
 	public Point getVel() {return this.vel;}
 	public Point getAcc() {return this.acc;}

@@ -3,6 +3,9 @@ package world;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import comunicacion.Jugador;
 import world.entities.creatures.*;
 
 public class VentanaPelea extends JFrame {
@@ -19,7 +25,7 @@ public class VentanaPelea extends JFrame {
 	public VentanaPelea() {
 		getContentPane().setLayout(null);
 	}
-
+	Jugador aux;
 	protected static final world.entities.creatures.Player Player = null;
 	private JPanel contentPane;
 
@@ -101,9 +107,31 @@ public class VentanaPelea extends JFrame {
 		contentPane.add(btnAtacar);
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getPersonaje().atacar( enemigo.getNpc() );
+				enemigo.getNpc().serAtacado(player.getPersonaje().getFuerza());
+				
 				if( !enemigo.getNpc().estaVivo() ){
+					int index = game.getListaNpcs().indexOf(enemigo);
+					
+					
+					try {	
+						Jugador jugAux = new Jugador();
+						jugAux.setMurioIndex(index);
+						
+						ObjectMapper mapper = new ObjectMapper();
+						String jsonInString = mapper.writeValueAsString(jugAux);
+						PrintWriter	out = new PrintWriter(game.getSocket().getOutputStream());
+						out.println(jsonInString);
+						out.flush();
+						
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+
 					dispose();
+					game.setEstaPeleando(false);
+					
 				}
 			}
 		});

@@ -11,6 +11,7 @@ public class Jugador implements Serializable{
 	private float y;
 	private int id;
 	private Humano jugador;
+	private int murioIndex = -1;
 	
 	
 	public Jugador(float x2, float y2){
@@ -54,6 +55,14 @@ public class Jugador implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getMurioIndex() {
+		return murioIndex;
+	}
+
+	public void setMurioIndex(int murioIndex) {
+		this.murioIndex = murioIndex;
 	}
 	
 	
