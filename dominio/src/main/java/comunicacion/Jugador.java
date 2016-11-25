@@ -12,11 +12,11 @@ public class Jugador implements Serializable{
 	private int id;
 	private Humano jugador;
 	
+	
 	public Jugador(float x2, float y2){
 		this.x = x2;
 		this.y = y2;
 		id = (int) Math.floor(Math.random() * 10001);
-		
 		//this.jugador = jugador;
 		
 	}
