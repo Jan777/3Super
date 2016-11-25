@@ -6,7 +6,7 @@ import world.Handler;
 import world.entities.EntityManager;
 import world.entities.creatures.Player;
 import world.entities.statics.SpriteCapacitor;
-import world.entities.statics.SpriteNPCCapacitor;
+//import world.entities.statics.SpriteNPCCapacitor;
 import world.tiles.Tile;
 import world.utils.Utils;
 

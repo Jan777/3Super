@@ -74,10 +74,7 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				}
 				
 			}
-			//ServerThread chat;
-			
 		} catch (IOException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -89,13 +86,10 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		String passEnviada = user.getPass() ;
 		System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
 
-		
 		//////////CONEXION CON LA BASE DE DATOS////////////
 		mySQLCon = new SQLiteJDBC();
 		mySQLCon.getConnection();
-		///////////////////////////////////////////////////
-		
-		
+		///////////////////////////////////////////////////		
 		if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
 		{
 			mySQLCon.close(); //CIERRO LA CONEXIÓN
@@ -115,17 +109,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
             	
             }while (sc2.hasNext()==false);
             
-		    
-		/*
-		    Scanner sc2;
-			sc2 = new Scanner(socket.getInputStream());
-			 if (sc2.hasNextLine()) 
-				 System.out.println("sc2ok"); 
-			 else 
-				 System.out.println("sc2mal");
-	
-		*/ 
-		
 			String input2 = sc2.nextLine();
 			User user2 = mapper.readValue(input2, User.class);
 			String accion2 = user2.getAccion() ;

@@ -27,19 +27,12 @@ public class Server {
     		leerArchivoConfig();
             @SuppressWarnings("resource") //no cierro server
 			ServerSocket server = new ServerSocket(puerto);
-            //ObjectMapper mapper = new ObjectMapper();
-
             while (true) {
                 System.out.println("Esperando un cliente");
                 Socket socket = server.accept();
-
-                //CREAR THREAD LOGUEO
-                /// De aca para abajo hay q psarlo al thread de logueo
                 ServerLog log = new ServerLog(socket,listaDeConexionesMundoFisico,listaDeConexionesMundoEnlace);           
                 Thread thread = new Thread(log);
                 thread.start();
-                /// HASTA ACA
-                
             }
             
         } catch (Exception e) {
@@ -52,7 +45,6 @@ public class Server {
     	Scanner entrada = null;
     	try {
 			entrada = new Scanner(new File(PATH_CONFIGURACION));
-			
 			if(entrada.hasNextLine()) {
 				IPServidor = entrada.nextLine().substring(3);
 				puerto = Integer.parseInt(entrada.nextLine().substring(7));
@@ -63,7 +55,6 @@ public class Server {
 		} finally {
 			entrada.close();
 		}
-    	//entrada.close();
     }
     private static final String PATH_CONFIGURACION = "config/propiedades.config";
 }

@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -34,6 +36,8 @@ public class Registro extends JFrame {
 	private JPasswordField campoContra;
 	private JTextField campoMail;
 	Socket socket;
+	private int puerto;
+	private String IPServidor;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -104,10 +108,9 @@ public class Registro extends JFrame {
 				String password = new String(campoContra.getPassword());
 				
 				try {
-					final int PORT = 4445;
-					String server = "127.0.0.1";
-		            socket = new Socket(server, PORT);
-		            System.out.println("Te conectaste a: " + server);
+					leerArchivoConfig();
+		            socket = new Socket(IPServidor, puerto);
+		            System.out.println("Te conectaste a: " + IPServidor);
 					
 			        ObjectMapper mapper = new ObjectMapper();
 					@SuppressWarnings("unused")
@@ -150,7 +153,10 @@ public class Registro extends JFrame {
 						try {
 							Login frame = new Login();
 							frame.setVisible(true);
-							
+							//Registro reg = new Registro();
+							//reg.setVisible(true);
+							//reg.setLocationRelativeTo(null);
+							dispose();
 							
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -196,4 +202,25 @@ public class Registro extends JFrame {
 		lblNewLabel_1.setBounds(303, 101, 89, 95);
 		panel.add(lblNewLabel_1);
 	}
+	
+    private void leerArchivoConfig() throws IOException {
+    	Scanner entrada = null;
+    	try {
+			entrada = new Scanner(new File(PATH_CONFIGURACION));
+			
+			if(entrada.hasNextLine()) {
+				this.IPServidor = entrada.nextLine().substring(3);
+				this.puerto = Integer.parseInt(entrada.nextLine().substring(7));
+			}
+			
+		} catch (FileNotFoundException e) {
+			 JOptionPane.showMessageDialog(null, "No se puede cargar la configuracion del servidor");
+		} finally {
+			entrada.close();
+		}
+    	//entrada.close();
+    }
+    private static final String PATH_CONFIGURACION = "config/propiedades.config";
+	
+	
 }

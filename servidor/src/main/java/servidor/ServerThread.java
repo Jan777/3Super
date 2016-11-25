@@ -20,9 +20,7 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     ObjectMapper mapper = new ObjectMapper();
     ArrayList<Socket> listaDeConexiones = new ArrayList<>();
     Jugador jugadorParaActualizar;
-    String nickName;
-
-    
+    String nickName;    
     public ServerThread(Socket socket, ArrayList<Socket> listaDeSala, String alias) {
         this.socket = socket;
         this.listaDeConexiones = listaDeSala;
@@ -50,10 +48,7 @@ public class ServerThread implements Runnable {// The Runnable interface should 
 
 				sc = new Scanner(socket.getInputStream());
 				String input = sc.nextLine();
-				jugadorParaActualizar = mapper.readValue(input, Jugador.class);
-				
-				//System.out.println(jugadorParaActualizar.getMurioIndex());
-				
+				jugadorParaActualizar = mapper.readValue(input, Jugador.class);	
 				// Actualizo Ubicación enviada a todos los sockets
 				for (int x = 0; x < this.listaDeConexiones.size(); x++) {
 					Socket tempSocket = this.listaDeConexiones.get(x);
@@ -64,7 +59,6 @@ public class ServerThread implements Runnable {// The Runnable interface should 
 				}
 				
 			}
-
 		}
          catch (Exception e) {
             e.printStackTrace(); 

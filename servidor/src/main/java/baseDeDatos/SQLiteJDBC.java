@@ -19,17 +19,17 @@ public class SQLiteJDBC
 				
 				Class.forName("org.sqlite.JDBC");
 			    conn = DriverManager.getConnection("jdbc:sqlite:test.db");
-			    conn.setAutoCommit(false);
-				System.out.println("Se realizó la conexión con la BD con éxito");
-				
+			    conn.setAutoCommit(false);				
 			}
 			else{
-				System.out.println("La conexión ya se encuentra realizada.");
+				JOptionPane.showMessageDialog(null, "Ya se encuentra conectado", "Error", JOptionPane.ERROR_MESSAGE);
+
 			}
 		} catch (ClassNotFoundException cnfe) {
-			System.out.println("No se encuentra el Driver.");
+			JOptionPane.showMessageDialog(null, "No se encuentra el driver", "Error", JOptionPane.ERROR_MESSAGE);
+
 		} catch (SQLException sqle) {
-			System.out.println("Error al intentar la conexión.");
+			JOptionPane.showMessageDialog(null, "Error al Intentar la conexion", "Error", JOptionPane.ERROR_MESSAGE);
 		}	
 		return conn;
 	}
@@ -39,22 +39,36 @@ public class SQLiteJDBC
 
 	public int registrarse(String usuario, String password) throws SQLException {
 		sentencia = null;
+		boolean respuesta = false;
 		try {
-			sentencia = conn.createStatement();
-			String query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\"" + usuario + "\",\"" + password+ "\")";
-			sentencia.execute(query);
-			sentencia.close();
-			conn.commit();
-			System.out.println("Se inserto con exito");
-			return 1;
 			
+
+			sentencia = conn.createStatement(); 
+			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+"\"";
+			ResultSet rs = sentencia.executeQuery(query);
+			while(rs.next()){
+				respuesta = true;
+				rs.close();
+		        sentencia.close();
+			}
+			if(respuesta == true){
+				return 0;
+			}
+			else{
+				sentencia = conn.createStatement();
+				query = "INSERT INTO `usuarios`(`usuario`, `contraseña`)  VALUES(\"" + usuario + "\",\"" + password+ "\")";
+				sentencia.execute(query);
+				sentencia.close();
+				conn.commit();
+				return 1;
+			}
 		} catch (SQLException ex) {
-			//JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error en la consulta SQL", "Error",JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 
 		catch (Exception e) {
-			//JOptionPane.showMessageDialog(null, "No logro ejecutar Insertar Correctamente la consulta", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No se logro ejecutar Insertar Correctamente la consulta", "Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 	}
@@ -71,30 +85,27 @@ public class SQLiteJDBC
 			sentencia = conn.createStatement(); 
 			String query = "SELECT * FROM usuarios WHERE usuario = \""+usuario+"\" and contraseña = \""+password+"\"";
 			ResultSet rs = sentencia.executeQuery(query);
-			
 			while(rs.next()){
 				respuesta = true;
 				rs.close();
 		        sentencia.close();
 			}
 			if(respuesta == true){
-				System.out.println("Acceso Permitido! (^.^)");
 				return 1;
 			}
 			else{
-				System.out.println("Acceso Denegado! (O_O)");
 				return 0;
 			}
 		
 			
 		}
 		catch(SQLException ex){
-			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 		
 		catch(Exception e){
-			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD","Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 		
@@ -106,10 +117,9 @@ public class SQLiteJDBC
 			if(conn != null) {
 				conn.close();
 				conn = null;
-				System.out.println("Desconexión de la BD exitosa.");
 			}
 		} catch (SQLException sqle) {
-			System.out.println("Error al intentar la conexión.");
+			JOptionPane.showMessageDialog(null, "Error al intentar realizar la desconexion", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
     
@@ -123,30 +133,20 @@ public class SQLiteJDBC
 	        sentencia.close();
 
 	      } catch ( Exception e ) {
-	        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+				JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
 	        System.exit(0);
 	      }
-	      System.out.println("Tabla creada con EXITO!");
-		
-		
-		
 	}
 	
-    public static void main( String args[] ) throws SQLException
+   /* public static void main( String args[] ) throws SQLException
     {
   	  
   	  SQLiteJDBC mySQLCon = new SQLiteJDBC();
   	  mySQLCon.getConnection();
-  		
-  		//conexionBD.consultar("select * from usuarios");
-  	  //mySQLCon.registrarse("ivan","123");
-  		
-  		
   		mySQLCon.verificarUserYPassword("ivan","123");
-  		//mySQLCon.verificarExistenciaUsuario("ivan");
   		mySQLCon.close();
       
-    }
+    }*/
   
 }
   
