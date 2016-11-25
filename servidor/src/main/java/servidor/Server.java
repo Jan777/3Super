@@ -63,7 +63,7 @@ public class Server {
 		} finally {
 			entrada.close();
 		}
-    	entrada.close();
+    	//entrada.close();
     }
     private static final String PATH_CONFIGURACION = "config/propiedades.config";
 }
