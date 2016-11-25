@@ -79,19 +79,23 @@ public class PersonajeTests {
 		Assert.assertEquals(110 ,ivan.getEnergia());
 	}
 	
-//	@Test
-//	public void  queElPersonajeEliminadoSeaRevivido(){
-//		
-//		Humano diego = new Humano("diego");
-//		Humano matias = new Humano("matias");
-//		
-//		for(int i=0; i<30; i++){
-//			matias.atacar(diego);
-//			System.out.println(diego.getSalud());
-//			}
-//		
-//		Assert.assertEquals(false,diego.estaVivo());
-//	}
+	@Test
+	public void  queElPersonajeEliminadoSeaRevivido(){
+		
+		Bot rodri = new Bot();
+		Holograma ivan = new Holograma();
+		
+		rodri.atacar(ivan);
+		//tengo que energizarlo por que despues de atacar no posee la suficiente energia para matarlo
+		rodri.serEnergizado();
+		//aca lo termine de matar
+		rodri.atacar(ivan);
+		//compruebo que realmente lo mate
+		Assert.assertEquals(0 ,ivan.getSalud());
+		ivan.serCurado();
+		//ahora ivan vuelve a ser revivido
+		Assert.assertEquals(100 ,ivan.getSalud());	
+	}
 	
 	@Test
 	public void queElBotNoPuedaAtacar(){
@@ -123,6 +127,18 @@ public class PersonajeTests {
 
 	}
 	
-	
+	@Test
+	public void queHumanoNoPuedaAtacar(){
+		
+		Humano diego = new Humano("diego");
+		Humano javier = new Humano("javier");
+		
+		for(int i=0; i<2; i++)
+			javier.atacar(diego);
+		
+		//javier no puede atacar ya que se quedo sin energia
+	     Assert.assertEquals(0,javier.getEnergia());
+		 Assert.assertEquals(false,javier.puedeAtacar());
+	}
 	
 }
