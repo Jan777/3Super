@@ -6,14 +6,14 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener {
 	
 	private boolean[] keys;
-	public boolean arriba, down, left, right, pelea;
+	public boolean up, down, left, right, pelea;
 	
 	public KeyManager(){
 		keys = new boolean[256];
 	}
 	
 	public void tick(){
-		arriba = keys[KeyEvent.VK_W];
+		up = keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_S];
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];

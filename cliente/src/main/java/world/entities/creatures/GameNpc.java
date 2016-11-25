@@ -4,27 +4,39 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import npc.Capacitor;
+import npc.Npc;
+import npc.Resistencia;
 import world.Handler;
 import world.gfx.Animation;
 import world.gfx.Assets;
 
 public class GameNpc extends Creature {
-	private Capacitor npc;
-	private Animation animDown, animUp, animLeft, animRight;
+	private char identificacion; //identifico si es Capacitor o Resistencia
+	private Npc npc;
 	private Assets asset;
 	
-	public Capacitor getNpc() {
+	public Npc getNpc() {
 		return npc;
 	}
 
 	public void setNpc(Capacitor npc) {
 		this.npc = npc;
 	}
+	
+	public char getIdentificacion(){
+		return identificacion;
+	}
 
-	public GameNpc(Handler handler, float x, float y) {
+	public GameNpc(Handler handler, float x, float y, char id) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		npc = new Capacitor();
+		identificacion = id;
+
+		if(id == 'C'){
+			npc = new Capacitor();
+		} else {
+			npc = new Resistencia();
+		}
 		
 		bounds.x = 22;
 		bounds.y = 44;
@@ -33,24 +45,15 @@ public class GameNpc extends Creature {
 	}
 
 	public void render(Graphics g) {
-		asset = new Assets();
-		BufferedImage imagenCapacitor = asset.npcCap;
-		g.drawImage( imagenCapacitor, (int) (x - handler.getGameCamera().getxOffset()),
+		BufferedImage imagen = null;
+		if (identificacion == 'C') //aca me fijo que imagen uso depende la identificacion
+			imagen = Assets.npcCap;
+		else
+			imagen = Assets.npcRes;
+		g.drawImage( imagen, (int) (x - handler.getGameCamera().getxOffset()),
 				   (int) (y - handler.getGameCamera().getyOffset()), width, height, null );
 	}
 	
-	private BufferedImage getCurrentAnimationFrame(){
-		if(xMove < 0){
-			return animLeft.getCurrentFrame();
-		}else if(xMove > 0){
-			return animRight.getCurrentFrame();
-		}else if(yMove < 0){
-			return animUp.getCurrentFrame();
-		}else{
-			return animDown.getCurrentFrame();
-		}
-	}
-
 
 	public void tick() {
 		

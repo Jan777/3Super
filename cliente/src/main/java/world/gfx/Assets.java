@@ -6,7 +6,7 @@ public class Assets {
 	
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage suelo, suelo2, stone, capacitor, rock, npcCap;
+	public static BufferedImage suelo, suelo2, stone, capacitor, npcCap, npcRes;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 
 	public static void init(){
@@ -29,13 +29,14 @@ public class Assets {
 		player_left[1] = sheet.crop(width * 7, height, width, height);
 		
 		npcCap = sheet.crop(width * 4, height * 2, width, height);
+		npcRes = sheet.crop(width * 4, height * 3, width, height);
 		//npcCap[1] = sheet.crop(width * 5, height * 2, width, height);
 
 		suelo = sheet.crop(width, 0, width, height);
 		suelo2 = sheet.crop(width * 2, 0, width, height);
 		stone = sheet.crop(width * 3, 0, width, height);
 		capacitor = sheet.crop(0, 0, width, height * 2);
-		rock = sheet.crop(0, height * 2, width, height);
+
 	}
 	
 }

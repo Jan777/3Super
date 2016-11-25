@@ -45,7 +45,6 @@ public class Game implements Runnable {
 	private VentanaPelea ventanaPelea;
 	private boolean estaPeleando;	
 	
-
 	private boolean running = false;
 	private Thread thread;
 	
@@ -77,7 +76,7 @@ public class Game implements Runnable {
 	}
 	
 	private void init(){
-		display = new Display(title, width, height);
+		display = new Display(title, width, height); //creo la ventana del juego
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init(); //en Assets recorto todas las imagenes y las guardo
 					   //en un BufferedImage
@@ -122,28 +121,7 @@ public class Game implements Runnable {
 		//aca dibujo
 		if(State.getState() != null)
 			State.getState().render(g);
-		
-		//escribir un for que vaya iterando entre un Arraylist<Players> que me envian
-		//desde el servidor o genero en cliente, con los Player que me envia el servidor
-		//y aca en un foreach los voy mostrando en pantalla
-		//antes del for hacer un dispose de los anteriores, asi me genera como una especie de "update" de la posicion
-		/*
-		listaJugadores = new ArrayList<Player>(); 
-		
-		Player player1 = new Player(handler, 400, 50);		
-		Player player2 = new Player(handler, 50, 50);
-		listaJugadores.add(player1);
-		listaJugadores.add(player2);
-		
-		if(jugadorRecibido.getId() != jugadorMio.getId()){
-			Player player2 = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
-			player2.render(g);
-		}
-		
-		*/
-		
-		//Player player2 = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
-		//player2.render(g);
+
 		sc = new Scanner(socket.getInputStream());
 		String input = sc.nextLine();
 		jugadorRecibido = mapper.readValue(input, Jugador.class);
@@ -172,9 +150,6 @@ public class Game implements Runnable {
 					}
 				}
 		}
-
-		
-		
 
 		for (GameNpc npc : listaNpcs) {
 			npc.render(g);
@@ -220,14 +195,18 @@ public class Game implements Runnable {
 		colaBuffer=new LinkedList();
 		listaNpcs = new ArrayList<GameNpc>();
 
-		GameNpc npc1 = new GameNpc(handler, 500, 200);
+		GameNpc npc1 = new GameNpc(handler, 500, 200, 'C');
 		listaNpcs.add(npc1);
-		GameNpc npc2 = new GameNpc(handler, 600, 50);
+		GameNpc npc2 = new GameNpc(handler, 600, 50, 'C');
 		listaNpcs.add(npc2);
-		GameNpc npc3 = new GameNpc(handler, 50, 50);
+		GameNpc npc3 = new GameNpc(handler, 50, 50, 'C');
 		listaNpcs.add(npc3);
-		GameNpc npc4 = new GameNpc(handler, 500, 500);
+		GameNpc npc4 = new GameNpc(handler, 500, 500, 'C');
 		listaNpcs.add(npc4);
+		GameNpc npc5 = new GameNpc(handler, 600, 100, 'R');
+		listaNpcs.add(npc5);
+		GameNpc npc6 = new GameNpc(handler, 300, 500, 'R');
+		listaNpcs.add(npc6);
 		
 		while(running){
 			now = System.nanoTime();

@@ -6,17 +6,16 @@ import world.Handler;
 import world.entities.EntityManager;
 import world.entities.creatures.Player;
 import world.entities.statics.SpriteCapacitor;
-import world.entities.statics.SpriteNPC;
+import world.entities.statics.SpriteNPCCapacitor;
 import world.tiles.Tile;
 import world.utils.Utils;
 
 public class World {
-
 	private Handler handler;
 	private int width, height;
 	private int spawnX, spawnY;
 	private int[][] tiles;
-	//Entities
+
 	private EntityManager entityManager;
 	
 	public World(Handler handler, String path){

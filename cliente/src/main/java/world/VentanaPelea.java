@@ -142,11 +142,16 @@ public class VentanaPelea extends JFrame {
 		lblPersonaje.setBounds(50, 100, 64, 64);
 		contentPane.add(lblPersonaje);
 		
+		
 		JLabel lblPersonajeEnemigo = new JLabel("");
 		lblPersonajeEnemigo.setBackground(Color.WHITE);
-		lblPersonajeEnemigo.setIcon(new ImageIcon("res/textures/Capacitor_Pelea.gif"));
+		if( enemigo.getIdentificacion() == 'C')
+			lblPersonajeEnemigo.setIcon(new ImageIcon("res/textures/Capacitor_Pelea.gif"));
+		else
+			lblPersonajeEnemigo.setIcon(new ImageIcon("res/textures/Resistencia_Pelea.gif"));
 		lblPersonajeEnemigo.setBounds(350, 100, 64, 64);
 		contentPane.add(lblPersonajeEnemigo);
+		
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBackground(Color.WHITE);

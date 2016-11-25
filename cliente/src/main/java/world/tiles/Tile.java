@@ -3,20 +3,15 @@ package world.tiles;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import world.tiles.RockTile;
+import world.tiles.SocketTile;
 import world.tiles.Suelo2Tile;
 import world.tiles.SueloTile;
 
 public class Tile {
-	
-	//STATIC STUFF HERE
-	
 	public static Tile[] tiles = new Tile[256];
 	public static Tile suelo2Tile = new Suelo2Tile(0);
 	public static Tile sueloTile = new SueloTile(1);
-	public static Tile rockTile = new RockTile(2);
-	
-	//CLASS
+	public static Tile socketTile = new SocketTile(2);
 	
 	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
 	

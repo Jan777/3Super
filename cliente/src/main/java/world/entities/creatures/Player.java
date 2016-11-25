@@ -50,7 +50,7 @@ public class Player extends Creature {
 		xMove = 0;
 		yMove = 0;
 		
-		if(handler.getKeyManager().arriba)
+		if(handler.getKeyManager().up)
 			yMove = -speed;
 		if(handler.getKeyManager().down)
 			yMove = speed;

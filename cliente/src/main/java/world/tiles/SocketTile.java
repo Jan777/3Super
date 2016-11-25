@@ -2,9 +2,9 @@ package world.tiles;
 
 import world.gfx.Assets;
 
-public class RockTile extends Tile {
+public class SocketTile extends Tile {
 
-	public RockTile(int id) {
+	public SocketTile(int id) {
 		super(Assets.stone, id);
 	}
 	
