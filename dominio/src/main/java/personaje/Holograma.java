@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class Holograma extends Personaje{
 	
-	Holograma()
+	public Holograma()
 	{
 		
 			super();

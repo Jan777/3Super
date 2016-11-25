@@ -4,7 +4,7 @@ import java.awt.Point;
 
 public class Bot extends Personaje{
 
-	Bot()
+	public Bot()
 	{
 		super();
 		super.setSpritePath("<Hardcodee el sprite aqui>");

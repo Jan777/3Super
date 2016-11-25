@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import npc.Capacitor;
 import npc.Resistencia;
+import personaje.Bot;
+import personaje.Holograma;
 import personaje.Humano;
 
 public class PersonajeTests {
@@ -23,20 +25,6 @@ public class PersonajeTests {
 		
 		// No pudo atacar porque no tiene mas energia, atacar me devuelva false.
 		Assert.assertEquals(false, diego.atacar(npc));
-	}
-	
-	@Test
-	public void queMueraNpc(){
-		Humano diego = new Humano("diego");
-		Capacitor npc = new Capacitor();
-		
-		for(int i=0; i<10; i++){
-			diego.atacar(npc); // le pego a full
-			System.out.println(npc.getSalud());
-		}
-			
-		// Murio el capacitor
-		Assert.assertEquals(false, npc.estaVivo());
 	}
 	
 	@Test
@@ -104,6 +92,37 @@ public class PersonajeTests {
 //		
 //		Assert.assertEquals(false,diego.estaVivo());
 //	}
-//	
+	
+	@Test
+	public void queElBotNoPuedaAtacar(){
+		
+		Bot nano = new Bot();
+		Humano diego = new Humano("diego");
+		
+		for(int i=0; i<2; i++)
+			nano.atacar(diego);
+		
+		//nano no puede atacar ya que se quedo sin energia
+		Assert.assertEquals(0,nano.getEnergia());
+		Assert.assertEquals(false,nano.puedeAtacar());
+
+	}
+	
+	@Test
+	public void queElHologramaNoPuedaAtacar(){
+		
+		Holograma nano = new Holograma();
+		Humano diego = new Humano("diego");
+		
+		for(int i=0; i<2; i++)
+			nano.atacar(diego);
+		
+		//nano no puede atacar ya que se quedo sin energia
+		Assert.assertEquals(0,nano.getEnergia());
+		Assert.assertEquals(false,nano.puedeAtacar());
+
+	}
+	
+	
 	
 }
