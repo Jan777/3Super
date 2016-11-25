@@ -5,7 +5,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 import org.codehaus.jackson.map.ObjectMapper;
-import world.Game;
+
+import partida.Partida;
 
 
 public class ClientThread implements Runnable {
@@ -24,7 +25,7 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
     	
-    	Game game = new Game("The bug", 640, 480, socket);
+    	Partida game = new Partida("The bug", 640, 480, socket);
 		game.start();
     	
     }
