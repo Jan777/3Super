@@ -11,6 +11,7 @@ import comunicacion.ClientThread;
 import comunicacion.User;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
@@ -27,24 +28,6 @@ public class SeleccionPersonaje extends JFrame {
 
 	private static final long serialVersionUID = -2726214439028001680L;
 	private JPanel contentPane;
-
-	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionPersonaje frame = new SeleccionPersonaje();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	/**
-	 * Create the frame.
-	 */
 	public SeleccionPersonaje(final Socket socket,final User user) {
 		setTitle("Seleccion de Personaje");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -130,20 +113,12 @@ public class SeleccionPersonaje extends JFrame {
 					ClientThread newClient = new ClientThread(socket,mapaSeleccionado);
 		            Thread thread = new Thread(newClient);
 		            thread.start();
-		            System.out.println("Se ejecuto la acción: "+ user2.getAccion());
 		            dispose();
 					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error con la Comunicacion al Servidor");
 				}
-				
-				
-					
-					
 
-	            
-				
 			}
 		});
 		btnMapa.setBounds(97, 251, 121, 23);
@@ -167,10 +142,8 @@ public class SeleccionPersonaje extends JFrame {
 	        		 out.flush();
 					socket.close();
 					System.exit(0);
-					//dispose();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error con la Comunicacion al Servidor");
 				}
 				
 			}

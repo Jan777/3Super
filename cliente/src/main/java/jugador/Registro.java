@@ -110,8 +110,7 @@ public class Registro extends JFrame {
 				try {
 					leerArchivoConfig();
 		            socket = new Socket(IPServidor, puerto);
-		            System.out.println("Te conectaste a: " + IPServidor);
-					
+		          				
 			        ObjectMapper mapper = new ObjectMapper();
 					@SuppressWarnings("unused")
 					Scanner sc = new Scanner(System.in);
@@ -122,13 +121,7 @@ public class Registro extends JFrame {
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); 
 		            out.flush();
-		            
-		           // ClientThread newClient = new ClientThread(socket);
-		           // Thread thread = new Thread(newClient);
-		            //System.out.println("Creando thread");
-		           // thread.start();
-
-		            //Leo la informacion que vuelve del servidor
+		  		            //Leo la informacion que vuelve del servidor
 		            Scanner input;
 		            do{ 
 		            	input = new Scanner(socket.getInputStream());
@@ -140,22 +133,17 @@ public class Registro extends JFrame {
 
 					
 		            if(user.getAccion().compareTo("abrirSeleccionMundo")==0){
-		            	System.out.println("Aca tengo que abrir la seleccion de mundos");
 						SeleccionPersonaje sp = new SeleccionPersonaje(socket,user);
 						sp.setVisible(true);
 						dispose();
 						
 					}else{	
 						
-						JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña no validos");
-						//socket.close();
+						JOptionPane.showMessageDialog(null, "Usuario no disponible");
 						dispose();
 						try {
 							Login frame = new Login();
 							frame.setVisible(true);
-							//Registro reg = new Registro();
-							//reg.setVisible(true);
-							//reg.setLocationRelativeTo(null);
 							dispose();
 							
 						} catch (Exception e) {
@@ -166,7 +154,8 @@ public class Registro extends JFrame {
 					}
 					
 				} catch (Exception e) {
-					// TODO: handle exception
+					JOptionPane.showMessageDialog(null, "Error al intentar Registrar");
+
 				}
 			}
 		});

@@ -28,7 +28,6 @@ public class Server {
             @SuppressWarnings("resource") //no cierro server
 			ServerSocket server = new ServerSocket(puerto);
             while (true) {
-                System.out.println("Esperando un cliente");
                 Socket socket = server.accept();
                 ServerLog log = new ServerLog(socket,listaDeConexionesMundoFisico,listaDeConexionesMundoEnlace);           
                 Thread thread = new Thread(log);
@@ -36,7 +35,7 @@ public class Server {
             }
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al iniciar el Server");
         }
     	
     	

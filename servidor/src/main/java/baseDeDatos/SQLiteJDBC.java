@@ -21,10 +21,7 @@ public class SQLiteJDBC
 			    conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 			    conn.setAutoCommit(false);				
 			}
-			else{
-				JOptionPane.showMessageDialog(null, "Ya se encuentra conectado", "Error", JOptionPane.ERROR_MESSAGE);
-
-			}
+		
 		} catch (ClassNotFoundException cnfe) {
 			JOptionPane.showMessageDialog(null, "No se encuentra el driver", "Error", JOptionPane.ERROR_MESSAGE);
 

@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 public class Utils {
 	
 	public static String loadFileAsString(String path){
@@ -17,7 +19,7 @@ public class Utils {
 			
 			br.close();
 		}catch(IOException e){
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error de Lectura"); 
 		}
 		
 		return builder.toString();

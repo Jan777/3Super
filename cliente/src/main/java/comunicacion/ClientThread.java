@@ -34,7 +34,6 @@ public class ClientThread implements Runnable {
     private void recibirDatos() {
         if (this.sc.hasNext()) {
             String mensajeEntrante = this.sc.nextLine();
-            System.out.println(mensajeEntrante);
         }
     }
 

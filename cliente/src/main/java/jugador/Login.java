@@ -106,8 +106,7 @@ public class Login extends JFrame {
 				try {
 					leerArchivoConfig();
 		            socket = new Socket(IPServidor, puerto);
-		            System.out.println("Te conectaste a: " + IPServidor);
-					
+	
 			        ObjectMapper mapper = new ObjectMapper();
 					@SuppressWarnings("unused")
 					Scanner sc = new Scanner(System.in);
@@ -118,14 +117,7 @@ public class Login extends JFrame {
 		            PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
 		            out.println(jsonInString); 
 		            out.flush();
-		            
-
-		           // ClientThread newClient = new ClientThread(socket);
-		           // Thread thread = new Thread(newClient);
-		           // System.out.println("Creando thread");
-		           // thread.start();
-
-		            
+		        	            
 		            //Leo la informacion que vuelve del servidor
 		            Scanner input;
 		            do{ 
@@ -135,10 +127,9 @@ public class Login extends JFrame {
 		            
 					String in = input.nextLine();
 					user = mapper.readValue(in, User.class);
-					System.out.println("La re accion: "+user.getAccion());
+					//System.out.println("La re accion: "+user.getAccion());
 					
 		            if(user.getAccion().compareTo("abrirSeleccionMundo")==0){
-		            	System.out.println("Aca tengo que abrir la seleccion de mundos");
 						SeleccionPersonaje sp = new SeleccionPersonaje(socket,user);
 						sp.setLocationRelativeTo(null);
 						sp.setVisible(true);

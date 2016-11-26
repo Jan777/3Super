@@ -16,9 +16,7 @@ public class Client {
         try {
             final int PORT = 4445;
             Socket socket = new Socket(server, PORT);
-            System.out.println("Te conectaste a: " + server);
-            System.out.println("Seleccione una sala y nickName (Separados por espacio. Ejemplo 1 pepe)");
-            
+                     
             //Aca va NICKNAME Y PASS
             
             @SuppressWarnings("resource")

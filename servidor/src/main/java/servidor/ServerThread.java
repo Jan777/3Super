@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
 import comunicacion.Jugador;
@@ -25,8 +27,6 @@ public class ServerThread implements Runnable {// The Runnable interface should 
         this.socket = socket;
         this.listaDeConexiones = listaDeSala;
         this.nickName = alias;
-
-
     }
     public boolean estaConectado() throws IOException {
         if (!this.socket.isConnected()) {// SI EL SOCKET ESTA DESCONECTADO LO ELIMINA DE MI LISTA DE CONEXIONES.
@@ -61,7 +61,7 @@ public class ServerThread implements Runnable {// The Runnable interface should 
 			}
 		}
          catch (Exception e) {
-            e.printStackTrace(); 
+        	 JOptionPane.showMessageDialog(null, "Error al actualizar las posiciones de los jugadores");
         }
 
     }

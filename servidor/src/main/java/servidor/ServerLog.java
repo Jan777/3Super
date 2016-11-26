@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import baseDeDatos.SQLiteJDBC;
 import comunicacion.User;
 
@@ -32,29 +34,28 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 	@Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
 		try {
+			String accion;
+			do
+			{
 			Scanner sc;
 			sc = new Scanner(socket.getInputStream());
 			String input = sc.nextLine();
 			User user = mapper.readValue(input, User.class);
-			String accion = user.getAccion() ;
+			accion = user.getAccion() ;
 			mySQLCon = new SQLiteJDBC();
-			
 			//Si el cliente toca ingresar
 			if(accion.compareTo("login")==0)
 			{
 				login(user);
 			}
-			
 			if(accion.compareTo("registrar")==0)
 			{
 				String userEnviado = user.getNombre() ;
 				String passEnviada= user.getPass() ;
-				
 				//////////CONEXION CON LA BASE DE DATOS////////////
 				mySQLCon = new SQLiteJDBC();
 				mySQLCon.getConnection();
-				//////////////////////////////////////////////////
-				
+				/////////////////////////////////////////////////
 				//Registro un nuevo usuario en la Base de Datos
 				if(mySQLCon.registrarse(userEnviado, passEnviada)==1)
 				{
@@ -63,7 +64,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				}
 				else
 				{
-					System.out.println("Error al registrar");
 					User userAEnviar = new User(null,null,"errorRegistro",null,null,0);
 				    String jsonInString = mapper.writeValueAsString(userAEnviar);
 				    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
@@ -74,18 +74,16 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 				}
 				
 			}
+			}while(accion.compareTo("oprimioCerrar")==1);
 		} catch (IOException | SQLException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error en la comunicacion con el cliente");
 		}
     }
 
 	@SuppressWarnings("resource")
-	private void login(User user)
-			throws SQLException, IOException, JsonGenerationException, JsonMappingException, JsonParseException {
+	private void login(User user)throws SQLException, IOException, JsonGenerationException, JsonMappingException, JsonParseException {
 		String userEnviado = user.getNombre() ;
 		String passEnviada = user.getPass() ;
-		System.out.println("Llega el usuario con la accion: "+userEnviado+user.getAccion());
-
 		//////////CONEXION CON LA BASE DE DATOS////////////
 		mySQLCon = new SQLiteJDBC();
 		mySQLCon.getConnection();
@@ -93,7 +91,6 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		if(mySQLCon.verificarUserYPassword(userEnviado, passEnviada) == 1)
 		{
 			mySQLCon.close(); //CIERRO LA CONEXIÓN
-			
 		    User userAEnviar = new User(passEnviada,userEnviado,"abrirSeleccionMundo",this.listaDeConexionesMundoFisico,this.listaDeConexionesMundoEnlace,0);
 		    String jsonInString = mapper.writeValueAsString(userAEnviar);
 		    PrintWriter out = new PrintWriter(socket.getOutputStream()); //OBTENGO EL CANAL DE SALIDA DEL SOCKET HACIA EL SERVIDOR
@@ -106,33 +103,22 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 			Scanner sc2;
 		    do{ 
             	sc2 = new Scanner(socket.getInputStream());
-            	
             }while (sc2.hasNext()==false);
-            
 			String input2 = sc2.nextLine();
 			User user2 = mapper.readValue(input2, User.class);
 			String accion2 = user2.getAccion() ;
-		    System.out.println(accion2);
-		    
-		    
-		    if(accion2.compareTo("oprimioCerrar")==0){
-		    	System.out.println("Se ha desconectado: " + user2.getNombre());
-		    }
-		    
 		    if(accion2.compareTo("entrarAMundo")==0){
 				
 				ServerThread partida;
 				int mundoSeleccionado = user2.getMundoSelec();
 				 switch (mundoSeleccionado) {
 		         case 1:
-		        	 System.out.println("Entre al mundo Fisico");
 		        	 listaDeConexionesMundoFisico.add(socket);
 		        	 partida = new ServerThread(socket, listaDeConexionesMundoFisico, user2.getNombre());
 		             Thread nuevoProcesoParalelo1 = new Thread(partida);
 		             nuevoProcesoParalelo1.start();
 		             break;
 		         case 2:
-		        	 System.out.println("Entre al mundo Enlace de Datos");
 		        	 listaDeConexionesMundoEnlace.add(socket);
 		             partida = new ServerThread(socket, listaDeConexionesMundoEnlace, user2.getNombre());
 		             Thread nuevoProcesoParalelo2 = new Thread(partida);
@@ -140,12 +126,8 @@ public class ServerLog implements Runnable {// The Runnable interface should be 
 		             break;
 		         default:
 		             break;
-		             }
-				
+		             }	
 			}
-		    else
-		    	System.out.println("Se ha desconectado: " + user2.getNombre());
-		    
 		}
 		else {
 			User userAEnviar = new User(null, null, "error", null,null, 0);
