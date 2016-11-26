@@ -40,12 +40,8 @@ public class AlianzaTests {
 		Assert.assertEquals (null,matias.obtenerAlianzaAct());
 	}
 	
-	
-	
 	@Test
 	public void probarQuePuedoAbandonarLaAlianza(){
-		
-
 		Personaje bruno = new Humano("bruno");
 		Personaje ivan = new Humano("ivan");
 		Personaje pepe = new Humano("pepe");
@@ -60,4 +56,21 @@ public class AlianzaTests {
 		Assert.assertEquals(2, bruno.obtenerAlianzaAct().cantMiembrosQueHayAlianza());
 	}
 	
+	
+	@Test
+	public void probarQuePuedoAbandonarLaAlianza2(){
+		Personaje bruno = new Humano("bruno");
+		Personaje ivan = new Humano("ivan");
+		Personaje pepe = new Humano("pepe");
+		
+		bruno.crearAlianza(ivan);
+		ivan.crearAlianza(pepe);
+		
+		Assert.assertEquals(3, bruno.obtenerAlianzaAct().cantMiembrosQueHayAlianza());
+		
+		ivan.romperAlianzaAct();
+		
+		Assert.assertEquals(2, bruno.obtenerAlianzaAct().cantMiembrosQueHayAlianza());
+	}
+
 }

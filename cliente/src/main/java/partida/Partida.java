@@ -71,7 +71,6 @@ public class Partida implements Runnable {
 		keyManager = new KeyManager();
 		player = new Player(handler,0,0);
 		estaPeleando = false;
-
 	}
 	
 	private void init(){
@@ -83,7 +82,6 @@ public class Partida implements Runnable {
 		gameCamera = new Camara(handler, 0, 0);
 		gameState = new GameState(handler);
 		State.setState(gameState);
-		
 	}
 	
 	private void tick(){ //este metodo hace el update todo el tiempo
@@ -190,7 +188,7 @@ public class Partida implements Runnable {
 		long lastTime = System.nanoTime();
 		long timer = 0;
 
-		colaBuffer=new LinkedList();
+		colaBuffer = new LinkedList();
 		listaNpcs = new ArrayList<GameNpc>();
 
 		GameNpc npc1 = new GameNpc(handler, 500, 200, 'C');

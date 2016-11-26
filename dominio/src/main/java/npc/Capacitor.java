@@ -23,16 +23,5 @@ public class Capacitor extends Npc{
 		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/CapacitorIzquierda.gif";
 	}
 
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPosition(Point p) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

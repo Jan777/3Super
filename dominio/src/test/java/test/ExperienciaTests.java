@@ -3,6 +3,7 @@ package test;
 import org.junit.Assert;
 import org.junit.Test;
 
+import npc.Capacitor;
 import npc.Resistencia;
 import personaje.Humano;
 
@@ -12,7 +13,7 @@ public class ExperienciaTests {
  *   elimina al NPC entonces aumenta el nivel de experiencia del Personaje:
  */
 	@Test
-	public void aumentarExperienciaAlMatarNPC(){
+	public void aumentarExperienciaAlMatarNPCResistencia(){
 		Humano diego = new Humano("diego");
 		Resistencia npc = new Resistencia();
 	
@@ -24,6 +25,18 @@ public class ExperienciaTests {
 		Assert.assertEquals(10, diego.getExperiencia());
 	}
 	
+	@Test
+	public void aumentarExperienciaAlMatarNPCCapacitor(){
+		Humano diego = new Humano("diego");
+		Capacitor npc = new Capacitor();
+	
+		for(int i=0; i<2; i++)
+			diego.atacar(npc);
+		
+
+		// Lo ataco hasta matarlo y me tiene que dar 10 de experiencia
+		Assert.assertEquals(10, diego.getExperiencia());
+	}
 /*
  *   * Dado un Personaje y un Personaje Enemigo, cuando el Personaje elimina al 
  *    Personaje Enemigo entonces aumenta el nivel de experiencia del Personaje.

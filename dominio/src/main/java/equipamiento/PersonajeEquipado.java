@@ -37,19 +37,4 @@ public abstract class PersonajeEquipado extends Personaje{ //TODO: no me esta co
 		return this.personajeDecorado.obtenerPuntosDeEnergia();
 	}
 
-	@Override
-	public int obtenerPuntosDeIngenio() {
-		return this.personajeDecorado.obtenerPuntosDeIngenio();
-	}
-
-	public String getSpritepath() {
-		// TODO Auto-generated method stub
-		return this.personajeDecorado.getSpritePath();
-	}
-	
-	
-	public void setSpritePath(String path){
-		this.personajeDecorado.setSpritePath(path);
-	}
-	
 }

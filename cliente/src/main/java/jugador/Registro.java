@@ -155,7 +155,6 @@ public class Registro extends JFrame {
 					
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Error al intentar Registrar");
-
 				}
 			}
 		});
@@ -168,8 +167,6 @@ public class Registro extends JFrame {
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
 				dispose();
 			}
 		});

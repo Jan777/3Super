@@ -30,6 +30,30 @@ o Puntos de Ataque del Personaje*/
 		Assert.assertEquals(80, diego.obtenerPuntosDeFuerza());
 	}
 	
+	@Test
+	public void equiparItemAfectaPuntos2(){
+		
+		Personaje diego = new Humano("diego");
+		//aca tiene 50 PA,  // PA = Puntos Ataq.
+		
+		diego = new ConTecladoRazer(diego);
+		// Ahora debe tener 70 PA porque teclado le da +20
+		
+		Assert.assertEquals(70, diego.obtenerPuntosDeFuerza());
+		
+		diego = new ConImpresoraHP(diego);
+
+		Assert.assertEquals(70, diego.obtenerPuntosDeFuerza());
+
+		diego = new ConMonitorSamsung(diego);
+		
+		Assert.assertEquals(210, diego.obtenerPuntosDeFuerza());
+		
+		diego = new ConGabineteSentey(diego);
+		
+		Assert.assertEquals(215, diego.obtenerPuntosDeFuerza());
+	}
+	
 /* Dado un Personaje, cuando el Personaje recoja un item entonces
   el mismo se equipará sin importar la cantidad de items que ya tenga equipados.*/
 

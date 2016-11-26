@@ -15,22 +15,5 @@ public class Resistencia extends Npc{
 	public void revivir() {
 	
 	}
-	
 
-	public String getSpritePath(){
-		return "/servidor/src/main/resources/Sprites/GIF/Resistencia/ResistenciaIzquierda.gif";
-	}
-
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPosition(Point p) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

@@ -1,9 +1,6 @@
 package equipamiento;
 
-import java.awt.Point;
-
-import personaje.*;
-
+import personaje.Personaje;
 
 public class ConImpresoraHP extends PersonajeEquipado{
 	public ConImpresoraHP(Personaje personajeDecorado) {
@@ -15,23 +12,7 @@ public class ConImpresoraHP extends PersonajeEquipado{
 		return super.obtenerPuntosDeDefensa() *2;
 	}
 
-	@Override
-	public String getSpritepath() {
-		
-		return this.personajeDecorado.getSpritePath();
-	}
 
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPosition(Point p) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

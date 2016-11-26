@@ -1,8 +1,6 @@
 package equipamiento;
 
-import java.awt.Point;
-
-import personaje.*;
+import personaje.Personaje;
 
 public class ConMonitorSamsung extends PersonajeEquipado{
 	public ConMonitorSamsung(Personaje personajeDecorado) {
@@ -10,26 +8,9 @@ public class ConMonitorSamsung extends PersonajeEquipado{
 	}
 	
 	@Override
-	public int obtenerPuntosDeDefensa() {
-		return super.obtenerPuntosDeDefensa() *3;
+	public int obtenerPuntosDeFuerza() {
+		return super.obtenerPuntosDeFuerza() *3;
 	}
 
-	@Override
-	public String getSpritepath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Point getPosition() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPosition(Point p) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -1,6 +1,5 @@
 package jugador;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -118,7 +117,6 @@ public class SeleccionPersonaje extends JFrame {
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Error con la Comunicacion al Servidor");
 				}
-
 			}
 		});
 		btnMapa.setBounds(97, 251, 121, 23);
@@ -129,9 +127,7 @@ public class SeleccionPersonaje extends JFrame {
 		btnCerrar.setBackground(new Color(148, 0, 211));
 		btnCerrar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnCerrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-								
+			public void actionPerformed(ActionEvent arg0) {				
 	            try {
 	            	 ObjectMapper mapper = new ObjectMapper();
 	        		 String jsonInString;
@@ -145,7 +141,6 @@ public class SeleccionPersonaje extends JFrame {
 				} catch (IOException e) {
 					JOptionPane.showMessageDialog(null, "Error con la Comunicacion al Servidor");
 				}
-				
 			}
 		});
 		btnCerrar.setBounds(246, 251, 115, 23);
@@ -154,10 +149,7 @@ public class SeleccionPersonaje extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(SeleccionPersonaje.class.getResource("/imagenes/Titulo_opt4.png")));
 		lblNewLabel.setBounds(162, 22, 464, 60);
-		contentPane.add(lblNewLabel);
-
-		
-		
+		contentPane.add(lblNewLabel);	
 	}
 
 	@SuppressWarnings("unused")

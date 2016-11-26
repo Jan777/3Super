@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.codehaus.jackson.map.ObjectMapper;
 
+import partida.Introduccion;
 import partida.Partida;
 
 
@@ -24,7 +29,22 @@ public class ClientThread implements Runnable {
 
     @Override
     public void run() {
-    	
+
+        JFrame jf = new JFrame("The Bug");
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setSize(650,400);
+        jf.add(new Introduccion());
+        jf.setVisible(true);
+        jf.setLocationRelativeTo(null);
+        
+        try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			JOptionPane.showMessageDialog(null, "Error en la intro");
+		}
+
+        jf.dispose();
+        
     	Partida game = new Partida("The bug", 640, 480, socket);
 		game.start();
     	
